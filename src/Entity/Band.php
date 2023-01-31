@@ -25,16 +25,26 @@ class Band
     #[ORM\Column]
     private ?bool $isActive = null;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'bands')]
-    private Collection $categories;
-
     #[ORM\OneToMany(mappedBy: 'band', targetEntity: Concert::class, orphanRemoval: true)]
     private Collection $concerts;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $flashInformation = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $tagline = null;
+
+    #[ORM\ManyToMany(targetEntity: PossibleOccasion::class, mappedBy: 'bands')]
+    private Collection $possibleOccasions;
+
+    #[ORM\ManyToMany(targetEntity: PrestationStyle::class, mappedBy: 'bands')]
+    private Collection $prestationStyles;
+
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
         $this->concerts = new ArrayCollection();
+        $this->possibleOccasions = new ArrayCollection();
+        $this->prestationStyles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,30 +89,6 @@ class Band
     }
 
     /**
-     * @return Collection<int, Category>
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        $this->categories->removeElement($category);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Concert>
      */
     public function getConcerts(): Collection
@@ -127,6 +113,84 @@ class Band
             if ($concert->getBand() === $this) {
                 $concert->setBand(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getFlashInformation(): ?string
+    {
+        return $this->flashInformation;
+    }
+
+    public function setFlashInformation(?string $flashInformation): self
+    {
+        $this->flashInformation = $flashInformation;
+
+        return $this;
+    }
+
+    public function getTagline(): ?string
+    {
+        return $this->tagline;
+    }
+
+    public function setTagline(?string $tagline): self
+    {
+        $this->tagline = $tagline;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PossibleOccasion>
+     */
+    public function getPossibleOccasions(): Collection
+    {
+        return $this->possibleOccasions;
+    }
+
+    public function addPossibleOccasion(PossibleOccasion $possibleOccasion): self
+    {
+        if (!$this->possibleOccasions->contains($possibleOccasion)) {
+            $this->possibleOccasions->add($possibleOccasion);
+            $possibleOccasion->addBand($this);
+        }
+
+        return $this;
+    }
+
+    public function removePossibleOccasion(PossibleOccasion $possibleOccasion): self
+    {
+        if ($this->possibleOccasions->removeElement($possibleOccasion)) {
+            $possibleOccasion->removeBand($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PrestationStyle>
+     */
+    public function getPrestationStyles(): Collection
+    {
+        return $this->prestationStyles;
+    }
+
+    public function addPrestationStyle(PrestationStyle $prestationStyle): self
+    {
+        if (!$this->prestationStyles->contains($prestationStyle)) {
+            $this->prestationStyles->add($prestationStyle);
+            $prestationStyle->addBand($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrestationStyle(PrestationStyle $prestationStyle): self
+    {
+        if ($this->prestationStyles->removeElement($prestationStyle)) {
+            $prestationStyle->removeBand($this);
         }
 
         return $this;

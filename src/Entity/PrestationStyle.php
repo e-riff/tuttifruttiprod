@@ -2,23 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
+use App\Repository\PrestationStyleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
-class Category
+#[ORM\Entity(repositoryClass: PrestationStyleRepository::class)]
+class PrestationStyle
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Band::class, mappedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Band::class, inversedBy: 'prestationStyles')]
     private Collection $bands;
 
     public function __construct()
@@ -55,7 +55,6 @@ class Category
     {
         if (!$this->bands->contains($band)) {
             $this->bands->add($band);
-            $band->addCategory($this);
         }
 
         return $this;
@@ -63,9 +62,7 @@ class Category
 
     public function removeBand(Band $band): self
     {
-        if ($this->bands->removeElement($band)) {
-            $band->removeCategory($this);
-        }
+        $this->bands->removeElement($band);
 
         return $this;
     }

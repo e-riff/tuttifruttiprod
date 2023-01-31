@@ -1,4 +1,9 @@
+//Variables
 @import "_variables.scss";
 @import "~bootstrap/scss/bootstrap";
+
+//Global
 @import "global";
 
+//For each element
+@import "footer";
