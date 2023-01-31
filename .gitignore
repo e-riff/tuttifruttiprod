@@ -50,7 +50,6 @@
 
 # Embedded web-server pid file
 /.web-server-pid
-=======
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -80,3 +79,14 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 .idea/
+.vscode/
+.DS_Store
+db-data
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
