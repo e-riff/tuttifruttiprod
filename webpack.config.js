@@ -9,6 +9,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
+
+    .copyFiles({
+            from: './assets/images',
+            // optional target path, relative to the output dir
+            to: 'images/[path][name].[ext]'
+    })
+
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or subdirectory deploy
@@ -77,6 +84,11 @@ Encore
 // module.exports = Encore.getWebpackConfig();
 const fullConfig = Encore.getWebpackConfig();
 fullConfig.devServer = {
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+    },
     watchFiles: {
         paths: ['templates/**/*.html.twig'],
     },

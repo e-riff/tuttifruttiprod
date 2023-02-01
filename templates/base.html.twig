@@ -15,7 +15,9 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body class="container">
+<body>
+
+{% include '_include/_navbar.html.twig' %}
 
 {% for category, messages in app.flashes %}
     {% for message in messages %}

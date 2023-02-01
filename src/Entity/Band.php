@@ -34,17 +34,21 @@ class Band
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tagline = null;
 
-    #[ORM\ManyToMany(targetEntity: PossibleOccasion::class, mappedBy: 'bands')]
-    private Collection $possibleOccasions;
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'bands')]
+    private Collection $events;
 
-    #[ORM\ManyToMany(targetEntity: PrestationStyle::class, mappedBy: 'bands')]
-    private Collection $prestationStyles;
+    #[ORM\ManyToMany(targetEntity: MusicStyle::class, mappedBy: 'bands')]
+    private Collection $musicStyles;
+
+    #[ORM\OneToMany(mappedBy: 'band', targetEntity: Media::class, orphanRemoval: true)]
+    private Collection $medias;
 
     public function __construct()
     {
         $this->concerts = new ArrayCollection();
-        $this->possibleOccasions = new ArrayCollection();
-        $this->prestationStyles = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->musicStyles = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,54 +147,84 @@ class Band
     }
 
     /**
-     * @return Collection<int, PossibleOccasion>
+     * @return Collection<int, Event>
      */
-    public function getPossibleOccasions(): Collection
+    public function getEvents(): Collection
     {
-        return $this->possibleOccasions;
+        return $this->events;
     }
 
-    public function addPossibleOccasion(PossibleOccasion $possibleOccasion): self
+    public function addEvent(Event $event): self
     {
-        if (!$this->possibleOccasions->contains($possibleOccasion)) {
-            $this->possibleOccasions->add($possibleOccasion);
-            $possibleOccasion->addBand($this);
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->addBand($this);
         }
 
         return $this;
     }
 
-    public function removePossibleOccasion(PossibleOccasion $possibleOccasion): self
+    public function removeEvent(Event $event): self
     {
-        if ($this->possibleOccasions->removeElement($possibleOccasion)) {
-            $possibleOccasion->removeBand($this);
+        if ($this->events->removeElement($event)) {
+            $event->removeBand($this);
         }
 
         return $this;
     }
 
     /**
-     * @return Collection<int, PrestationStyle>
+     * @return Collection<int, MusicStyle>
      */
-    public function getPrestationStyles(): Collection
+    public function getMusicStyles(): Collection
     {
-        return $this->prestationStyles;
+        return $this->musicStyles;
     }
 
-    public function addPrestationStyle(PrestationStyle $prestationStyle): self
+    public function addMusicStyle(MusicStyle $musicStyle): self
     {
-        if (!$this->prestationStyles->contains($prestationStyle)) {
-            $this->prestationStyles->add($prestationStyle);
-            $prestationStyle->addBand($this);
+        if (!$this->musicStyles->contains($musicStyle)) {
+            $this->musicStyles->add($musicStyle);
+            $musicStyle->addBand($this);
         }
 
         return $this;
     }
 
-    public function removePrestationStyle(PrestationStyle $prestationStyle): self
+    public function removeMusicStyle(MusicStyle $musicStyle): self
     {
-        if ($this->prestationStyles->removeElement($prestationStyle)) {
-            $prestationStyle->removeBand($this);
+        if ($this->musicStyles->removeElement($musicStyle)) {
+            $musicStyle->removeBand($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedias(): Collection
+    {
+        return $this->medias;
+    }
+
+    public function addMedia(Media $media): self
+    {
+        if (!$this->medias->contains($media)) {
+            $this->medias->add($media);
+            $media->setBand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        if ($this->medias->removeElement($media)) {
+            // set the owning side to null (unless already changed)
+            if ($media->getBand() === $this) {
+                $media->setBand(null);
+            }
         }
 
         return $this;

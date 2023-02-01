@@ -1,0 +1,27 @@
+main.homepage {
+  padding:0;
+
+  section#welcome {
+
+    display:flex;
+    flex-direction: column;
+
+    div.homeCarousel {
+      width:100vw;
+      height:auto;
+    }
+    div.homeWelcome {
+      margin:$spacer
+
+    }
+
+    @include media-breakpoint-up(lg) {
+      div.homeCarousel {
+        width:40vw;
+      }
+
+      flex-direction: row;
+      min-width:calc(100vh - 6rem);
+         }
+  }
+}
