@@ -1,0 +1,13 @@
+<section id="contact">
+    <h1>Comment nous contacter</h1>
+    {{ form_start(contactForm) }}
+    <div>
+        {{ form_row(contactForm.name) }}
+        {{ form_row(contactForm.email) }}
+        {{ form_row(contactForm.phone) }}
+    </div>
+    <div>
+        {{ form_end(contactForm) }}
+    </div>
+
+</section>

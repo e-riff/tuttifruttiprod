@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Band{% endblock %}
+
+{% block body %}
+    <h1>Band</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ band.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ band.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ band.description }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ band.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>FlashInformation</th>
+                <td>{{ band.flashInformation }}</td>
+            </tr>
+            <tr>
+                <th>Tagline</th>
+                <td>{{ band.tagline }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ band.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_band_index') }}">back to list</a>
+
+    <a href="{{ path('admin_band_edit', {'id': band.id}) }}">edit</a>
+
+    {{ include('/admin/band/_delete_form.html.twig') }}
+{% endblock %}

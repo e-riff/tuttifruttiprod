@@ -1,27 +1,68 @@
 main.homepage {
-  padding:0;
+  padding: 0;
 
   section#welcome {
-
-    display:flex;
-    flex-direction: column;
+    display: inherit;
 
     div.homeCarousel {
-      width:100vw;
-      height:auto;
-    }
-    div.homeWelcome {
-      margin:$spacer
-
-    }
-
-    @include media-breakpoint-up(lg) {
-      div.homeCarousel {
-        width:40vw;
+      height: auto;
+      img {
+        object-fit: cover;
       }
 
+
+    }
+
+    div.homeWelcome {
+      width:80vw;
+      position:relative;
+      margin-top: -5rem;
+      margin-left:10vw;
+      padding: $spacer;
+      background-color:$secondary;
+      @include media-breakpoint-up(lg) {
+
+        margin-top: inherit;
+        margin-left:-5rem;
+      }
+
+      .associationDescription {
+        padding-bottom: $spacer;
+        border-bottom: 1px solid $primary;
+      }
+    }
+
+
+    @include media-breakpoint-up(lg) {
+      display:flex;
       flex-direction: row;
-      min-width:calc(100vh - 6rem);
-         }
+      min-height: calc(100vh - 6rem);
+    }
+    div.homeCarousel {
+      flex-basis:50%;
+      min-width: 50vw;
+    }
+  }
+
+
+
+
+
+
+
+
+  section#contact {
+    padding: $spacer;
+    display:inherit;
+
+    @include media-breakpoint-up(lg) {
+      form {
+        display:flex;
+        &>div {
+          padding:2rem;
+          flex-basis: 50%;
+        }
+      }
+    }
   }
 }

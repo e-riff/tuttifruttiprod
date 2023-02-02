@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - les groupes {% endblock %}
+
+{% block body %}
+
+<main>
+    <section>
+    <div class="searchBar">
+<h1>bar de recherche</h1>
+    </div>
+    </section>
+
+    <section>
+        <ul>
+            {% for band in bands %}
+                <li>{{ band.name }} :
+                {% for musicStyle in band.musicStyles %}
+                {{ musicStyle.name }}
+                {% endfor %}</li>
+
+            {% endfor %}
+        </ul>
+            </section>
+
+
+</main>
+{% endblock %}

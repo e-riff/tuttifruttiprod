@@ -4,43 +4,13 @@
 
 {% block body %}
     <main class="homepage container-fluid container-lg">
-        <section id="welcome">
-            <div class="homeCarousel">
-                <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://picsum.photos/id/250/1500/1000" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://picsum.photos/id/145/1500/1000" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://picsum.photos/id/232/1500/1000" class="d-block w-100" alt="...">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel"
-                            data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel"
-                            data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-            <div class="homeWelcome">
-                <h1>Bienvenue !</h1>
-                <p>{{ association.getAssociation.description }}</p>
-                <p>{{ association.getAssociation.description }}</p>
 
-            </div>
+        {% include 'home/_welcome.html.twig' %}
 
-        </section>
-        <section id="contact">
-            <h1>Comment nous contacter</h1>
-            <p> lorem ipsu</p>
-        </section>
+        {# TODO : section à la une #}
+
+        {% include 'home/_homeContact.html.twig' %}
+
+
     </main>
 {% endblock %}

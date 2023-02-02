@@ -43,6 +43,9 @@ class Band
     #[ORM\OneToMany(mappedBy: 'band', targetEntity: Media::class, orphanRemoval: true)]
     private Collection $medias;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->concerts = new ArrayCollection();
@@ -226,6 +229,18 @@ class Band
                 $media->setBand(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
