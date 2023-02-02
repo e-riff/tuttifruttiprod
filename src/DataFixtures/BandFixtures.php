@@ -32,6 +32,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             $band->setName($bandInfo['name']);
             $band->setIsActive($bandInfo['is_active']);
             $band->setSlug($this->slugger->slug($bandInfo['name']));
+            $band->setTagline($bandInfo['tagline']);
             $band->setDescription($bandInfo["description"]);
             $file = __DIR__ . '/data/band.jpg';
             if (
