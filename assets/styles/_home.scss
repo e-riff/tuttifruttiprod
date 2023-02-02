@@ -6,63 +6,43 @@ main.homepage {
 
     div.homeCarousel {
       height: auto;
+
       img {
         object-fit: cover;
       }
-
-
     }
 
     div.homeWelcome {
-      width:80vw;
-      position:relative;
+      width: 80vw;
+      position: relative;
       margin-top: -5rem;
-      margin-left:10vw;
+      margin-left: 10vw;
       padding: $spacer;
-      background-color:$secondary;
+      background-color: $secondary;
       @include media-breakpoint-up(lg) {
-
         margin-top: inherit;
-        margin-left:-5rem;
+        margin-left: -5rem;
+        h1 {
+          margin-left: -5rem;
+          margin-bottom: $spacer;
+        }
       }
 
       .associationDescription {
         padding-bottom: $spacer;
-        border-bottom: 1px solid $primary;
       }
     }
 
 
     @include media-breakpoint-up(lg) {
-      display:flex;
+      display: flex;
       flex-direction: row;
-      min-height: calc(100vh - 6rem);
+      @include fullScreen();
     }
+
     div.homeCarousel {
-      flex-basis:50%;
+      flex-basis: 50%;
       min-width: 50vw;
-    }
-  }
-
-
-
-
-
-
-
-
-  section#contact {
-    padding: $spacer;
-    display:inherit;
-
-    @include media-breakpoint-up(lg) {
-      form {
-        display:flex;
-        &>div {
-          padding:2rem;
-          flex-basis: 50%;
-        }
-      }
     }
   }
 }

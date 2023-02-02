@@ -4,25 +4,34 @@
 
 {% block body %}
 
-<main>
-    <section>
-    <div class="searchBar">
-<h1>bar de recherche</h1>
-    </div>
-    </section>
+    <main class="bandIndex">
+        <section class="searchBar">
+            <div class="d-flex m-4 justify-content-center">
+                {{ render(controller('App\\Controller\\SearchBarController::searchBar')) }}
+            </div>
+        </section>
 
-    <section>
-        <ul>
+        <section class="bandList container-lg" {{ stimulus_controller('clickArticle') }}>
             {% for band in bands %}
-                <li>{{ band.name }} :
-                {% for musicStyle in band.musicStyles %}
-                {{ musicStyle.name }}
-                {% endfor %}</li>
-
+                <article class="bandArticle" data-slug="{{ band.slug }}" {{ stimulus_action('clickArticle', 'showBandLink', 'click') }}>
+                    <img {# src="/uploads/images/band/{{ band.picture }}" #}
+                            src="https://picsum.photos/600/900?random={{ loop.index }}">
+                    <div class="bandInfo">
+                        <h2 class="h3">
+                            <mark>{{ band.name|upper }}</mark>
+                        </h2>
+                        <p class="text-secondary">
+                            <mark>
+                                {% for musicStyle in band.musicStyles %}
+                                    {{ musicStyle.name }} {{ loop.last ? "" : ", " }}
+                                {% endfor %}
+                            </mark>
+                        </p>
+                    </div>
+                </article>
             {% endfor %}
-        </ul>
-            </section>
+        </section>
 
 
-</main>
+    </main>
 {% endblock %}

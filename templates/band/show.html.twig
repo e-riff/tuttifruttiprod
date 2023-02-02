@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Bienvenue :{% endblock %}
+
+{% block body %}
+    <main class="homepage container-fluid container-lg">
+<section class="title d-flex flex-column justify-content-center align-items-center">
+    <h1>{{ band.name }}</h1>
+    <h2>{{ band.tagline }}</h2>
+</section>
+            {% include 'home/_homeContact.html.twig' %}
+
+    </main>
+{% endblock %}

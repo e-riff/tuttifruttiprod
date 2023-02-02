@@ -1,0 +1,23 @@
+section#contact {
+  border-top:1px solid $primary;
+  margin-top:$spacer;
+  padding: $spacer;
+  display:inherit;
+
+  h1 {
+    margin-bottom: $spacer;
+  }
+
+  @include media-breakpoint-up(lg) {
+    h1 {
+      margin-bottom: inherit;
+    }
+    form {
+      display:flex;
+      &>div {
+        padding:2rem;
+        flex-basis: 50%;
+      }
+    }
+  }
+}

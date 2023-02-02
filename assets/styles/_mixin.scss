@@ -1,0 +1,17 @@
+@mixin scrollBar {
+  scrollbar-color: $primary $light;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: .5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $primary;
+    border-radius: $border-radius;
+  }
+}
+
+@mixin fullScreen {
+  @include media-breakpoint-up(lg) {
+    min-height: calc(100vh - $navBarHeightFull);
+  }
+}

@@ -1,6 +1,7 @@
 //Variables
-@import "_variables.scss";
+@import "variables";
 @import "~bootstrap/scss/bootstrap";
+@import "mixin";
 
 //Global
 @import "global";
@@ -9,3 +10,5 @@
 @import "footer";
 @import "navbar";
 @import "home";
+@import "contact";
+@import "band";
