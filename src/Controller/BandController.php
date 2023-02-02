@@ -16,11 +16,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class BandController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(BandRepository $bandRepository): Response
+    public function index(Request $request, BandRepository $bandRepository): Response
     {
-        $bands = $bandRepository->findBy([], [], 100);
+        $searchData = $request->get('form') ? : "";
+
+        $bands = $searchData ?
+            $bandRepository->bandSearch($searchData['searchQuery']) :
+            $bandRepository->bandSearch();
+
+
+        //$bands = $bandRepository->findBy([], [], 100);
         return $this->render('band/index.html.twig', [
-            'bands' => $bands
+            'bands' => $bands,
+            'searchData' => $request->get('form') ?: []
         ]);
     }
 
@@ -41,6 +49,7 @@ class BandController extends AbstractController
         return $this->renderForm('band/show.html.twig', [
             'contactForm' => $contactForm,
             'band' => $band,
+
         ]);
     }
 }

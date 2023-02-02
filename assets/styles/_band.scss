@@ -2,19 +2,20 @@ main.bandIndex {
 
   section.searchBar {
     margin-bottom: $spacer * 4;
-/*    h1 {
-      border-bottom: 1px solid $primary;
+    /*    h1 {
+          border-bottom: 1px solid $primary;
 
-      i {
-        font-size: 1rem;
-      }
-    }*/
+          i {
+            font-size: 1rem;
+          }
+        }*/
 
     form {
       display: flex;
+
       input {
         text-align: center;
-        width:30rem;
+        width: 30rem;
         border: none;
         border-radius: 0;
         border-bottom: 1px solid $primary;
@@ -27,7 +28,6 @@ main.bandIndex {
       button {
         border: none;
         background-color: inherit;
-
       }
     }
   }
@@ -37,17 +37,17 @@ main.bandIndex {
     display: grid;
     gap: $spacer * 2;
     place-content: center;
-    grid-template-columns: repeat( auto-fit, minmax(15rem, 22rem) );
+    grid-template-columns: repeat( auto-fit, minmax(15rem, 22rem));
 
     @include media-breakpoint-up(lg) {
-      @include fullScreen();
-      grid-template-columns: repeat( auto-fit, minmax(18rem, 1fr) );
-    }
+        grid-template-columns: repeat( auto-fill, minmax(18rem, 1fr) );
+      }
 
     article {
       aspect-ratio: 1/1;
       overflow: hidden;
       transition: all 200ms ease-in-out;
+
 
       img {
         width: 100%;
@@ -104,9 +104,5 @@ main.bandIndex {
         }
       }
     }
-
-
   }
-
-
 }

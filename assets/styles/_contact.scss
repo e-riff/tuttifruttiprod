@@ -1,10 +1,13 @@
 section#contact {
   border-top:1px solid $primary;
-  margin-top:$spacer;
-  padding: $spacer;
+  padding-bottom: $spacer;
+  margin-bottom: $spacer;
   display:inherit;
+  background-color: $secondary;
+
 
   h1 {
+    background-color: $black;
     margin-bottom: $spacer;
   }
 
@@ -13,6 +16,8 @@ section#contact {
       margin-bottom: inherit;
     }
     form {
+      padding: 0 $spacer $spacer;
+
       display:flex;
       &>div {
         padding:2rem;

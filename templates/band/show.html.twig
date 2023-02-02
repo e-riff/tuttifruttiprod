@@ -3,12 +3,72 @@
 {% block title %} {{ parent() }} - Bienvenue :{% endblock %}
 
 {% block body %}
-    <main class="homepage container-fluid container-lg">
-<section class="title d-flex flex-column justify-content-center align-items-center">
-    <h1>{{ band.name }}</h1>
-    <h2>{{ band.tagline }}</h2>
-</section>
-            {% include 'home/_homeContact.html.twig' %}
+    <main class="showBand container-fluid container-lg">
+        <section class="bandTitle d-flex flex-column justify-content-center align-items-center">
+            <h1>{{ band.name|upper }}</h1>
+            <h2 class="h3 text-primary ">{{ band.tagline }}</h2>
+        </section>
+        <div class=allInfosWrapper>
+            <section class="infos">
+                <div id="bandCarousel" class="carousel slide" data-bs-ride="carousel" data-interval="100">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                            <img src="https://picsum.photos/1500/1000?random=1" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="10000">
+                            <img src="https://picsum.photos/1500/1000?random=2" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="10000">
+                            <img src="https://picsum.photos/1500/1000?random=3" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                </div>
+                <div class="description">
+                    <p>{{ band.description }}</p>
+                </div>
+            </section>
+            <div class="moreInfos">
+                <section class="concerts">
+                    <h1>
+                        <mark>Concerts</mark>
+                    </h1>
+                    <ul class="">
+                        <li>Bonson<small>10/12/23</small></li>
+                        <li>Bonson<small>13/12/23</small></li>
+                    </ul>
+                </section>
+                <section class="links">
+                    <h1>
+                        <mark class="w-25">Liens</mark>
+                    </h1>
+                    <div class="videos">
+                        <div class="youtubeVideo">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/iuWopOG4LYA"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                        </div>
+                        <div class="youtubeVideo">
+                            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1216276000&color=%23682080&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                            <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+                                <a href="https://soundcloud.com/cameleon-production-42" title="Caméléon Production 42"
+                                   target="_blank" style="color: #cccccc; text-decoration: none;">Caméléon Production
+                                    42</a> · <a
+                                        href="https://soundcloud.com/cameleon-production-42/les-zazous-medley-princesses"
+                                        title="Les Zazous - Medley Princesses" target="_blank"
+                                        style="color: #cccccc; text-decoration: none;">Les Zazous - Medley
+                                    Princesses</a></div>
+                        </div>
+
+                    </div>
+
+
+                </section>
+
+            </div>
+        </div>
+        {% include 'home/_homeContact.html.twig' %}
 
     </main>
 {% endblock %}

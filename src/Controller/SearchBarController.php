@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SearchBarController extends AbstractController
 {
-    public function searchBar(): Response
+    public function searchBar(array $searchData): Response
     {
-        $searchBar = $this->createFormBuilder()
+        $searchBar = $this->createFormBuilder($searchData)
             ->add('searchQuery', TextType::class, [
                 'attr' => [
                     'placeholder' => 'rechercher un groupe, un style'

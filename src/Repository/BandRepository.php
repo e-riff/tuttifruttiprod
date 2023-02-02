@@ -39,6 +39,21 @@ class BandRepository extends ServiceEntityRepository
         }
     }
 
+    public function bandSearch(string $searchQuery = ""): array
+    {
+        $queryBuilder = $this->createQueryBuilder('b')
+            ->join('b.musicStyles','m')
+            ->andWhere('b.isActive = true');
+        if ($searchQuery) {
+            $queryBuilder->where($queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('b.name', ':searchQuery'),
+                $queryBuilder->expr()->like('m.name', ':searchQuery'),
+            ))
+                ->setParameter('searchQuery', '%' . $searchQuery . '%');
+        }
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Band[] Returns an array of Band objects
 //     */

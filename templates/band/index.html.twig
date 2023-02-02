@@ -3,17 +3,18 @@
 {% block title %} {{ parent() }} - les groupes {% endblock %}
 
 {% block body %}
-
     <main class="bandIndex">
         <section class="searchBar">
             <div class="d-flex m-4 justify-content-center">
-                {{ render(controller('App\\Controller\\SearchBarController::searchBar')) }}
+                {{ render(controller('App\\Controller\\SearchBarController::searchBar', {searchData} )) }}
             </div>
         </section>
-
-        <section class="bandList container-lg" {{ stimulus_controller('clickArticle') }}>
+        <section class="bandList container-lg" {{ stimulus_controller('clickArticle') }} >
             {% for band in bands %}
-                <article class="bandArticle" data-slug="{{ band.slug }}" {{ stimulus_action('clickArticle', 'showBandLink', 'click') }}>
+                <article
+                        class="bandArticle"
+                        data-slug="{{ band.slug }}"
+                        {{ stimulus_action('clickArticle', 'showBandLink', 'click') }}>
                     <img {# src="/uploads/images/band/{{ band.picture }}" #}
                             src="https://picsum.photos/600/900?random={{ loop.index }}">
                     <div class="bandInfo">
