@@ -34,12 +34,12 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             $band->setSlug($this->slugger->slug($bandInfo['name']));
             $band->setTagline($bandInfo['tagline']);
             $band->setDescription($bandInfo["description"]);
-            $file = __DIR__ . '/data/band.jpg';
+/*            $file = __DIR__ . '/data/band.jpg';
             if (
-                copy($file, $this->containerBag->get("upload_directory") . "band". self::$bandIndex . ".jpg")
+                copy($file, $this->containerBag->get("upload_directory") . "images/band/band". self::$bandIndex . ".jpg")
             ) {
                 $band->setPicture("band". self::$bandIndex . ".jpg");
-            }
+            }*/
 
             foreach($bandInfo as $key=>$info) {
                 if (in_array($key, MusicStyleFixtures::$styleList) && $info==true) {

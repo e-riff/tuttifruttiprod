@@ -3,9 +3,12 @@
 {% block title %}New Band{% endblock %}
 
 {% block body %}
-    <h1>Create new Band</h1>
+<main class="container-md">
+
+<h1>Create new Band</h1>
 
     {{ include('admin/band/_form.html.twig') }}
 
     <a href="{{ path('admin_band_index') }}">back to list</a>
+</main>
 {% endblock %}

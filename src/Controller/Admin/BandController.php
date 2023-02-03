@@ -63,7 +63,7 @@ class BandController extends AbstractController
             return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin_band/edit.html.twig', [
+        return $this->renderForm('admin/band/edit.html.twig', [
             'band' => $band,
             'form' => $form,
         ]);

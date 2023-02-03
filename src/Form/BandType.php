@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class BandType extends AbstractType
 {
@@ -21,7 +22,7 @@ class BandType extends AbstractType
                 'attr' => ['data-ckeditor' => true],
                 'config_name' => 'light',
                 'config' => ['editorplaceholder' => "Une rapide description du groupe..."]
-                ])
+            ])
             ->add('isActive', null, [
                 "required" => false
             ])
@@ -36,7 +37,13 @@ class BandType extends AbstractType
                 'choice_label' => function (MusicStyle $musicStyle) {
                     return $musicStyle->getName();
                 }
-                ]);
+            ])
+            ->add('pictureFile', VichFileType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

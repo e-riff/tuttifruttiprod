@@ -3,14 +3,19 @@
 namespace App\Entity;
 
 use App\Repository\BandRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: BandRepository::class)]
+#[Vich\Uploadable]
 #[UniqueEntity(
     fields: ['name'],
     message: 'Ce nom est déjà utilisé',
@@ -55,13 +60,19 @@ class Band
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[Vich\UploadableField(mapping: 'band_picture', fileNameProperty: 'picture')]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    )]
+    private ?File $pictureFile = null;
+
     public function __construct()
     {
         $this->concerts = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->musicStyles = new ArrayCollection();
         $this->medias = new ArrayCollection();
-        $this->picture = "band.jpg";
     }
 
     public function getId(): ?int
@@ -264,6 +275,23 @@ class Band
     {
         $this->picture = $picture;
 
+        return $this;
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * @param File|null $pictureFile
+     */
+    public function setPictureFile(?File $pictureFile = null): self
+    {
+        $this->pictureFile = $pictureFile;
+        if ($pictureFile) {
+            $this->updatedAt = new DateTime('now');
+        }
         return $this;
     }
 }
