@@ -25,7 +25,6 @@ class BandController extends AbstractController
             $bandRepository->bandSearch();
 
 
-        //$bands = $bandRepository->findBy([], [], 100);
         return $this->render('band/index.html.twig', [
             'bands' => $bands,
             'searchData' => $request->get('form') ?: []

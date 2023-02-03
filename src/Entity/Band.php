@@ -7,8 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: BandRepository::class)]
+#[UniqueEntity(
+    fields: ['name'],
+    message: 'Ce nom est déjà utilisé',
+)]
 class Band
 {
     #[ORM\Id]
@@ -55,6 +61,7 @@ class Band
         $this->events = new ArrayCollection();
         $this->musicStyles = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->picture = "band.jpg";
     }
 
     public function getId(): ?int

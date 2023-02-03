@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/band', name:'band_')]
 class BandController extends AbstractController
@@ -22,13 +23,14 @@ class BandController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, BandRepository $bandRepository): Response
+    public function new(Request $request, SluggerInterface $slugger ,BandRepository $bandRepository): Response
     {
         $band = new Band();
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $band->setSlug($slugger->slug($band->getName()));
             $bandRepository->save($band, true);
 
             return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
