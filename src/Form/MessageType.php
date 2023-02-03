@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MessageType extends AbstractType
@@ -18,20 +18,30 @@ class MessageType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'row_attr' => ['class' => 'form-floating mb-3'],
-                'label' => 'Votre nom'
+                'label' => 'Votre nom',
+                'constraints' => [
+                    new NotBlank(),
+                ]
             ])
             ->add('email', TextType::class, [
                 'row_attr' => ['class' => 'form-floating mb-3'],
-                'label' => 'Votre email (obligatoire)'
+                'label' => 'Votre email (obligatoire)',
+                'constraints' => [
+                    new NotBlank(),
+                    new Email(),
+                    ],
             ])
             ->add('phone', TextType::class, [
                 'row_attr' => ['class' => 'form-floating mb-3'],
-                'label' => 'Votre nom'
+                'label' => 'Ventre numero de téléphone'
             ])
             ->add('message', CKEditorType::class, [
                 'attr' => ['data-ckeditor' => true],
                 'config_name' => 'light',
-                'config' => ['editorplaceholder' => "Besoin d'informations ? D'un devis ?"]
+                'config' => ['editorplaceholder' => "Besoin d'informations ? D'un devis ?"],
+                'constraints' => [
+                    new NotBlank(),
+                ],
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Publier',
