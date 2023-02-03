@@ -7,8 +7,8 @@ nav {
   margin-bottom:$spacer;
   align-items: baseline;
 
-  a {
-    font-size: xxx-large;
+  .navbar-collapse {
+    flex-direction: row-reverse;
   }
 
   .navbar-toggler {
@@ -19,5 +19,12 @@ nav {
   }
   @include media-breakpoint-up(lg) {
     min-height: 8rem;
+    .navbar-brand {
+      font-size: xx-large;
+    }
+
+    .nav-link {
+      font-size: x-large;
+    }
   }
 }

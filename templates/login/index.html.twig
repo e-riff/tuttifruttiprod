@@ -3,26 +3,28 @@
 {% block title %}Hello LoginController!{% endblock %}
 
 {% block body %}
-    <main class="container-fluid container-lg">
+    <main class="login container-fluid container-lg d-flex justify-content-center">
 
 
-            {% if error %}
-                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-            <form action="{{ path('app_login') }}" method="post">
-                <label for="username">Email:</label>
-                <input type="text" id="username" name="_username" value="{{ last_username }}">
+        <form action="{{ path('app_login') }}" method="post">
+            <div class="form-floating mb-3">
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}">
+                <label class="form-label" for="username">Email:</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" type="password" id="password" name="_password">
+                <label class="form-label" for="password">Password:</label>
+            </div>
+            <input type="hidden" name="_target_path" value="{{ path('admin_board') }}">
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="_password">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <input type="hidden" name="_target_path" value="{{ path('admin_board') }}">
-
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                <button type="submit">login</button>
-            </form>
+            <button class="btn btn-primary w-50" type="submit">login</button>
+        </form>
     </main>
 
 {% endblock %}
