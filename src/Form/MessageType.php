@@ -33,7 +33,7 @@ class MessageType extends AbstractType
             ])
             ->add('phone', TextType::class, [
                 'row_attr' => ['class' => 'form-floating mb-3'],
-                'label' => 'Ventre numero de téléphone'
+                'label' => 'Votre numéro de téléphone'
             ])
             ->add('message', CKEditorType::class, [
                 'attr' => ['data-ckeditor' => true],

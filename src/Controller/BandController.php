@@ -32,7 +32,7 @@ class BandController extends AbstractController
     }
 
     #[Route('/show/{slug}', name: 'show')]
-    public function edit(ContactMail $contactMail, Request $request, Band $band, MailerInterface $mailer): Response
+    public function show(ContactMail $contactMail, Request $request, Band $band, MailerInterface $mailer): Response
     {
         $contactForm = $this->createForm(MessageType::class);
         $contactForm->handleRequest($request);
@@ -42,7 +42,6 @@ class BandController extends AbstractController
             $contactMail->sendMail($contactForm->getData());
             $this->addFlash("success", "Message envoyé avec succès");
             return $this->redirectToRoute('band_show', ['slug' => $band->getSlug()], Response::HTTP_SEE_OTHER);
-
         }
 
         return $this->renderForm('band/show.html.twig', [
