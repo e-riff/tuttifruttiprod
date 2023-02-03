@@ -6,6 +6,10 @@ main.showBand {
       padding: $spacer*2 $spacer*2 0;
       border-bottom: 1px solid $primary;
       font-size: xxx-large;
+      a {
+        margin-left: $spacer;
+        font-size: medium;
+      }
     }
 
     h2 {
