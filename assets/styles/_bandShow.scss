@@ -1,11 +1,10 @@
 main.showBand {
   section.bandTitle {
-    margin-bottom: $spacer*2;
-
     h1 {
       padding: $spacer*2 $spacer*2 0;
       border-bottom: 1px solid $primary;
       font-size: xxx-large;
+
       a {
         margin-left: $spacer;
         font-size: medium;
@@ -74,7 +73,7 @@ main.showBand {
 
       li {
         font-weight: bold;
-        margin:0 .5rem;
+        margin: 0 .5rem;
 
         small {
           font-weight: normal;
@@ -82,41 +81,41 @@ main.showBand {
         }
       }
     }
-  }
 
-  section {
-    padding-bottom: $spacer*2;
+    section {
+      padding-bottom: $spacer*2;
 
-    &:nth-child(even) {
-      h1 {
-        text-align: start;
-        margin-left: -.5rem;
+      &:nth-child(even) {
+        h1 {
+          text-align: start;
+          margin-left: -.5rem;
+        }
       }
-    }
 
-    &:nth-child(odd) {
-      h1 {
-        text-align: end;
-        margin-right: -.5rem;
+      &:nth-child(odd) {
+        h1 {
+          text-align: end;
+          margin-right: -.5rem;
+        }
       }
-    }
 
 
-    .videos {
-      padding: $spacer;
+      .videos {
+        padding: $spacer;
 
-      .youtubeVideo {
-        overflow: hidden;
-        padding-bottom: 56.25%;
-        position: relative;
-        margin-bottom: $spacer;
+        .youtubeVideo {
+          overflow: hidden;
+          padding-bottom: 56.25%;
+          position: relative;
+          margin-bottom: $spacer;
 
-        iframe {
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          position: absolute;
+          iframe {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+          }
         }
       }
     }
