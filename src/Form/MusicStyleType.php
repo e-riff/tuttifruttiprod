@@ -15,7 +15,6 @@ class MusicStyleType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('slug')
             ->add('bands', EntityType::class, [
                 'class' => Band::class,
                 "required" =>false,

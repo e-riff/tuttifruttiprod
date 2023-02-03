@@ -6,8 +6,13 @@ use App\Repository\MusicStyleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: MusicStyleRepository::class)]
+#[UniqueEntity(
+    fields: ['name'],
+    message: 'Ce style est déjà créé',
+)]
 class MusicStyle
 {
     #[ORM\Id]

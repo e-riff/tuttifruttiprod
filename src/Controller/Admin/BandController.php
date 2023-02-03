@@ -23,7 +23,7 @@ class BandController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, SluggerInterface $slugger ,BandRepository $bandRepository): Response
+    public function new(Request $request, SluggerInterface $slugger, BandRepository $bandRepository): Response
     {
         $band = new Band();
         $form = $this->createForm(BandType::class, $band);
@@ -51,12 +51,13 @@ class BandController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Band $band, BandRepository $bandRepository): Response
+    public function edit(Request $request, SluggerInterface $slugger, Band $band, BandRepository $bandRepository): Response
     {
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $band->setSlug($slugger->slug($band->getName()));
             $bandRepository->save($band, true);
 
             return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
