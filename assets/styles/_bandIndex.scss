@@ -40,14 +40,13 @@ main.bandIndex {
     grid-template-columns: repeat( auto-fit, minmax(15rem, 22rem));
 
     @include media-breakpoint-up(lg) {
-        grid-template-columns: repeat( auto-fill, minmax(18rem, 1fr) );
-      }
+      grid-template-columns: repeat( auto-fill, minmax(18rem, 1fr) );
+    }
 
     article {
       aspect-ratio: 1/1;
       overflow: hidden;
       transition: all 200ms ease-in-out;
-
 
       img {
         width: 100%;
@@ -55,54 +54,54 @@ main.bandIndex {
         object-fit: cover;
       }
 
-      &:nth-child(even) {
-        transform: translateY(8px);
+
+      @include media-breakpoint-up(md) {
+        cursor: pointer;
+        transform: scale(1);
+        img {
+          filter: blur(1px);
+        }
       }
 
-
       @include media-breakpoint-up(lg) {
-        cursor: pointer;
+        &:nth-child(even) {
+          transform: translateY(8px);
+        }
         &:nth-child(n) {
           transform: rotate(-3deg);
         }
       }
+
+      div.bandInfo {
+        margin-top: -50%;
+        margin-left: 1rem;
+        position: relative;
+
+        p {
+          margin: .5rem 0 0 .6rem;
+
+          mark {
+            font-style: italic;
+            color: $black;
+            background-color: $secondary;
+          }
+        }
+      }
     }
 
-    @include media-breakpoint-up(sm) {
-      img {
-        filter: blur(1px);
-      }
-      transform: scale(1);
+    @include media-breakpoint-up(md) {
       &:hover > article:hover {
+        transform: scale(1.01);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         img {
           filter: blur(0px);
         }
-
-        transform: scale(1.01);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-
       }
+
       &:hover > article:not(:hover) {
         opacity: 0.65;
       }
-
-
-    }
-
-    div.bandInfo {
-      margin-top: -50%;
-      margin-left: 1rem;
-      position: relative;
-
-      p {
-        margin: .5rem 0 0 .6rem;
-
-        mark {
-          font-style: italic;
-          color: $black;
-          background-color: $secondary;
-        }
-      }
     }
   }
+
 }

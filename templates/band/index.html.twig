@@ -16,10 +16,11 @@
                         data-slug="{{ band.slug }}"
                         {{ stimulus_action('clickArticle', 'showBandLink', 'click') }}>
                     <img {# src="/uploads/images/band/{{ band.picture }}" #}
-                            src="https://picsum.photos/600/900?random={{ loop.index }}">
+                            src="https://picsum.photos/600/900?random={{ loop.index }}"
+                            alt="photo du groupe {{ band.name }}">
                     <div class="bandInfo">
                         <h2 class="h3">
-                            <mark>{{ band.name|upper }}</mark>
+                            <a href="{{ path('band_show', {'slug': band.slug}) }}"><mark>{{ band.name|upper }}</mark></a>
                         </h2>
                         <p class="text-secondary">
                             <mark>

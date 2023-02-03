@@ -1,6 +1,7 @@
 main.showBand {
   section.bandTitle {
-    margin-bottom:$spacer*2;
+    margin-bottom: $spacer*2;
+
     h1 {
       padding: $spacer*2 $spacer*2 0;
       border-bottom: 1px solid $primary;
@@ -58,46 +59,55 @@ main.showBand {
 
     ul {
       list-style: none;
+
+      li {
+        font-weight: bold;
+        margin:0 .5rem;
+
+        small {
+          font-weight: normal;
+          font-style: italic;
+        }
+      }
+    }
+  }
+
+  section {
+    padding-bottom: $spacer*2;
+
+    &:nth-child(even) {
+      h1 {
+        text-align: start;
+        margin-left: -.5rem;
+      }
     }
 
-    section {
-      padding-bottom: $spacer*2;
-
-      &:nth-child(even) {
-        h1 {
-          text-align: start;
-          margin-left: -.5rem;
-        }
+    &:nth-child(odd) {
+      h1 {
+        text-align: end;
+        margin-right: -.5rem;
       }
+    }
 
-      &:nth-child(odd) {
-        h1 {
-          text-align: end;
-          margin-right: -.5rem;
-        }
-      }
 
-      small {
-        font-style: italic;
-      }
+    .videos {
+      padding: $spacer;
 
-      .videos {
-        padding: $spacer;
+      .youtubeVideo {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        margin-bottom: $spacer;
 
-        .youtubeVideo {
-          overflow: hidden;
-          padding-bottom: 56.25%;
-          position: relative;
-          margin-bottom: $spacer;
-          iframe {
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-          }
+        iframe {
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          position: absolute;
         }
       }
     }
   }
 }
+

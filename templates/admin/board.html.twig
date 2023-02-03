@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Board Admin{% endblock %}
+
+{% block body %}
+
+    <main class="adminBoard">
+
+        <section class="welcomeAdmin">
+            <div class="d-flex flex-column m-4 justify-content-center align-items-center">
+                <h1>Bienvenue, {{ app.user.firstname }}</h1>
+                <h2>Qu'est-ce qu'on administre aujourdhui ?</h2>
+            </div>
+        </section>
+        <section class="adminList container-lg">
+            <article>
+                <img src="{{ asset('build/images/band.jpg') }}"
+                     alt="photo de groupe">
+                <div class="categoryName">
+                    <h2 class="h3">
+                        <a href="{{ path('admin_band_index') }}">
+                            <mark>Les Groupes</mark>
+                        </a>
+                    </h2>
+                </div>
+            </article>
+            <article>
+                <img src="{{ asset('build/images/styles.png') }}"
+                     alt="photo de styles musicaux">
+                <div class="categoryName">
+                    <h2 class="h3">
+                        <mark>Les Styles</mark>
+                    </h2>
+                </div>
+            </article>
+        </section>
+
+
+    </main>
+
+{% endblock %}

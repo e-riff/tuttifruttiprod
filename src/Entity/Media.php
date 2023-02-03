@@ -20,6 +20,9 @@ class Media
     #[ORM\JoinColumn(nullable: false)]
     private ?Band $band = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nature = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Media
     public function setBand(?Band $band): self
     {
         $this->band = $band;
+
+        return $this;
+    }
+
+    public function getNature(): ?string
+    {
+        return $this->nature;
+    }
+
+    public function setNature(?string $nature): self
+    {
+        $this->nature = $nature;
 
         return $this;
     }
