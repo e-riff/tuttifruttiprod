@@ -12,14 +12,15 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class BandFixtures extends Fixture implements DependentFixtureInterface
 {
-    public static $bandIndex=0;
+    public static int $bandIndex = 0;
+
     public function __construct(
         private readonly DecoderInterface $decoder,
         private readonly SluggerInterface $slugger,
-        private readonly ContainerBagInterface $containerBag
-    )
-    {
+        //private readonly ContainerBagInterface $containerBag
+    ) {
     }
+
     public function load(ObjectManager $manager): void
     {
         $file = 'bands.csv';
@@ -34,16 +35,22 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             $band->setSlug($this->slugger->slug($bandInfo['name']));
             $band->setTagline($bandInfo['tagline']);
             $band->setDescription($bandInfo["description"]);
-/*            $file = __DIR__ . '/data/band.jpg';
-            if (
-                copy($file, $this->containerBag->get("upload_directory") . "images/band/band". self::$bandIndex . ".jpg")
-            ) {
-                $band->setPicture("band". self::$bandIndex . ".jpg");
-            }*/
+            /*            $file = __DIR__ . '/data/band.jpg';
+                        if (
+                            copy($file, $this->containerBag->get("upload_directory") .
+            "images/band/band". self::$bandIndex . ".jpg")
+                        ) {
+                            $band->setPicture("band". self::$bandIndex . ".jpg");
+                        }*/
 
-            foreach($bandInfo as $key=>$info) {
-                if (in_array($key, MusicStyleFixtures::$styleList) && $info==true) {
+            foreach ($bandInfo as $key => $info) {
+                if (in_array($key, MusicStyleFixtures::$styleList) && $info == true) {
                     $band->addMusicStyle($this->getReference($key));
+                }
+            }
+            foreach ($bandInfo as $key => $info) {
+                if (in_array($key, EventFixtures::$eventList) && $info == true) {
+                    $band->addEvent($this->getReference($key));
                 }
             }
             $manager->persist($band);
@@ -57,6 +64,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             MusicStyleFixtures::class,
+            EventFixtures::class,
         ];
     }
 }

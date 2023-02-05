@@ -14,8 +14,7 @@ class MusicStyleFixtures extends Fixture
     public function __construct(
         private readonly DecoderInterface $decoder,
         private readonly SluggerInterface $slugger
-    )
-    {
+    ) {
     }
 
     public function load(ObjectManager $manager): void
@@ -27,9 +26,11 @@ class MusicStyleFixtures extends Fixture
         foreach ($csv as $style) {
             $musicStyle = new MusicStyle();
             $musicStyle->setName($style['name']);
+
             $musicStyle->setSlug($this->slugger->slug($style['name']));
             $this->addReference($musicStyle->getSlug(), $musicStyle);
-            self::$styleList[]=$this->slugger->slug($style['name']);
+            self::$styleList[] = $musicStyle->getSlug();
+
             $manager->persist($musicStyle);
         }
         $manager->flush();
