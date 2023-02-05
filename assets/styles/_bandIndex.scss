@@ -2,20 +2,13 @@ main.bandIndex {
 
   section.searchBar {
     margin-bottom: $spacer * 4;
-    /*    h1 {
-          border-bottom: 1px solid $primary;
-
-          i {
-            font-size: 1rem;
-          }
-        }*/
 
     form {
       display: flex;
 
       input {
         text-align: center;
-        width: 30rem;
+        width: clamp(18rem, 35vw ,32rem);
         border: none;
         border-radius: 0;
         border-bottom: 1px solid $primary;

@@ -31,7 +31,7 @@
                 <td>{{ band.tagline }}</td>
                 <td>{{ band.slug }}</td>
                 <td>
-                    <a href="{{ path('admin_band_show', {'id': band.id}) }}">show</a>
+                    <a href="{{ path('band_show', {'slug': band.slug}) }}">show</a>
                     <a href="{{ path('admin_band_edit', {'id': band.id}) }}">edit</a>
                 </td>
             </tr>
