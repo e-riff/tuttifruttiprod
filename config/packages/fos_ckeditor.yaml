@@ -1,0 +1,31 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+fos_ck_editor:
+    input_sync: true
+    configs:
+        contentsCss:
+            - '/build/admin.css'
+        light:
+            toolbar:
+                - name: light
+                  uiColor: ""#FFFFFF"
+                  items:
+                      - Bold
+                      - Italic
+                      - Underline
+                      - Strike
+                      - Subscript
+                      - Superscript
+                      - '-'
+                      - CopyFormatting
+                      - RemoveFormat
+                      - Cut
+                      - Copy
+                      - Paste
+                      - Smiley
+                      - Undo
+                      - Redo

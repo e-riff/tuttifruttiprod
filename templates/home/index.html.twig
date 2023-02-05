@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Bienvenue :{% endblock %}
+
+{% block body %}
+    <main class="homepage container-fluid container-lg">
+
+        {% include 'home/_welcome.html.twig' %}
+
+        {# TODO : section à la une #}
+
+        {% include 'home/_homeContact.html.twig' %}
+
+    </main>
+{% endblock %}

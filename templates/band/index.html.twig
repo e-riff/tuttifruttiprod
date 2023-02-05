@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - les groupes {% endblock %}
+
+{% block body %}
+    <main class="bandIndex">
+        <section class="searchBar">
+            <div class="d-flex m-4 justify-content-center">
+                {{ render(controller('App\\Controller\\SearchBarController::searchBar', {searchData} )) }}
+            </div>
+        </section>
+        <section class="bandList container-lg" {{ stimulus_controller('clickArticle') }} >
+            {% for band in bands %}
+                <article
+                        class="bandArticle"
+                        data-slug="{{ band.slug }}"
+                        {{ stimulus_action('clickArticle', 'showBandLink', 'click') }}>
+                    <img
+                            src="{{ vich_uploader_asset(band) ?: ("https://picsum.photos/600/900?random=" ~ loop.index) }}"
+                            class="d-block w-100"
+                            alt="photo du groupe {{ band.name }}">
+
+                    <div class="bandInfo">
+                        <h2 class="h3">
+                            <a href="{{ path('band_show', {'slug': band.slug}) }}">
+                                <mark>{{ band.name|upper }}</mark>
+                            </a>
+                        </h2>
+                        <p class="text-secondary">
+                            <mark>
+                                {% for musicStyle in band.musicStyles %}
+                                    {{ musicStyle.name }} {{ loop.last ? "" : ", " }}
+                                {% endfor %}
+                            </mark>
+                        </p>
+                    </div>
+                </article>
+            {% endfor %}
+        </section>
+
+
+    </main>
+{% endblock %}

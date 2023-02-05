@@ -1,0 +1,16 @@
+footer {
+  margin-top: auto;
+  padding: $spacer $spacer 0 $spacer;
+
+  .adminLink {
+    position: fixed;
+    bottom:.5rem;
+    right:.5rem;
+
+    @include media-breakpoint-up(lg) {
+      position:inherit;
+      bottom: inherit;
+      right:inherit;
+    }
+  }
+}

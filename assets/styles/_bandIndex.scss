@@ -1,0 +1,109 @@
+main.bandIndex {
+
+  section.searchBar {
+    margin-bottom: $spacer * 4;
+    /*    h1 {
+          border-bottom: 1px solid $primary;
+
+          i {
+            font-size: 1rem;
+          }
+        }*/
+
+    form {
+      display: flex;
+
+      input {
+        text-align: center;
+        width: 30rem;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid $primary;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      button {
+        border: none;
+        background-color: inherit;
+      }
+    }
+  }
+
+
+  section.bandList {
+    display: grid;
+    gap: $spacer * 2;
+    place-content: center;
+    grid-template-columns: repeat( auto-fit, minmax(15rem, 22rem));
+
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: repeat( auto-fill, minmax(18rem, 1fr) );
+    }
+
+    article {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      transition: all 200ms ease-in-out;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+
+      @include media-breakpoint-up(md) {
+        cursor: pointer;
+        transform: scale(1);
+        img {
+          filter: blur(1px);
+        }
+      }
+
+      @include media-breakpoint-up(lg) {
+        &:nth-child(even) {
+          transform: translateY(8px);
+        }
+        &:nth-child(n) {
+          transform: rotate(-3deg);
+        }
+      }
+
+      div.bandInfo {
+        margin-top: -50%;
+        margin-left: 1rem;
+        position: relative;
+
+        p {
+          margin: .5rem 0 0 .6rem;
+
+          mark {
+            font-style: italic;
+            color: $black;
+            background-color: $secondary;
+          }
+        }
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      margin-bottom: $spacer*2;
+
+      &:hover > article:hover {
+        transform: scale(1.01);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        img {
+          filter: blur(0px);
+        }
+      }
+
+      &:hover > article:not(:hover) {
+        opacity: 0.65;
+      }
+    }
+  }
+
+}

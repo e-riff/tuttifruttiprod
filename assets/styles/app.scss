@@ -1,4 +1,17 @@
-@import "_variables.scss";
+//Variables
+@import "variables";
 @import "~bootstrap/scss/bootstrap";
+@import "mixin";
+
+//Global
 @import "global";
 
+//For each element
+@import "footer";
+@import "navbar";
+@import "home";
+@import "contact";
+@import "bandIndex";
+@import "bandShow";
+@import "adminBoard";
+@import "adminBandForm";

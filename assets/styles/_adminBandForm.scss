@@ -1,0 +1,14 @@
+main.adminBandEdit {
+  img {
+    max-height: 3rem;
+  }
+
+  #band_musicStyles {
+    display:flex;
+    flex-wrap: wrap;
+
+    & > div {
+      margin-right: $spacer;
+    }
+  }
+}

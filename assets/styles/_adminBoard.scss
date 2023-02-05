@@ -1,0 +1,71 @@
+main.adminBoard {
+
+  section.welcomeAdmin {
+  }
+
+  section.adminList {
+    display: grid;
+    gap: $spacer * 2;
+    place-content: center;
+    grid-template-columns: repeat( auto-fit, minmax(15rem, 22rem));
+
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: repeat( auto-fill, minmax(18rem, 1fr) );
+    }
+
+    article {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      transition: all 200ms ease-in-out;
+
+      a:hover {
+        text-decoration: none;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+
+      @include media-breakpoint-up(md) {
+        cursor: pointer;
+        transform: scale(1);
+        img {
+          filter: blur(1px);
+        }
+      }
+
+      @include media-breakpoint-up(lg) {
+        &:nth-child(even) {
+          transform: translateY(8px);
+        }
+        &:nth-child(n) {
+          transform: rotate(-3deg);
+        }
+      }
+
+      div.categoryName {
+        margin-top: -25%;
+        margin-left: 1rem;
+        position: relative;
+
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      &:hover > article:hover {
+        transform: scale(1.01);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        img {
+          filter: blur(0px);
+        }
+      }
+
+      &:hover > article:not(:hover) {
+        opacity: 0.65;
+      }
+    }
+  }
+}

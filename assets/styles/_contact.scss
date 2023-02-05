@@ -1,0 +1,28 @@
+section#contact {
+  border-top:1px solid $primary;
+  padding-bottom: $spacer;
+  margin-bottom: $spacer;
+  display:inherit;
+  background-color: $secondary;
+
+
+  h1 {
+    background-color: $black;
+    margin-bottom: $spacer;
+  }
+
+  @include media-breakpoint-up(lg) {
+    h1 {
+      margin-bottom: inherit;
+    }
+    form {
+      padding: 0 $spacer $spacer;
+
+      display:flex;
+      &>div {
+        padding:2rem;
+        flex-basis: 50%;
+      }
+    }
+  }
+}

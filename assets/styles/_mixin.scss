@@ -1,0 +1,29 @@
+@mixin scrollBar {
+  scrollbar-color: $primary $light;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: .5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $primary;
+    border-radius: $border-radius;
+  }
+}
+
+@mixin fullScreen {
+  @include media-breakpoint-up(lg) {
+    min-height: calc(100vh - $navBarHeightFull);
+  }
+}
+
+@mixin invert {
+  background-color: $primary;
+  * {
+    color:$secondary;
+  }
+  mark {
+    background-color: $black;
+    box-shadow: 0 2px 10px -3px rgba(0, 0, 0, 0.65);
+  }
+
+}
