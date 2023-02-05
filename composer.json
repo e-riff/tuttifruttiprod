@@ -1,4 +1,6 @@
 {
+    "name": "tuttifrutti/tuttifrutti",
+    "description": "",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -50,7 +52,8 @@
     "config": {
         "allow-plugins": {
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "phpro/grumphp": true
         },
         "sort-packages": true
     },
