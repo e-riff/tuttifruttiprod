@@ -3,17 +3,17 @@
 namespace App\Service;
 
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
-class ContactMail extends AbstractController
+class ContactMail
 {
     public function __construct(
         private readonly MailerInterface $mailer,
-        private readonly UserRepository  $userRepository
-    )
-    {
+        private readonly UserRepository $userRepository,
+        private readonly ParameterBagInterface $parameterBag
+    ) {
     }
 
     public function sendMail(array $dataMessage = []): void
@@ -21,15 +21,16 @@ class ContactMail extends AbstractController
         $admins = $this->userRepository->findBy([], [], 5);
 
         foreach ($admins as $admin) {
-            $email = (new Email())
+            $email = (new TemplatedEmail())
                 ->to($admin->getEmail())
-//                ->from($this->getParameter('mailer_from'))
+                ->from($this->parameterBag->get('mailer_from'))
                 ->from($dataMessage['email'])
                 ->subject("Nouveau message pour Tutti Frutti Pro")
-                ->html($this->renderView('_include/_MailContact.html.twig', [
+                ->htmlTemplate('_include/_MailContact.html.twig')
+                ->context([
                     'admin' => $admin,
                     'dataMessage' => $dataMessage,
-                ]));
+                ]);
             $this->mailer->send($email);
         }
     }

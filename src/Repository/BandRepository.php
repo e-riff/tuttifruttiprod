@@ -42,8 +42,8 @@ class BandRepository extends ServiceEntityRepository
     public function bandSearch(string $searchQuery = ""): array
     {
         $queryBuilder = $this->createQueryBuilder('b')
-            ->join('b.musicStyles', 'm')
-            ->andWhere('b.isActive = true');
+           ->leftJoin('b.musicStyles', 'm')
+             ->andWhere('b.isActive = true');
         if ($searchQuery) {
             $queryBuilder->where($queryBuilder->expr()->orX(
                 $queryBuilder->expr()->like('b.name', ':searchQuery'),
@@ -51,7 +51,8 @@ class BandRepository extends ServiceEntityRepository
             ))
                 ->setParameter('searchQuery', '%' . $searchQuery . '%');
         }
-        $queryBuilder->orderBy("b.name");
+        $queryBuilder->orderBy("b.name")
+        ;
         return $queryBuilder->getQuery()->getResult();
     }
 

@@ -22,6 +22,7 @@ main.showBand {
     flex-direction: column;
     @include media-breakpoint-up(md) {
       flex-direction: row;
+      justify-content: center;
     }
   }
 
@@ -40,7 +41,7 @@ main.showBand {
       }
 
       @include media-breakpoint-up(md) {
-        width: clamp(30rem, 50vw, 60rem);
+        width: clamp(30rem, 50vw, 55rem);
       }
     }
 
