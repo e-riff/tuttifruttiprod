@@ -23,7 +23,7 @@ class ContactMail
         foreach ($admins as $admin) {
             $email = (new TemplatedEmail())
                 ->to($admin->getEmail())
-                ->from($this->parameterBag->get('mailer_from'))
+                ->from($this->parameterBag->get('mailer_from'), "Tutti Frutti Bot")
                 ->from($dataMessage['email'])
                 ->subject("Nouveau message pour Tutti Frutti Pro")
                 ->htmlTemplate('_include/_MailContact.html.twig')

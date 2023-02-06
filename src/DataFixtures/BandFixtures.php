@@ -17,7 +17,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
     public function __construct(
         private readonly DecoderInterface $decoder,
         private readonly SluggerInterface $slugger,
-        //private readonly ContainerBagInterface $containerBag
+        private readonly ContainerBagInterface $containerBag
     ) {
     }
 
@@ -35,13 +35,24 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             $band->setSlug($this->slugger->slug($bandInfo['name']));
             $band->setTagline($bandInfo['tagline']);
             $band->setDescription($bandInfo["description"]);
-            /*            $file = __DIR__ . '/data/band.jpg';
-                        if (
-                            copy($file, $this->containerBag->get("upload_directory") .
-            "images/band/band". self::$bandIndex . ".jpg")
-                        ) {
-                            $band->setPicture("band". self::$bandIndex . ".jpg");
-                        }*/
+
+            $file = __DIR__ . "/data/bands/" . $this->slugger->slug($bandInfo['name']) . '.webp';
+
+            if (file_exists($file)) {
+                if (
+                    copy($file, $this->containerBag->get("upload_directory") .
+                        "images/band/" . $this->slugger->slug($bandInfo['name']) . '.webp')
+                ) {
+                    $band->setPicture($this->slugger->slug($bandInfo['name']) . '.webp');
+                }
+            } else {
+                if (
+                    copy(__DIR__ . "/data/bands/band.webp", $this->containerBag->get("upload_directory") .
+                        "images/band/" . $this->slugger->slug($bandInfo['name']) . '.webp')
+                ) {
+                    $band->setPicture($this->slugger->slug($bandInfo['name']) . '.webp');
+                }
+            }
 
             foreach ($bandInfo as $key => $info) {
                 if (in_array($key, MusicStyleFixtures::$styleList) && $info == true) {
@@ -53,6 +64,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
                     $band->addEvent($this->getReference($key));
                 }
             }
+            $this->addReference("band_" . self::$bandIndex, $band);
             $manager->persist($band);
         }
 

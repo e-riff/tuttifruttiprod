@@ -2,9 +2,19 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
+    twig:
+        mode: lazy
     filter_sets:
-        thumbnail_small:
+        swipper_filter:
             quality: 75
-            size: [ 200, 150 ]
-            mode: outbound
-            allow_upscale: true
+            filters:
+                fixed:
+                    width: 900
+                    height: 600
+        square_band:
+            quality: 75
+            filters:
+                thumbnail:
+                    size: [ 600, 600 ]
+                    mode: outbound
+                    allow_upscale: true

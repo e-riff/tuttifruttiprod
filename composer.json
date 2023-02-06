@@ -14,6 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "exercise/htmlpurifier-bundle": "^4.1",
+        "fakerphp/faker": "*",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "liip/imagine-bundle": "^2.10",
         "phpdocumentor/reflection-docblock": "^5.3",

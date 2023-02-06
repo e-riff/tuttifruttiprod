@@ -5,11 +5,14 @@
 {% block body %}
     <main class="showBand container-fluid container-lg">
         <section class="bandTitle d-flex flex-column justify-content-center align-items-center">
-<h1>{{ band.name|upper }}{% if app.user %}<a href="{{ path('admin_band_edit', {'id': band.id}) }}"><i class="text-primary bi bi-pen-fill"></i></a> {% endif %}
-</h1>
-            {% for event in band.events %}
-            <p>{{ event.name|capitalize }}{{ loop.last ? "" : " ," }}</p>
-            {% endfor %}
+            <h1>{{ band.name|upper }}{% if app.user %}<a href="{{ path('admin_band_edit', {'id': band.id}) }}"><i
+                            class="text-primary bi bi-pen-fill"></i></a> {% endif %}
+            </h1>
+            <p>
+                {% for event in band.events %}
+                    {{ event.name|capitalize }}{{ loop.last ? "" : " ," }}
+                {% endfor %}
+            </p>
             <h2 class="h3 text-primary ">{{ band.tagline }}</h2>
         </section>
         <div class=allInfosWrapper>
@@ -17,7 +20,7 @@
                 <div id="bandCarousel" class="carousel slide" data-bs-ride="carousel" data-interval="100">
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="10000">
-                            <img src="{{ vich_uploader_asset(band) ?: "https://picsum.photos/1500/1000?random=2" }}"
+                            <img src="{{ vich_uploader_asset(band)|imagine_filter('swipper_filter') ?: "https://picsum.photos/1500/1000?random=2" }}"
                                  class="d-block w-100"
                                  alt="...">
                         </div>
@@ -38,9 +41,11 @@
                     <h1>
                         <mark>Concerts</mark>
                     </h1>
-                    <ul class="">
-                        <li>Bonson<small>10/12/23</small></li>
-                        <li>Bonson<small>13/12/23</small></li>
+                    <ul>
+                        {% for concert in band.concerts|sort((a, b) => date(a.date) <=> date(b.date)) %}
+                            <li class="{{ date(concert.date) <= date() ? "text-primary" : "" }}">{{ concert.date|date("d/m/Y") }}
+                                - {{ concert.address }}</li>
+                        {% endfor %}
                     </ul>
                 </section>
                 <section class="links">

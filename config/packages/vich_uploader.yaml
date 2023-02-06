@@ -6,6 +6,6 @@ vich_uploader:
 
     mappings:
         band_picture:
-            uri_prefix: /uploads/images/band
+            uri_prefix: "/uploads/images/band"
             upload_destination: '%upload_directory%images/band/'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
