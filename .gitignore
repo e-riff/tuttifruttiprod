@@ -96,3 +96,6 @@ db-data
 /public/bundles/
 /var/
 /vendor/
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

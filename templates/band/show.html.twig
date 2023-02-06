@@ -7,6 +7,9 @@
         <section class="bandTitle d-flex flex-column justify-content-center align-items-center">
 <h1>{{ band.name|upper }}{% if app.user %}<a href="{{ path('admin_band_edit', {'id': band.id}) }}"><i class="text-primary bi bi-pen-fill"></i></a> {% endif %}
 </h1>
+            {% for event in band.events %}
+            <p>{{ event.name|capitalize }}{{ loop.last ? "" : " ," }}</p>
+            {% endfor %}
             <h2 class="h3 text-primary ">{{ band.tagline }}</h2>
         </section>
         <div class=allInfosWrapper>

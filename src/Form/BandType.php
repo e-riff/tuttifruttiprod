@@ -17,8 +17,11 @@ class BandType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', null, [
+                'purify_html' => true,
+            ])
             ->add('description', CKEditorType::class, [
+                'purify_html' => true,
                 'attr' => ['data-ckeditor' => true],
                 'config_name' => 'light',
                 'config' => ['editorplaceholder' => "Une rapide description du groupe..."]
@@ -26,8 +29,12 @@ class BandType extends AbstractType
             ->add('isActive', null, [
                 "required" => false
             ])
-            ->add('flashInformation')
-            ->add('tagline')
+            ->add('flashInformation', null, [
+                'purify_html' => true
+            ])
+            ->add('tagline', null, [
+                'purify_html' => true
+            ])
             //->add('events')
             ->add('musicStyles', EntityType::class, [
                 'class' => MusicStyle::class,
@@ -43,7 +50,6 @@ class BandType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => true,
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
