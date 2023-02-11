@@ -51,9 +51,6 @@ main.bandIndex {
       @include media-breakpoint-up(md) {
         cursor: pointer;
         transform: scale(1);
-        img {
-          filter: blur(1px);
-        }
       }
 
       @include media-breakpoint-up(lg) {
@@ -88,9 +85,6 @@ main.bandIndex {
       &:hover > article:hover {
         transform: scale(1.01);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        img {
-          filter: blur(0px);
-        }
       }
 
       &:hover > article:not(:hover) {

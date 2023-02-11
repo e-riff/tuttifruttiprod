@@ -67,14 +67,10 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
-/public/build/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
@@ -88,12 +84,7 @@ yarn-error.log
 .vscode/
 .DS_Store
 db-data
-###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
-/vendor/
+
+###> liip/imagine-bundle ###
 /public/media/cache/
+###< liip/imagine-bundle ###

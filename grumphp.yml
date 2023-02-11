@@ -9,6 +9,8 @@ grumphp:
             exclude: ['vendor', 'src/Entity']
         phpcs:
             standard: ~
+            whitelist_patterns:
+                - /^src\/App\/(.*)/
         phpstan:
             configuration: ~
             level: 6

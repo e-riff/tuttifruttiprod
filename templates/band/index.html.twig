@@ -16,7 +16,7 @@
                         data-slug="{{ band.slug }}"
                         {{ stimulus_action('clickArticle', 'showBandLink', 'click') }}>
                     <img
-                            src="{{ vich_uploader_asset(band) ?: ("https://picsum.photos/600/900?random=" ~ loop.index) }}"
+                            src="{{ vich_uploader_asset(band)|imagine_filter('square_band') ?: ("https://picsum.photos/600/900?random=" ~ loop.index) }}"
                             class="d-block w-100"
                             alt="photo du groupe {{ band.name }}">
 

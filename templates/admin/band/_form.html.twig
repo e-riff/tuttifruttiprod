@@ -5,13 +5,6 @@
 {{ form_row(form.tagline) }}
 {{ form_row(form.description) }}
 {{ form_row(form.pictureFile) }}
-
-{% if vich_uploader_asset(band) %}
-<img src="{{ vich_uploader_asset(band) }}" alt="Photo du groupe">
-{% else %}
-<p>Pas de photos pour le moment</p>
-{% endif %}
-
 {{ form_row(form.musicStyles) }}
 
 <button class="btn btn-success">{{ button_label|default('Save') }}</button>

@@ -17,6 +17,7 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'purify_html' => true,
                 'row_attr' => ['class' => 'form-floating mb-3'],
                 'label' => 'Votre nom',
                 'constraints' => [
@@ -24,18 +25,21 @@ class MessageType extends AbstractType
                 ]
             ])
             ->add('email', TextType::class, [
+                'purify_html' => true,
                 'row_attr' => ['class' => 'form-floating mb-3'],
                 'label' => 'Votre email (obligatoire)',
                 'constraints' => [
                     new NotBlank(),
                     new Email(),
-                    ],
+                ],
             ])
             ->add('phone', TextType::class, [
+                'purify_html' => true,
                 'row_attr' => ['class' => 'form-floating mb-3'],
                 'label' => 'Votre numéro de téléphone'
             ])
             ->add('message', CKEditorType::class, [
+                'purify_html' => true,
                 'attr' => ['data-ckeditor' => true],
                 'config_name' => 'light',
                 'config' => ['editorplaceholder' => "Besoin d'informations ? D'un devis ?"],

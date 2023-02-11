@@ -76,6 +76,11 @@ main.showBand {
         font-weight: bold;
         margin: 0 .5rem;
 
+        &.pastConcert {
+          font-style: italic;
+          color:gainsboro;
+        }
+
         small {
           font-weight: normal;
           font-style: italic;
@@ -104,7 +109,7 @@ main.showBand {
       .videos {
         padding: $spacer;
 
-        .youtubeVideo {
+        .iframeBandMedia {
           overflow: hidden;
           padding-bottom: 56.25%;
           position: relative;
