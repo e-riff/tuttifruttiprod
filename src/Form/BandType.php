@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BandType extends AbstractType
 {
@@ -45,7 +46,7 @@ class BandType extends AbstractType
                     return $musicStyle->getName();
                 }
             ])
-            ->add('pictureFile', VichFileType::class, [
+            ->add('pictureFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => true,

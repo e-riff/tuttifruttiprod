@@ -54,5 +54,6 @@
     <exclude-pattern>src/Migrations</exclude-pattern>
     <exclude-pattern>src/Kernel.php</exclude-pattern>
     <exclude-pattern>src/Security</exclude-pattern>
+    <exclude-pattern>src/Entity/Band.php</exclude-pattern>
     <exclude-pattern>src/DataFixtures/BandFixtures.php</exclude-pattern>
 </ruleset>

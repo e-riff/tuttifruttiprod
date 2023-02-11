@@ -23,8 +23,8 @@ class ConcertFixtures extends Fixture implements DependentFixtureInterface
                 $concert->setClientName($faker->name);
                 $concert->setIsConfirmed(true);
                 $concert->setOtherInformations($faker->sentence(8));
-                if ($j == 1) {
-                    $concert->setDate($faker->dateTimeBetween("-2 month"));
+                if ($j == 0) {
+                    $concert->setDate($faker->dateTimeBetween("-2 month", "now"));
                 } else {
                     $concert->setDate($faker->dateTimeBetween("now", '+10 month'));
                 }

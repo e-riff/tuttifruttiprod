@@ -9,3 +9,7 @@ vich_uploader:
             uri_prefix: "/uploads/images/band"
             upload_destination: '%upload_directory%images/band/'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        musician_picture:
+            uri_prefix: "/uploads/images/musician"
+            upload_destination: '%upload_directory%images/musician/'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

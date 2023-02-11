@@ -20,8 +20,9 @@ class Media
     #[ORM\JoinColumn(nullable: false)]
     private ?Band $band = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nature = null;
+    #[ORM\ManyToOne(inversedBy: 'medias')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MediaType $mediaType = null;
 
     public function getId(): ?int
     {
@@ -52,14 +53,14 @@ class Media
         return $this;
     }
 
-    public function getNature(): ?string
+    public function getMediaType(): ?MediaType
     {
-        return $this->nature;
+        return $this->mediaType;
     }
 
-    public function setNature(?string $nature): self
+    public function setMediaType(?MediaType $mediaType): self
     {
-        $this->nature = $nature;
+        $this->mediaType = $mediaType;
 
         return $this;
     }
