@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('admin_band_delete', {'id': band.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('admin_band_delete', {'id': band.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce groupe et non le désactiver (recommandé) ?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ band.id) }}">
-    <button class="btn btn-danger">Delete</button>
+    <button class="btn btn-danger">Suppression du groupe</button>
 </form>

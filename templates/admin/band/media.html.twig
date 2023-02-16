@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent }} - Media de {{ band.name }}{% endblock %}
+
+{% block body %}
+
+    <main class="adminBandMedia container-lg">
+        <h1 class="text-center"><span class="text-primary">{{ band.name }}</span> - Administration des medias</h1>
+        <section class="links">
+            <h2 class="text-center">Réseaux Sociaux / liens </h2>
+            <div class="d-flex flex-wrap">
+                {{ form(mediaLinkForm) }}
+            </div>
+        </section>
+        <section class="youtube border-primary">
+            <h2>Youtube</h2>
+            <div class="articleContainer">
+                {% for youtubeMedia in band.medias %}
+                    {% if youtubeMedia.mediaType.value == "Youtube" %}
+                        <article class="d-flex flex-column p-2">
+                            {% include 'band/_youtube.html.twig' with {media: youtubeMedia} %}
+
+                            <div class="articleContent">
+                                <ul>
+                                    <li><span>ID de la video :</span> {{ youtubeMedia.link }} </li>
+                                    <li><span>lien complet :</span>
+                                        <a
+                                                href="https://www.youtube.com/watch?v={{ youtubeMedia.link }}"
+                                                target="_blank">https://www.youtube.com/watch?v={{ youtubeMedia.link }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <footer class="d-flex justify-content-center">
+                                {% include '/admin/band/_deleteMedia_form.html.twig' with {media: youtubeMedia} %}
+                            </footer>
+                        </article>
+                    {% endif %}
+                {% endfor %}
+                <article>
+                    <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="ajout d'une video youtube"></div>
+                    {{ form(youtubeForm) }}
+                </article>
+            </div>
+        </section>
+
+        <section class="soundcloud">
+            <h2 class="text-center">Soundcloud</h2>
+            <div class="articleContainer">
+                {% for soundcloudMedia in band.medias %}
+                    {% if soundcloudMedia.mediaType.value == "Soundcloud" %}
+                        <article class="d-flex flex-column p-2">
+                            {% include 'band/_soundclound.html.twig'  with {media: soundcloudMedia} %}
+                            <div class="articleContent">
+                                <ul>
+                                    <li><span>ID de l'audio :</span> {{ soundcloudMedia.link }} </li>
+                                </ul>
+                            </div>
+                            <footer class="d-flex justify-content-center">
+                                {% include '/admin/band/_deleteMedia_form.html.twig' with {media: soundcloudMedia} %}
+                            </footer>
+                        </article>
+                    {% endif %}
+                {% endfor %}
+                <article>
+                    <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="ajout d'une video youtube"></div>
+                    {{ form(soundcloudForm) }}
+                </article>
+            </div>
+        </section>
+
+    </main>
+{% endblock %}

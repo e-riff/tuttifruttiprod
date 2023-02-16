@@ -3,46 +3,45 @@
 {% block title %}Band index{% endblock %}
 
 {% block body %}
-<main class="container-md">
+    <main class="adminBandIndex container-lg">
 
-<h1>Band index</h1>
+        <h1>List des groupes</h1>
 
-    <table class="table">
-        <thead>
+        <table class="table">
+            <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
-                <th>IsActive</th>
-                <th>FlashInformation</th>
-                <th>Tagline</th>
+                <th>actif ?</th>
+                <th>Info Flash</th>
+                <th>Accroche</th>
                 <th>Slug</th>
-                <th>actions</th>
+                <th></th>
             </tr>
-        </thead>
-        <tbody>
-        {% for band in bands %}
-            <tr>
-                <td>{{ band.id }}</td>
-                <td>{{ band.name }}</td>
-                <td>{{ band.description }}</td>
-                <td>{{ band.isActive ? 'Yes' : 'No' }}</td>
-                <td>{{ band.flashInformation }}</td>
-                <td>{{ band.tagline }}</td>
-                <td>{{ band.slug }}</td>
-                <td>
-                    <a href="{{ path('band_show', {'slug': band.slug}) }}">show</a>
-                    <a href="{{ path('admin_band_edit', {'id': band.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for band in bands %}
+                <tr>
+                    <td>{{ band.name }}</td>
+                    <td class="largeContent">{{ band.description }}</td>
+                    <td>{{ band.isActive ? 'Yes' : 'No' }}</td>
+                    <td class="largeContent">{{ band.flashInformation }}</td>
+                    <td class="largeContent">{{ band.tagline }}</td>
+                    <td>{{ band.slug }}</td>
+                    <td class="d-flex flex-row">
+                        <a class="btn btn-primary" href="{{ path('band_show', {'slug': band.slug}) }}">consulter</a>
+                        <a class="btn btn-warning" href="{{ path('admin_band_edit', {'id': band.id}) }}">modifier</a>
+                        <a class="btn btn-info" href="{{ path('admin_band_media', {'id': band.id}) }}">medias</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a class="btn btn-primary" href="{{ path('admin_band_new') }}">Create new</a>
+        <a class="btn btn-primary" href="{{ path('admin_band_new') }}">Create new</a>
     </main>
 {% endblock %}

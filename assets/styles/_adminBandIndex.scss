@@ -1,0 +1,21 @@
+.adminBandIndex {
+  tbody > tr {
+    min-height: 5rem;
+    td:not(:last-child) {
+      max-width: 6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-height:5rem;
+      * {
+        display:inline;
+        margin:0;
+      }
+    }
+    .btn {
+      margin:.1rem;
+      padding:.2rem;
+
+    }
+  }
+}

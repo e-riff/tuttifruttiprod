@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Band;
+use App\Entity\Event;
 use App\Entity\MusicStyle;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,6 +20,7 @@ class BandType extends AbstractType
     {
         $builder
             ->add('name', null, [
+                'label' => 'Nom du groupe',
                 'purify_html' => true,
             ])
             ->add('description', CKEditorType::class, [
@@ -28,16 +30,28 @@ class BandType extends AbstractType
                 'config' => ['editorplaceholder' => "Une rapide description du groupe..."]
             ])
             ->add('isActive', null, [
-                "required" => false
+                "required" => true,
+                'label' => 'Groupe Actif (visible sur le site)'
             ])
             ->add('flashInformation', null, [
                 'purify_html' => true
             ])
             ->add('tagline', null, [
+                'label' => "Phrase d'accroche",
                 'purify_html' => true
             ])
-            //->add('events')
+            ->add('events', EntityType::class, [
+                'label' => "Type d'événements du groupe",
+                'class' => Event::class,
+                "required" => false,
+                'expanded' => true,
+                'multiple' => true,
+                'choice_label' => function (Event $event) {
+                    return $event->getName();
+                }
+            ])
             ->add('musicStyles', EntityType::class, [
+                'label' => "Styles musicaux",
                 'class' => MusicStyle::class,
                 "required" => false,
                 'expanded' => true,

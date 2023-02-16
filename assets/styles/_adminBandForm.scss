@@ -3,10 +3,13 @@ main.adminBandEdit {
     max-height: 3rem;
   }
 
-  #band_musicStyles {
+  label, legend {
+    font-weight: bold;
+  }
+
+  #band_musicStyles, #band_events {
     display:flex;
     flex-wrap: wrap;
-
     & > div {
       margin-right: $spacer;
     }
