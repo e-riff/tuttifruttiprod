@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Band;
+use App\Entity\MediaTypeEnum;
 use App\Form\MessageType;
 use App\Repository\BandRepository;
+use App\Repository\MediaRepository;
 use App\Service\ContactMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +20,7 @@ class BandController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(Request $request, BandRepository $bandRepository): Response
     {
-        $searchData = $request->get('form') ? : "";
+        $searchData = $request->get('form') ?: "";
 
         $bands = $searchData ?
             $bandRepository->bandSearch($searchData['searchQuery']) :
@@ -32,7 +34,11 @@ class BandController extends AbstractController
     }
 
     #[Route('/show/{slug}', name: 'show')]
-    public function show(ContactMail $contactMail, Request $request, Band $band, MailerInterface $mailer): Response
+    public function show(
+        ContactMail     $contactMail,
+        Request         $request,
+        Band            $band,
+    ): Response
     {
         $contactForm = $this->createForm(MessageType::class);
         $contactForm->handleRequest($request);
@@ -44,10 +50,10 @@ class BandController extends AbstractController
             return $this->redirectToRoute('band_show', ['slug' => $band->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('band/show.html.twig', [
+        return $this->render('band/show.html.twig', [
             'contactForm' => $contactForm,
             'band' => $band,
-
+            'linksType' => MediaTypeEnum::getlinks(),
         ]);
     }
 }

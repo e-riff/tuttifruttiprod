@@ -25,23 +25,26 @@
                     <p>{{ band.description|raw }}</p>
                 </div>
 
-                {{ dump(band.medias|filter(v => v.mediaType in linksType)|length) }}
-
-                {% if band.medias|filter(v => v.mediaType in linksType)|length > 0 %}
                 <div>
-                    Nous trouver en ligne :
+
+                {% set linkCounter = 0 %}
+                {% for webLink in band.medias|filter(link => link.mediaType in linksType) %}
+                    {% set linkCounter = linkCounter + 1 %}
+                {% endfor %}
+
+                {% if linkCounter %}
+                Nous trouver en ligne :
                     <ul>
-                    {%  for webLink in band.medias|filter(v => v.mediaType in linksType) %}
+                        {% for webLink in band.medias|filter(link => link.mediaType in linksType) %}
                         <li class="d-flex justify-content-between">
                             <span>
                             <i class="{{ mediaIcons[webLink.mediaType.name] }}"></i> - <a href="{{ webLink.link }}" target="_blank">{{ webLink.link }}</a>
                             </span>
-                            <div>{% include 'admin/band/_mediaInclude/_deleteMedia_form.html.twig' with {media: webLink} %}</div>
                         </li>
                         {%  endfor %}
                     </ul>
+                {% endif %}
                 </div>
-                {%  endif %}
             </section>
 
             <div class="moreInfos">
