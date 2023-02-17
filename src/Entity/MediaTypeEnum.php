@@ -11,18 +11,6 @@ enum MediaTypeEnum: string
     case INSTAGRAM = 'Instagram';
     case OTHER = 'Other';
 
-    /*public function getIcon(): string
-    {
-        return match ($this) {
-            self::Youtube => 'bi bi-youtube',
-            self::Soundcloud => 'bi bi-soundwave',
-            self::Image => 'bi bi-image',
-            self::Facebook => 'bi bi-facebook',
-            self::Instagram => 'bi bi-instagram',
-            default => 'bi bi-link',
-        };
-        };*/
-
     public static function getType(string $testedType): self
     {
         return match ($testedType) {

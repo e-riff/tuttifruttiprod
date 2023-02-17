@@ -6,6 +6,7 @@ use App\Entity\Band;
 use App\Entity\Media;
 use App\Entity\MediaTypeEnum;
 use App\Form\BandType;
+use App\Form\MediaImageType;
 use App\Form\MediaLinkType;
 use App\Form\MediaSoundcloudType;
 use App\Form\MediaYoutubeType;
@@ -92,10 +93,7 @@ class BandController extends AbstractController
         $youtubeForm = $this->createForm(MediaYoutubeType::class, $media);
         $soundcloudForm = $this->createForm(MediaSoundcloudType::class, $media);
         $mediaLinkForm = $this->createForm(MediaLinkType::class, $media);
-        /*
-         * $socialForm = $this->createForm(MediaLinkType::class);
-         *
-         */
+        $mediaImageForm = $this->createForm(MediaImageType::class, $media);
 
         $youtubeForm->handleRequest($request);
         if ($youtubeForm->isSubmitted() && $youtubeForm->isValid()) {
@@ -117,22 +115,28 @@ class BandController extends AbstractController
         if ($soundcloudForm->isSubmitted() && $soundcloudForm->isValid()) {
             $media->setBand($band);
             $media->setMediaType(MediaTypeEnum::SOUNDCLOUD);
-            //$media->setLink($soundcloudForm->get('link')->getData());
             $mediaRepository->save($media, true);
 
             $this->addFlash('success', 'Piste soundcloud ajoutée !');
             return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        //dd($request);
         $mediaLinkForm->handleRequest($request);
         if ($mediaLinkForm->isSubmitted() && $mediaLinkForm->isValid()) {
-            //$mediaLink = new Media();
             $media->setBand($band);
-            $media->setLink($mediaLinkForm->get('link')->getData());
             $mediaRepository->save($media, true);
 
             $this->addFlash('success', 'Lien Ajouté !');
+            return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $mediaImageForm->handleRequest($request);
+        if ($mediaImageForm->isSubmitted() && $mediaImageForm->isValid()) {
+            $media->setBand($band);
+            $media->setMediaType(MediaTypeEnum::IMAGE);
+            $mediaRepository->save($media, true);
+
+            $this->addFlash('success', 'Image Ajoutée !');
             return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -141,6 +145,8 @@ class BandController extends AbstractController
             'youtubeForm' => $youtubeForm,
             'soundcloudForm' => $soundcloudForm,
             'mediaLinkForm' => $mediaLinkForm,
+            'mediaImageForm' => $mediaImageForm,
+            'linksType' => MediaTypeEnum::getlinks(),
         ]);
     }
 
@@ -155,7 +161,7 @@ class BandController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'band_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function bandDelete(Request $request, Band $band, BandRepository $bandRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $band->getId(), $request->request->get('_token'))) {

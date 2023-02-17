@@ -5,6 +5,14 @@ twig:
     globals:
         swiperTimer: 5000
         association: '@App\Service\GlobalAssociation'
+        mediaIcons: {
+            YOUTUBE: 'bi bi-youtube',
+            SOUNDCLOUD: 'bi bi-soundwave',
+            INSTAGRAM: 'bi bi-instagram',
+            FACEBOOK: 'bi bi-facebook',
+            IMAGE: 'bi bi-image',
+            OTHER: 'bi bi-link'
+        }
 
 when@test:
     twig:

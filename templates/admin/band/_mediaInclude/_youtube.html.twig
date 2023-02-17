@@ -1,0 +1,30 @@
+<h2>Youtube</h2>
+<div class="articleContainer">
+    {% for youtubeMedia in band.medias|filter(v => v.mediaType.value == 'Youtube') %}
+            <article class="d-flex flex-column p-2">
+                {% include 'band/_youtube.html.twig' with {media: youtubeMedia} %}
+
+                <div class="articleContent">
+                    <ul>
+                        <li><span>ID de la video :</span> {{ youtubeMedia.link }} </li>
+                        <li><span>lien complet :</span>
+                            <a
+                                    href="https://www.youtube.com/watch?v={{ youtubeMedia.link }}"
+                                    target="_blank">https://www.youtube.com/watch?v={{ youtubeMedia.link }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <footer class="d-flex justify-content-center">
+                    {% include 'admin/band/_mediaInclude/_deleteMedia_form.html.twig' with {media: youtubeMedia} %}
+                </footer>
+            </article>
+    {% endfor %}
+    <article>
+        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="ajout d'une video youtube">
+        </div>
+        {{ form_start(youtubeForm) }}
+        {{ form_errors(youtubeForm) }}
+        {{ form_end(youtubeForm) }}
+    </article>
+</div>

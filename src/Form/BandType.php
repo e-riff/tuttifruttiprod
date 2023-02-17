@@ -8,6 +8,7 @@ use App\Entity\MusicStyle;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,7 +30,7 @@ class BandType extends AbstractType
                 'config_name' => 'light',
                 'config' => ['editorplaceholder' => "Une rapide description du groupe..."]
             ])
-            ->add('isActive', null, [
+            ->add('isActive', CheckboxType::class, [
                 "required" => true,
                 'label' => 'Groupe Actif (visible sur le site)'
             ])

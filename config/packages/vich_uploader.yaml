@@ -13,3 +13,7 @@ vich_uploader:
             uri_prefix: "/uploads/images/musician"
             upload_destination: '%upload_directory%images/musician/'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        media_picture:
+            uri_prefix: "/uploads/images/band/media_images"
+            upload_destination: '%upload_directory%images/band/media_images/'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

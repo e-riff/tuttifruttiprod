@@ -15,27 +15,35 @@
             </p>
             <h2 class="h3 text-primary ">{{ band.tagline }}</h2>
         </section>
+
         <div class=allInfosWrapper>
             <section class="infos">
-                <div id="bandCarousel" class="carousel slide" data-bs-ride="carousel" data-interval="100">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" data-bs-interval="{{ swiperTimer }}">
-                            <img src="{{ vich_uploader_asset(band)|imagine_filter('swipper_filter') ?: "https://picsum.photos/1500/1000?random=2" }}"
-                                 class="d-block w-100"
-                                 alt="...">
-                        </div>
-                        <div class="carousel-item" data-bs-interval="{{ swiperTimer }}">
-                            <img src="https://picsum.photos/1500/1000?random=2" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item" data-bs-interval="{{ swiperTimer }}">
-                            <img src="https://picsum.photos/1500/1000?random=3" class="d-block w-100" alt="...">
-                        </div>
-                    </div>
-                </div>
+
+                {% include 'band/_bandCarousel.html.twig' %}
+
                 <div class="description">
                     <p>{{ band.description|raw }}</p>
                 </div>
+
+                {{ dump(band.medias|filter(v => v.mediaType in linksType)|length) }}
+
+                {% if band.medias|filter(v => v.mediaType in linksType)|length > 0 %}
+                <div>
+                    Nous trouver en ligne :
+                    <ul>
+                    {%  for webLink in band.medias|filter(v => v.mediaType in linksType) %}
+                        <li class="d-flex justify-content-between">
+                            <span>
+                            <i class="{{ mediaIcons[webLink.mediaType.name] }}"></i> - <a href="{{ webLink.link }}" target="_blank">{{ webLink.link }}</a>
+                            </span>
+                            <div>{% include 'admin/band/_mediaInclude/_deleteMedia_form.html.twig' with {media: webLink} %}</div>
+                        </li>
+                        {%  endfor %}
+                    </ul>
+                </div>
+                {%  endif %}
             </section>
+
             <div class="moreInfos">
                 <section class="concerts">
                     <h1>
@@ -53,24 +61,17 @@
                         <mark class="w-25">Liens</mark>
                     </h1>
                     <div class="videos">
-                        {% for media in band.medias|filter(mediaType.value)%}
-                            {% if media.mediaType.TypeName.value == "Youtube" %}
-                                {% include 'band/_youtube.html.twig' %}
-                            {% endif %}
+                        {% for media in band.medias|filter(v => v.mediaType.value == 'Youtube') %}
+                            {% include 'band/_youtube.html.twig' %}
                         {% endfor %}
-                        {% for media in band.medias %}
-                            {% if media.mediaType.TypeName.value == "Soundcloud" %}
-                                {% include 'band/_soundclound.html.twig' %}
-                            {% endif %}
+                        {% for media in band.medias|filter(v => v.mediaType.value == 'Soundcloud') %}
+                            {% include 'band/_soundclound.html.twig' %}
                         {% endfor %}
-
                     </div>
-
-
                 </section>
-
             </div>
         </div>
+
         {% include 'home/_homeContact.html.twig' %}
 
     </main>

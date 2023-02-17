@@ -1,0 +1,16 @@
+<div id="bandCarousel" class="carousel slide" data-bs-ride="carousel" data-interval="100">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="{{ swiperTimer }}">
+            <img src="{{ vich_uploader_asset(band)|imagine_filter('swipper_filter') ?: asset('build/images/band.jpg') }}"
+                 class="d-block w-100"
+                 alt="cover {{ band.name }}">
+        </div>
+        {% for image in band.medias|filter(v => v.mediaType.value == 'Image') %}
+            <div class="carousel-item" data-bs-interval="{{ swiperTimer }}">
+                <img src="{{ vich_uploader_asset(image)|imagine_filter('swipper_filter') }}"
+                     class="d-block w-100"
+                     alt="image {{ loop.index1 }} de {{ band.name }}">
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -4,19 +4,30 @@ liip_imagine:
     driver: "gd"
     default_filter_set_settings:
         format: webp
+        quality: 75
     twig:
         mode: lazy
     filter_sets:
         swipper_filter:
-            quality: 75
             filters:
                 fixed:
                     width: 900
                     height: 600
         square_band:
-            quality: 75
             filters:
                 thumbnail:
                     size: [ 600, 600 ]
                     mode: outbound
                     allow_upscale: true
+        upload_filter:
+            filters:
+                thumbnail:
+                    size: [ 1500, 1500 ]
+                    mode: inset
+                    allow_upscale: false
+        admin_imageList_filter:
+            filters:
+                thumbnail:
+                    size: [ 350, 200 ]
+                    mode: inset
+                    allow_upscale: false

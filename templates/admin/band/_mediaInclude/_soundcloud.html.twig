@@ -1,0 +1,23 @@
+<h2 class="text-center">Soundcloud</h2>
+<div class="articleContainer">
+    {% for soundcloudMedia in band.medias|filter(v => v.mediaType.value == 'Soundcloud') %}
+            <article class="d-flex flex-column p-2">
+                {% include 'band/_soundclound.html.twig'  with {media: soundcloudMedia} %}
+                <div class="articleContent">
+                    <ul>
+                        <li><span>ID de l'audio :</span> {{ soundcloudMedia.link }} </li>
+                    </ul>
+                </div>
+                <footer class="d-flex justify-content-center">
+                    {% include 'admin/band/_mediaInclude/_deleteMedia_form.html.twig' with {media: soundcloudMedia} %}
+                </footer>
+            </article>
+    {% endfor %}
+    <article>
+        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="ajout d'une video youtube">
+        </div>
+        {{ form_start(soundcloudForm) }}
+        {{ form_errors(soundcloudForm) }}
+        {{ form_end(soundcloudForm) }}
+    </article>
+</div>

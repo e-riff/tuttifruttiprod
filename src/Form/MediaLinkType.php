@@ -20,6 +20,7 @@ class MediaLinkType extends AbstractType
             ->add('link', UrlType::class, [
                 'purify_html' => true,
                 'label' => 'lien complet',
+                'attr' => ['placeholder' => 'https://www.perdu.com'],
             ])
             ->add('mediaType', EnumType::class, [
                 'class' => MediaTypeEnum::class,

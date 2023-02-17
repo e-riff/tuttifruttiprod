@@ -1,0 +1,24 @@
+<h2 class="text-center">Images</h2>
+<div class="articleContainer">
+    {% for imageMedia in band.medias|filter(v => v.mediaType.value == 'Image') %}
+            <article class="d-flex flex-column p-2">
+                <div class="p-2"><img src="{{ vich_uploader_asset(imageMedia)|imagine_filter('admin_imageList_filter') }}" alt="photo {{ imageMedia.link }}">
+                </div>
+                <div class="articleContent">
+                    <ul>
+                        <li><span>Taille :</span> {{ (imageMedia.pictureSize/1048576)|round(2, 'common') }} Mo</li>
+                    </ul>
+                </div>
+                <footer class="d-flex justify-content-center">
+                    {% include 'admin/band/_mediaInclude/_deleteMedia_form.html.twig' with {media: imageMedia} %}
+                </footer>
+            </article>
+    {% endfor %}
+    <article>
+        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="ajout d'une video youtube">
+        </div>
+        {{ form_start(mediaImageForm) }}
+        {{ form_errors(mediaImageForm) }}
+        {{ form_end(mediaImageForm) }}
+    </article>
+</div>

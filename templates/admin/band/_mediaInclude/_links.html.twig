@@ -1,0 +1,20 @@
+<h2 class="text-center">Réseaux Sociaux / liens </h2>
+<div class="articleContainer">
+    <article class="d-flex flex-column p-2">
+        <ul>
+            {% for webLink in band.medias|filter(v => v.mediaType in linksType)  %}
+                    <li class="d-flex justify-content-between">
+                            <span>
+                            <i class="{{ mediaIcons[webLink.mediaType.name] }}"></i> - <a href="{{ webLink.link }}" target="_blank">{{ webLink.link }}</a>
+                            </span>
+                        <div>{% include 'admin/band/_mediaInclude/_deleteMedia_form.html.twig' with {media: webLink} %}</div>
+                    </li>
+            {% endfor %}
+        </ul>
+    </article>
+    <article class="d-flex flex-column p-2">
+        {{ form_start(mediaLinkForm) }}
+        {{ form_errors(mediaLinkForm) }}
+        {{ form_end(mediaLinkForm) }}
+    </article>
+</div>
