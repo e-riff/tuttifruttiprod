@@ -39,20 +39,34 @@ class BandRepository extends ServiceEntityRepository
         }
     }
 
-    public function bandSearch(string $searchQuery = ""): array
+    public function bandSearch(string $searchQuery, array $events, array $musicStyles): array
     {
         $queryBuilder = $this->createQueryBuilder('b')
-           ->leftJoin('b.musicStyles', 'm')
-             ->andWhere('b.isActive = true');
+            ->leftJoin('b.events', 'e')
+            ->leftJoin('b.musicStyles', 'ms')
+            ->andWhere('b.isActive = true');
+
         if ($searchQuery) {
-            $queryBuilder->where($queryBuilder->expr()->orX(
-                $queryBuilder->expr()->like('b.name', ':searchQuery'),
-                $queryBuilder->expr()->like('m.name', ':searchQuery'),
-            ))
+                $queryBuilder->andWhere('b.name like :searchQuery')
                 ->setParameter('searchQuery', '%' . $searchQuery . '%');
         }
-        $queryBuilder->orderBy("b.name")
-        ;
+
+        if ($events) {
+            foreach ($events as $event) {
+                $queryBuilder->andWhere('e.name = :event')
+                    ->setParameter('event', $event);
+            }
+        }
+
+        if ($musicStyles) {
+            foreach ($musicStyles as $musicStyle) {
+                $queryBuilder->andWhere('ms.name = :musicStyle')
+                    ->setParameter('musicStyle', $musicStyle);
+            }
+        }
+
+        $queryBuilder->orderBy("b.name");
+
         return $queryBuilder->getQuery()->getResult();
     }
 

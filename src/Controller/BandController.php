@@ -20,16 +20,16 @@ class BandController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(Request $request, BandRepository $bandRepository): Response
     {
-        $searchData = $request->get('form') ?: "";
+        $searchData = $request->get('form') ?: [];
+        isset($searchData['query']) ?: $searchData['query'] = "";
+        isset($searchData['events']) ?: $searchData['events'] = [];
+        isset($searchData['musicStyles']) ?: $searchData['musicStyles'] = [];
 
-        $bands = $searchData ?
-            $bandRepository->bandSearch($searchData['searchQuery']) :
-            $bandRepository->bandSearch();
-
+        $bands = $bandRepository->bandSearch($searchData['query'], $searchData['events'], $searchData['musicStyles']);
 
         return $this->render('band/index.html.twig', [
             'bands' => $bands,
-            'searchData' => $request->get('form') ?: []
+            'searchData' => $searchData ?: []
         ]);
     }
 
