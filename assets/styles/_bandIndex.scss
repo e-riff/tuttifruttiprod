@@ -41,6 +41,10 @@ main.bandIndex {
       overflow: hidden;
       transition: all 200ms ease-in-out;
 
+      a:hover {
+        text-decoration: none;
+      }
+
       img {
         width: 100%;
         height: 100%;
