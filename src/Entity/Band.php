@@ -75,6 +75,9 @@ class Band
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(type: "string", nullable: true, enumType: BandPriceEnum::class)]
+    private ?BandPriceEnum $priceCategory = null;
+
     public function __construct()
     {
         $this->concerts = new ArrayCollection();
@@ -351,6 +354,18 @@ class Band
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPriceCategory(): ?BandPriceEnum
+    {
+        return $this->priceCategory;
+    }
+
+    public function setPriceCategory(?BandPriceEnum $price): self
+    {
+        $this->priceCategory = $price;
 
         return $this;
     }

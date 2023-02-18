@@ -7,24 +7,10 @@
         <button type="submit"><i class="bi bi-search"></i></button>
     </div>
 
-    <div class="accordion accordion-flush mt-2" id="formAccordion">
-        <div class="accordion-item">
-            <h3 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    Plus de paramètres
-                </button>
-            </h3>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                <div class="accordion-body">
-                    <div class="d-flex justify-content-between">
-                        {{ form_row(searchBar.events, {'row_attr':{'class':'events'}}) }}
-                        {{ form_row(searchBar.musicStyles, {'row_attr':{'class':'musicStyles'}}) }}
+    <div class="d-flex justify-content-between">
+        {{ form_row(searchBar.events, {'row_attr':{'class':'events'}}) }}
+        {{ form_row(searchBar.musicStyles, {'row_attr':{'class':'musicStyles'}}) }}
 
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-
     {{ form_end(searchBar) }}
 </div>

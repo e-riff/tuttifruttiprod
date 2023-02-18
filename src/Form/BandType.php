@@ -3,12 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Band;
+use App\Entity\BandPriceEnum;
 use App\Entity\Event;
 use App\Entity\MusicStyle;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,6 +44,16 @@ class BandType extends AbstractType
                 'label' => "Phrase d'accroche",
                 'purify_html' => true
             ])
+            ->add('priceCategory', EnumType::class, [
+                'label' => "Catégorie de prix",
+                "required" => false,
+                'class' => BandPriceEnum::class,
+                'expanded' => false,
+                'multiple' => false,
+                'choice_label' => function (BandPriceEnum $choice) {
+                    return $choice->value;
+                },
+                ])
             ->add('events', EntityType::class, [
                 'label' => "Type d'événements du groupe",
                 'class' => Event::class,
@@ -66,6 +79,7 @@ class BandType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => true,
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

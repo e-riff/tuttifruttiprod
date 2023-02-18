@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Band;
+use App\Entity\BandPriceEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -35,6 +36,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             $band->setSlug($this->slugger->slug($bandInfo['name']));
             $band->setTagline($bandInfo['tagline']);
             $band->setDescription($bandInfo["description"]);
+            $band->setPriceCategory(BandPriceEnum::getType($bandInfo['price_category']));
 
             $file = __DIR__ . "/data/bands/" . $this->slugger->slug($bandInfo['name']) . '.webp';
 
