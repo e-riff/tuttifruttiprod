@@ -79,7 +79,6 @@ class BandType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => true,
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -67,6 +67,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
                 }
             }
             $this->addReference("band_" . self::$bandIndex, $band);
+
             $manager->persist($band);
         }
 

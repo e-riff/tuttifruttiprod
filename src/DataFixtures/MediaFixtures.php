@@ -13,7 +13,8 @@ use Symfony\Component\Serializer\Encoder\DecoderInterface;
 class MediaFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(
-        private readonly DecoderInterface $decoder, private readonly BandRepository $bandRepository
+        private readonly DecoderInterface $decoder,
+        private readonly BandRepository $bandRepository
     ) {
     }
     public function load(ObjectManager $manager): void

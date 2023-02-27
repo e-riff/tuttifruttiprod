@@ -47,6 +47,9 @@ class Media
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column]
+    private ?bool $isActive = true;
+
 
     public function getId(): ?int
     {
@@ -126,5 +129,17 @@ class Media
     public function getPictureFile(): ?File
     {
         return $this->pictureFile;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
     }
 }

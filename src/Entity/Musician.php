@@ -14,7 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: MusicianRepository::class)]
-#[UniqueEntity('email', message: 'Cet email est déjà utilisé')]
+#[UniqueEntity(
+    fields: ['lastname', 'firstname'],
+    message: 'Cet email est déjà utilisé'
+)]
 #[Vich\Uploadable]
 class Musician
 {
@@ -29,7 +32,7 @@ class Musician
     #[ORM\Column(length: 80)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255)]
     #[Assert\Email]
     private ?string $email = null;
 

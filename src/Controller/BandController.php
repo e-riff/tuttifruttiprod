@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Band;
+use App\Entity\BandPriceEnum;
 use App\Entity\MediaTypeEnum;
 use App\Form\MessageType;
 use App\Repository\BandRepository;
@@ -25,7 +26,30 @@ class BandController extends AbstractController
         isset($searchData['events']) ?: $searchData['events'] = [];
         isset($searchData['musicStyles']) ?: $searchData['musicStyles'] = [];
 
-        $bands = $bandRepository->bandSearch($searchData['query'], $searchData['events'], $searchData['musicStyles']);
+        if (isset($searchData['priceCategory'])) {
+            foreach ($searchData['priceCategory'] as &$priceCategory) {
+                $priceCategory = BandPriceEnum::getType($priceCategory);
+            }
+        } else {
+            $searchData['priceCategory'] = [];
+        }
+
+        /*        if (!isset($searchData['priceCategory'])) {
+            $searchData['priceCategory'] = [];
+        } elseif (is_array($searchData['priceCategory'])) {
+            foreach ($searchData['priceCategory'] as &$priceCategory) {
+                $priceCategory = BandPriceEnum::getType($priceCategory);
+            }
+        } else {
+            $searchData['priceCategory'] = BandPriceEnum::getType($searchData['priceCategory']);
+        }*/
+
+        $bands = $bandRepository->bandSearch(
+            $searchData['query'],
+            $searchData['events'],
+            $searchData['musicStyles'],
+            $searchData['priceCategory']
+        );
 
         return $this->render('band/index.html.twig', [
             'bands' => $bands,
@@ -35,9 +59,9 @@ class BandController extends AbstractController
 
     #[Route('/show/{slug}', name: 'show')]
     public function show(
-        ContactMail     $contactMail,
-        Request         $request,
-        Band            $band,
+        ContactMail $contactMail,
+        Request     $request,
+        Band        $band,
     ): Response
     {
         $contactForm = $this->createForm(MessageType::class);

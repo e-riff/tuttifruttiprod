@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musician index{% endblock %}
+
+{% block body %}
+    <h1>Liste des musiciens</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>IsActive</th>
+                <th>Picture</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for musician in musicians %}
+            <tr>
+                <td>{{ musician.id }}</td>
+                <td>{{ musician.firstname }}</td>
+                <td>{{ musician.lastname }}</td>
+                <td>{{ musician.email }}</td>
+                <td>{{ musician.phone }}</td>
+                <td>{{ musician.isActive ? 'Yes' : 'No' }}</td>
+                <td>{{ musician.picture }}</td>
+                <td>{{ musician.updatedAt ? musician.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_musician_show', {'id': musician.id}) }}">show</a>
+                    <a href="{{ path('admin_musician_edit', {'id': musician.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_musicStyle_new') }}">Nouveau musicien</a>
+{% endblock %}

@@ -1,11 +1,11 @@
 <div {{ attributes }} >
-
+{{ dump() }}
     <section class="searchBar">
         <div class="d-flex m-4 justify-content-center">
             {{ render(controller('App\\Controller\\SearchBarController::searchBar', {searchData} )) }}
         </div>
     </section>
-
+{{ dump() }}
     <section class="bandList container-lg" {{ stimulus_controller('clickArticle') }} >
         {% for band in this.bands %}
             <article

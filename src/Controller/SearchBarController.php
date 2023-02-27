@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Event;
-use App\Entity\MusicStyle;
+use App\Entity\BandPriceEnum;
 use App\Repository\EventRepository;
 use App\Repository\MusicStyleRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -57,6 +56,19 @@ class SearchBarController extends AbstractController
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
+            ])
+            ->add('priceCategory', EnumType::class, [
+                'label' => "Catégorie de prix",
+                "required" => false,
+                'class' => BandPriceEnum::class,
+                'expanded' => true,
+                'multiple' => true,
+                'choice_attr' => function () {
+                    return ['data-model' => 'priceCategory'];
+                },
+                'choice_label' => function (BandPriceEnum $choice) {
+                    return $choice->value;
+                },
             ])
             ->setMethod('GET')
             ->getForm();

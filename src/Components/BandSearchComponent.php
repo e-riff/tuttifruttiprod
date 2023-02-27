@@ -2,6 +2,7 @@
 
 namespace App\Components;
 
+use App\Entity\BandPriceEnum;
 use App\Repository\BandRepository;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -24,12 +25,23 @@ class BandSearchComponent
     #[LiveProp(writable: true)]
     public ?array $musicStyles;
 
+    #[LiveProp(writable: true)]
+    public ?array $priceCategory;
 
-    public function __construct(private BandRepository $bandRepository)
+    public function __construct(private readonly BandRepository $bandRepository)
     {
     }
+
     public function getBands(): array
     {
-        return $this->bandRepository->bandSearch($this->searchQuery, $this->events, $this->musicStyles);
+        foreach ($this->priceCategory as &$priceCategory) {
+            $priceCategory = is_string($priceCategory) ? BandPriceEnum::getType($priceCategory) : $priceCategory;
+        }
+        return $this->bandRepository->bandSearch(
+            $this->searchQuery,
+            $this->events,
+            $this->musicStyles,
+            $this->priceCategory
+        );
     }
 }

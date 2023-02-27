@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musician{% endblock %}
+
+{% block body %}
+    <h1>{{ musician.firstname }} {{ musician.lastname|upper }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ musician.id }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ musician.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ musician.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ musician.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ musician.phone }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ musician.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td>{{ musician.picture }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ musician.updatedAt ? musician.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_musician_index') }}">back to list</a>
+
+    <a href="{{ path('admin_musician_edit', {'id': musician.id}) }}">edit</a>
+
+    {{ include('admin/musician/_delete_form.html.twig') }}
+{% endblock %}

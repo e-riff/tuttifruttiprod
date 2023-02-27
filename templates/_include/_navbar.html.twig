@@ -9,7 +9,9 @@
             <div class="navbar-nav">
                 <a class="nav-link {{ app.request.pathInfo == path('index') ? "active" : "" }}" href="{{ path('index') }}">Accueil</a>
                 <a class="nav-link {{ app.request.pathInfo == path('band_index') ? "active" : "" }}" href="{{ path('band_index') }}">Les spectacles</a>
+                <a class="nav-link {{ app.request.pathInfo == path('musician_index') ? "active" : "" }}" href="{{ path('musician_index') }}">Les musiciens</a>
                 <a class="nav-link" href="{{ path('index') }}#contact">Contact</a>
+
             </div>
         </div>
     </div>
