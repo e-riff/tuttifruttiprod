@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class SearchBarController extends AbstractController
@@ -16,7 +18,8 @@ class SearchBarController extends AbstractController
     public function searchBar(
         array                $searchData,
         EventRepository      $eventRepository,
-        MusicStyleRepository $musicStyleRepository
+        MusicStyleRepository $musicStyleRepository,
+        RequestStack         $requestStack
     ): Response
     {
         $eventsChoiceList = [];
@@ -75,6 +78,7 @@ class SearchBarController extends AbstractController
 
         return $this->render('band/_searchBarBand.html.twig', [
             'searchBar' => $searchBar,
+            'data' => json_decode($requestStack->getParentRequest()->query->get('data')),
         ]);
     }
 }

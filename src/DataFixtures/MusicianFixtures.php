@@ -34,7 +34,7 @@ class MusicianFixtures extends Fixture implements DependentFixtureInterface
                 ->setEmail($musicianInfo['email'])
                 ->setPhone($musicianInfo['phone'])
                 ->setIsActive($musicianInfo['is_active'])
-                ->setPictureFile(new ReplacingFile(__DIR__ . '/../../assets/images/avatar.svg'));
+                ->setPictureFile(new ReplacingFile(__DIR__ . '/../../assets/images/avatar.png'));
 
             foreach ($musicianInfo as $key => $info) {
                 $musicianBand = $this->bandRepository->findOneBy(['slug' => $key]);

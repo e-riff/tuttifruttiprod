@@ -53,16 +53,33 @@ class BandRepository extends ServiceEntityRepository
         }
 
         if ($events) {
-            foreach ($events as $event) {
-                $queryBuilder->andWhere('e.name = :event')
-                    ->setParameter('event', $event);
+            $eventsQuery = "";
+            foreach ($events as $key => $event) {
+                if ($key == 0) {
+                    $eventsQuery .= 'e.name LIKE :event_' . $key . " ";
+                } else {
+                    $eventsQuery .= "OR e.name LIKE :event_" . $key . " ";
+                }
+            }
+            $queryBuilder->andWhere($eventsQuery);
+            foreach ($events as $key => $event) {
+                $queryBuilder->setParameter("event_" . $key, $event);
             }
         }
 
+
         if ($musicStyles) {
-            foreach ($musicStyles as $musicStyle) {
-                $queryBuilder->andWhere('ms.name = :musicStyle')
-                    ->setParameter('musicStyle', $musicStyle);
+            $musicStylesQuery = "";
+            foreach ($musicStyles as $key => $musicStyle) {
+                if ($key == 0) {
+                    $musicStylesQuery .= 'ms.name LIKE :musicStyle_' . $key . " ";
+                } else {
+                    $musicStylesQuery .= "OR ms.name LIKE :musicStyle_" . $key . " ";
+                }
+            }
+            $queryBuilder->andWhere($musicStylesQuery);
+            foreach ($musicStyles as $key => $musicStyle) {
+                $queryBuilder->setParameter("musicStyle_" . $key, $musicStyle);
             }
         }
 
@@ -85,29 +102,4 @@ class BandRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
-
-//    /**
-//     * @return Band[] Returns an array of Band objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Band
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

@@ -17,8 +17,8 @@ class MusicianController extends AbstractController
     public function index(MusicianRepository $musicianRepository): Response
     {
         return $this->render('admin/musician/index.html.twig', [
-            'musicians' => $musicianRepository->findAll(),
-        ]);
+            'musicians' => $musicianRepository->findBy([], ['lastname' => 'ASC'])
+            ]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]

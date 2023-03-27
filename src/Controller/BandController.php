@@ -25,6 +25,7 @@ class BandController extends AbstractController
         isset($searchData['query']) ?: $searchData['query'] = "";
         isset($searchData['events']) ?: $searchData['events'] = [];
         isset($searchData['musicStyles']) ?: $searchData['musicStyles'] = [];
+        dump($searchData);
 
         if (isset($searchData['priceCategory'])) {
             foreach ($searchData['priceCategory'] as &$priceCategory) {
@@ -33,16 +34,6 @@ class BandController extends AbstractController
         } else {
             $searchData['priceCategory'] = [];
         }
-
-        /*        if (!isset($searchData['priceCategory'])) {
-            $searchData['priceCategory'] = [];
-        } elseif (is_array($searchData['priceCategory'])) {
-            foreach ($searchData['priceCategory'] as &$priceCategory) {
-                $priceCategory = BandPriceEnum::getType($priceCategory);
-            }
-        } else {
-            $searchData['priceCategory'] = BandPriceEnum::getType($searchData['priceCategory']);
-        }*/
 
         $bands = $bandRepository->bandSearch(
             $searchData['query'],

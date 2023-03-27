@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MusicianController!{% endblock %}
+{% block title %} {{ parent() }} - Les musiciens{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-{{ dump(musicians) }}
-    <ul>
-        {% for musician in musicians %}
-            <li>{{ musician.firstname }}</li>
-        {% endfor %}
-    </ul>
-</div>
+    <main class="musicianIndex container-fluid container-lg">
+        <section class="musician-list list-unstyled text-decoration-none">
+            {% for musician in musicians %}
+                <article>
+                    <div>
+                        <img alt="Image de {{ musician.lastname|upper }} {{ musician.firstname|capitalize }}" src="{{ vich_uploader_asset(musician)|imagine_filter('square_band') ?: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" }}">
+                    </div>
+                    <footer class="text-center"><span class="text-primary">{{ musician.lastname|upper }}</span> {{ musician.firstname|capitalize }}</footer>
+                </article>
+            {% endfor %}
+        </section>
+    </main>
 {% endblock %}

@@ -3,7 +3,7 @@ twig:
     form_themes: [ 'bootstrap_5_layout.html.twig' ]
     strict_variables: false
     globals:
-        swiperTimer: 5000
+        swiperTimer: 6000
         association: '@App\Service\GlobalAssociation'
         mediaIcons: {
             YOUTUBE: 'bi bi-youtube',

@@ -11,6 +11,7 @@ use App\Form\MediaLinkType;
 use App\Form\MediaSoundcloudType;
 use App\Form\MediaYoutubeType;
 use App\Repository\BandRepository;
+use App\Repository\ConcertRepository;
 use App\Repository\MediaRepository;
 use App\Repository\MediaTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -158,6 +159,19 @@ class BandController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{band}/concert', name: 'concert', methods: ['GET', 'POST'])]
+    public function concert(
+        Request          $request,
+        Band             $band,
+        ConcertRepository $concertRepository,
+    ): Response
+    {
+        return $this->render('admin/band/concert.html.twig', [
+            'band' => $band,
+            'concerts' => $concertRepository->findBy(['band' => $band]),
+        ]);
     }
 
 

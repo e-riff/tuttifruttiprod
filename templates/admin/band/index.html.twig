@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Band index{% endblock %}
+{% block title %}Liste des groupes{% endblock %}
 
 {% block body %}
-    <main class="adminBandIndex container-lg">
+    <main class="adminItemIndex container-lg">
 
         <h1>Liste des groupes</h1>
 
@@ -29,9 +29,10 @@
                     <td class="largeContent">{{ band.tagline }}</td>
                     <td>{{ band.slug }}</td>
                     <td class="d-flex flex-row">
-                        <a class="btn btn-primary" href="{{ path('band_show', {'slug': band.slug}) }}">consulter</a>
+                        <a class="btn btn-primary" href="{{ path('band_show', {'slug': band.slug}) }}" target="_blank">consulter</a>
                         <a class="btn btn-warning" href="{{ path('admin_band_edit', {'id': band.id}) }}">modifier</a>
                         <a class="btn btn-info" href="{{ path('admin_band_media', {'id': band.id}) }}">medias</a>
+                        <a class="btn btn-secondary" href="{{ path('admin_band_concert', {'band': band.id}) }}">concerts</a>
                     </td>
                 </tr>
             {% else %}
@@ -42,6 +43,6 @@
             </tbody>
         </table>
 
-        <a class="btn btn-primary" href="{{ path('admin_band_new') }}">Create new</a>
+        <a class="btn btn-primary" href="{{ path('admin_band_new') }}">Ajouter un groupe</a>
     </main>
 {% endblock %}

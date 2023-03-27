@@ -1,16 +1,28 @@
 <div class="searchResultForm">
     {{ form_start(searchBar, {'attr': {'class': 'd-flex flex-column'} }) }}
-
-
     <div class="d-flex justify-content-center">
         {{ form_widget(searchBar.query) }}
         <button type="submit"><i class="bi bi-search"></i></button>
     </div>
-
-    <div class="d-flex justify-content-between">
-        {{ form_row(searchBar.events, {'row_attr':{'class':'events'}}) }}
-        {{ form_row(searchBar.musicStyles, {'row_attr':{'class':'musicStyles'}}) }}
-        {{ form_row(searchBar.priceCategory, {'row_attr':{'class':'priceCategory'}, 'widget_attr':{'class':'prout'}}) }}
+    <div class="accordion mt-2" id="accordionCriteria">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                    Plus de critères...
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse {{ data.events or data.musicStyles or data.musicStyles ? "show" }}" aria-labelledby="headingOne"
+                 data-bs-parent="#accordionCriteria">
+                <div class="accordion-body">
+                    <div class="d-flex justify-content-between searchCritera flex-column flex-md-row">
+                        {{ form_row(searchBar.events, {'row_attr':{'class':'events'}}) }}
+                        {{ form_row(searchBar.musicStyles, {'row_attr':{'class':'musicStyles'}}) }}
+                        {{ form_row(searchBar.priceCategory, {'row_attr':{'class':'priceCategory'}, 'widget_attr':{'class':'prout'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(searchBar) }}
     </div>
-    {{ form_end(searchBar) }}
 </div>
