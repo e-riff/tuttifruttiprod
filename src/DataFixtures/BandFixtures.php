@@ -12,7 +12,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class BandFixtures extends Fixture implements DependentFixtureInterface
 {
-    public static $bandIndex=0;
+    public static $bandIndex = 0;
     public function __construct(
         private readonly DecoderInterface $decoder,
         private readonly SluggerInterface $slugger,
