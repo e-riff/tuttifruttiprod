@@ -35,6 +35,7 @@
 /web/bundles/
 /web/uploads/
 /public/build/
+/public/uploads/
 
 # PHPUnit
 /app/phpunit.xml
