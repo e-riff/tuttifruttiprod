@@ -84,6 +84,18 @@
             "config/routes/liip_imagine.yaml"
         ]
     },
+    "phpstan/phpstan": {
+        "version": "1.9",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "5e490cc197fb6bb1ae22e5abbc531ddc633b6767"
+        },
+        "files": [
+            "phpstan.dist.neon"
+        ]
+    },
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {
@@ -120,6 +132,18 @@
         },
         "files": [
             "phpcs.xml.dist"
+        ]
+    },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "0f18b4decdf5695d692c1d0dfd65516a07a6adf1"
+        },
+        "files": [
+            "public/.htaccess"
         ]
     },
     "symfony/console": {

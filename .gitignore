@@ -35,6 +35,7 @@
 /web/bundles/
 /web/uploads/
 /public/build/
+/public/uploads/
 
 # PHPUnit
 /app/phpunit.xml
@@ -88,3 +89,15 @@ db-data
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

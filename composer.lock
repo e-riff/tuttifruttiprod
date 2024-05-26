@@ -2810,6 +2810,32 @@
             "time": "2022-12-11T03:02:19+00:00"
         },
         {
+            "name": "symfony/apache-pack",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/apache-pack.git",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/apache-pack/zipball/3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "shasum": ""
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for Apache support in Symfony",
+            "support": {
+                "issues": "https://github.com/symfony/apache-pack/issues",
+                "source": "https://github.com/symfony/apache-pack/tree/master"
+            },
+            "time": "2017-12-12T01:46:35+00:00"
+        },
+        {
             "name": "symfony/asset",
             "version": "v6.2.5",
             "source": {
@@ -6193,16 +6219,16 @@
         },
         {
             "name": "symfony/runtime",
-            "version": "v6.2.5",
+            "version": "v6.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/runtime.git",
-                "reference": "bf27ed7b4317982b06f8cc37255b8a315d5a9686"
+                "reference": "ed451a8863b33b487ae328cf3a6fae8d4f004e7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/runtime/zipball/bf27ed7b4317982b06f8cc37255b8a315d5a9686",
-                "reference": "bf27ed7b4317982b06f8cc37255b8a315d5a9686",
+                "url": "https://api.github.com/repos/symfony/runtime/zipball/ed451a8863b33b487ae328cf3a6fae8d4f004e7e",
+                "reference": "ed451a8863b33b487ae328cf3a6fae8d4f004e7e",
                 "shasum": ""
             },
             "require": {
@@ -6214,7 +6240,7 @@
             },
             "require-dev": {
                 "composer/composer": "^1.0.2|^2.0",
-                "symfony/console": "^5.4|^6.0",
+                "symfony/console": "^5.4.9|^6.0.9",
                 "symfony/dotenv": "^5.4|^6.0",
                 "symfony/http-foundation": "^5.4|^6.0",
                 "symfony/http-kernel": "^5.4|^6.0"
@@ -6248,8 +6274,11 @@
             ],
             "description": "Enables decoupling PHP applications from global state",
             "homepage": "https://symfony.com",
+            "keywords": [
+                "runtime"
+            ],
             "support": {
-                "source": "https://github.com/symfony/runtime/tree/v6.2.5"
+                "source": "https://github.com/symfony/runtime/tree/v6.2.13"
             },
             "funding": [
                 {
@@ -6265,7 +6294,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-20T17:45:48+00:00"
+            "time": "2023-07-16T16:55:01+00:00"
         },
         {
             "name": "symfony/security-bundle",
@@ -12360,5 +12389,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
