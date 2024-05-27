@@ -32,9 +32,10 @@
 /vendor/
 
 # Assets and user uploads
-/web/bundles/
+/public/bundles/
 /public/uploads/
 /public/build/
+/public/media/
 
 # PHPUnit
 /app/phpunit.xml
