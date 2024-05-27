@@ -25,7 +25,6 @@ class BandController extends AbstractController
         isset($searchData['query']) ?: $searchData['query'] = "";
         isset($searchData['events']) ?: $searchData['events'] = [];
         isset($searchData['musicStyles']) ?: $searchData['musicStyles'] = [];
-        dump($searchData);
 
         if (isset($searchData['priceCategory'])) {
             foreach ($searchData['priceCategory'] as &$priceCategory) {
