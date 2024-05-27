@@ -64,7 +64,7 @@
                     <ul>
                         {% for concert in band.concerts|sort((a, b) => date(a.date) <=> date(b.date)) %}
                             <li class="{{ date(concert.date) <= date() ? "pastConcert" : "" }}">{{ concert.date|date("d/m/Y") }}
-                                - {{ concert.address }}</li>
+                                - {{ concert.city }}</li>
                         {% endfor %}
                     </ul>
                 </section>

@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -53,7 +54,7 @@ class BandType extends AbstractType
                 'choice_label' => function (BandPriceEnum $choice) {
                     return $choice->value;
                 },
-                ])
+            ])
             ->add('events', EntityType::class, [
                 'label' => "Type d'événements du groupe",
                 'class' => Event::class,
@@ -78,6 +79,23 @@ class BandType extends AbstractType
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => true,
+                'constraints' => [
+                    new Image([
+                        'minWidth' => 600,
+                        'maxWidth' => 3000,
+                        'minHeight' => 600,
+                        'maxHeight' => 2000,
+                        'minRatio' => 1.5,
+                        'maxRatio' => 2.5,
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, GIF)',
+                    ])
+                ],
             ]);
     }
 

@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
-    <title>
-        {% block title %}Tutti Frutti {% endblock %}
-    </title>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
+        <title>
+            {% block title %}Tutti Frutti {% endblock %}
+        </title>
 
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
 
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-    {% endblock %}
-</head>
-<body {{ stimulus_controller('global') }}>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
 
-{% include '_include/_navbar.html.twig' %}
+    <body {{ stimulus_controller('global') }}>
 
-{% for category, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert alert-{{ category }}">
-            {{ message }}
-        </div>
+    {% include '_include/_navbar.html.twig' %}
+
+    {% for category, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
 
 
-{% block body %}{% endblock %}
-{% include '_include/_footer.html.twig' %}
-</body>
+    {% block body %}{% endblock %}
+    {% include '_include/_footer.html.twig' %}
+    </body>
 </html>

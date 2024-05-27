@@ -40,15 +40,7 @@ class ConcertController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_concert_show', methods: ['GET'])]
-    public function show(Concert $concert): Response
-    {
-        return $this->render('concert/show.html.twig', [
-            'concert' => $concert,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_concert_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Concert $concert, ConcertRepository $concertRepository): Response
     {
         $form = $this->createForm(ConcertType::class, $concert);
@@ -57,22 +49,22 @@ class ConcertController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $concertRepository->save($concert, true);
 
-            return $this->redirectToRoute('app_concert_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_concert_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('concert/edit.html.twig', [
+        return $this->renderForm('admin/concert/edit.html.twig', [
             'concert' => $concert,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_concert_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Concert $concert, ConcertRepository $concertRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $concert->getId(), $request->request->get('_token'))) {
             $concertRepository->remove($concert, true);
         }
 
-        return $this->redirectToRoute('app_concert_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_concert_index', [], Response::HTTP_SEE_OTHER);
     }
 }

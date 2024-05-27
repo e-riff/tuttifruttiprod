@@ -9,10 +9,11 @@ liip_imagine:
         mode: lazy
     filter_sets:
         swipper_filter:
+            quality: 100
             filters:
                 fixed:
-                    width: 900
-                    height: 600
+                    width: 1200
+                    height: 900
         square_band:
             filters:
                 thumbnail:
