@@ -38,6 +38,15 @@ class BandRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+
+    }
+
+    public function findAllWithPicture()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.picture IS NOT NULL')
+            ->getQuery()
+            ->getResult();
     }
 
     public function bandSearch(string $searchQuery, array $events, array $musicStyles, array $priceCategories): array

@@ -33,9 +33,8 @@
 
 # Assets and user uploads
 /web/bundles/
-/web/uploads/
-/public/build/
 /public/uploads/
+/public/build/
 
 # PHPUnit
 /app/phpunit.xml

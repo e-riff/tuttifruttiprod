@@ -30,7 +30,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'contactForm' => $contactForm,
-            'bands' => $bandRepository->findAll()
+            'bands' => $bandRepository->findAllWithPicture()
         ]);
     }
 }

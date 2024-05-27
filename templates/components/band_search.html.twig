@@ -7,12 +7,13 @@
     </section>
     <section class="bandList container-lg" {{ stimulus_controller('clickArticle') }} >
         {% for band in this.bands %}
+            {% set bandImage = vich_uploader_asset(band) %}
+
             <article
                     class="bandArticle"
                     data-slug="{{ band.slug }}"
                     {{ stimulus_action('clickArticle', 'showBandLink', 'click') }}>
-                <img
-                        src="{{ vich_uploader_asset(band)|imagine_filter('square_band') ?: ("https://picsum.photos/600/900?random=" ~ loop.index) }}"
+                <img src="{{ bandImage ? bandImage|imagine_filter('square_band') : ("https://picsum.photos/600/900?random=" ~ loop.index) }}"
                         class="d-block w-100"
                         alt="photo du groupe {{ band.name }}">
 

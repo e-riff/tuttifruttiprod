@@ -16,8 +16,8 @@
             <h2 class="h3 text-primary ">{{ band.tagline }}</h2>
             {% if band.flashInformation %}
                 <section class="bg-warning p-4">
-                <h3 class="fs-5 text-center">FLASH INFO :</h3>
-                <p class="fst-italic text-center mb-0">{{ band.flashInformation }}</p>
+                    <h3 class="fs-5 text-center">FLASH INFO :</h3>
+                    <p class="fst-italic text-center mb-0">{{ band.flashInformation }}</p>
                 </section>
             {% endif %}
         </section>
@@ -33,23 +33,26 @@
 
                 <div>
 
-                {% set linkCounter = 0 %}
-                {% for webLink in band.medias|filter(link => link.mediaType in linksType) %}
-                    {% set linkCounter = linkCounter + 1 %}
-                {% endfor %}
+                    {% set linkCounter = 0 %}
+                    {% for webLink in band.medias|filter(link => link.mediaType in linksType) %}
+                        {% set linkCounter = linkCounter + 1 %}
+                    {% endfor %}
 
-                {% if linkCounter %}
-                    <h1><mark>Nous trouver en ligne :</mark></h1>
-                    <ul>
-                        {% for webLink in band.medias|filter(link => link.mediaType in linksType) %}
-                        <li class="d-flex justify-content-between">
+                    {% if linkCounter %}
+                        <h1>
+                            <mark>Nous trouver en ligne :</mark>
+                        </h1>
+                        <ul>
+                            {% for webLink in band.medias|filter(link => link.mediaType in linksType) %}
+                                <li class="d-flex justify-content-between">
                             <span>
-                            <i class="{{ mediaIcons[webLink.mediaType.name]}}"></i> - <a href="{{ webLink.link }}" target="_blank">{{ webLink.link }}</a>
+                            <i class="{{ mediaIcons[webLink.mediaType.name] }}"></i> - <a href="{{ webLink.link }}"
+                                                                                          target="_blank">{{ webLink.link }}</a>
                             </span>
-                        </li>
-                        {%  endfor %}
-                    </ul>
-                {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </div>
             </section>
 
