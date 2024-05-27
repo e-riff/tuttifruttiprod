@@ -51,10 +51,9 @@ class BandController extends AbstractController
     #[Route('/show/{slug}', name: 'show')]
     public function show(
         ContactMail $contactMail,
-        Request     $request,
-        Band        $band,
-    ): Response
-    {
+        Request $request,
+        Band $band,
+    ): Response {
         $contactForm = $this->createForm(MessageType::class);
         $contactForm->handleRequest($request);
 

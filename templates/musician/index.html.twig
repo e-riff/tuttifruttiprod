@@ -8,7 +8,10 @@
             {% for musician in musicians %}
                 <article>
                     <div>
-                        <img alt="Image de {{ musician.lastname|upper }} {{ musician.firstname|capitalize }}" src="{{ vich_uploader_asset(musician)|imagine_filter('square_band') ?: "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" }}">
+                        {% set musicianPhoto = vich_uploader_asset(musician) %}
+                        <img alt="Image de {{ musician.lastname|upper }} {{ musician.firstname|capitalize }}"
+                             src="{{ musicianPhoto ? musicianPhoto|imagine_filter('square_band') : asset('build/images/avatar.png') }}"
+                             class="d-block w-100">
                     </div>
                     <footer class="text-center"><span class="text-primary">{{ musician.lastname|upper }}</span> {{ musician.firstname|capitalize }}</footer>
                 </article>

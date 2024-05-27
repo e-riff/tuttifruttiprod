@@ -7,6 +7,8 @@ twig:
 fos_ck_editor:
     input_sync: true
     configs:
+        my_config:
+            toolbar: full
         contentsCss:
             - '/build/admin.css'
         light:
