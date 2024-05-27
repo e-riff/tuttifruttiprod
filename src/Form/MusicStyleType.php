@@ -14,10 +14,14 @@ class MusicStyleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', null, [
+                'label' => 'Nom',
+                'purify_html' => true,
+            ])
             ->add('bands', EntityType::class, [
+                'label' => 'Groupes',
                 'class' => Band::class,
-                "required" =>false,
+                "required" => false,
                 'expanded' => true,
                 'multiple' => true,
                 'choice_label' => function (Band $band) {

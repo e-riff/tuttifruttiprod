@@ -1,8 +1,14 @@
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+    resource: ../src/Controller/
+    exclude: ../src/Controller/Admin
     type: attribute
+
+admin:
+    resource: ../src/Controller/Admin
+    type: attribute
+    prefix: '/admin'
+    name_prefix: 'admin_'
+
 app_logout:
     path: /logout
     methods: GET

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-black p-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black p-4 shadow-none">
     <div class="container-fluid">
         <a class="h4 navbar-brand" href="/">{{ association.getAssociation.name|upper }}<span class="text-primary"> Prod .</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -9,7 +9,9 @@
             <div class="navbar-nav">
                 <a class="nav-link {{ app.request.pathInfo == path('index') ? "active" : "" }}" href="{{ path('index') }}">Accueil</a>
                 <a class="nav-link {{ app.request.pathInfo == path('band_index') ? "active" : "" }}" href="{{ path('band_index') }}">Les spectacles</a>
+                <a class="nav-link {{ app.request.pathInfo == path('musician_index') ? "active" : "" }}" href="{{ path('musician_index') }}">Les musiciens</a>
                 <a class="nav-link" href="{{ path('index') }}#contact">Contact</a>
+
             </div>
         </div>
     </div>

@@ -1,9 +1,19 @@
 twig:
-    default_path: '%kernel.project_dir%/templates'
+#    default_path: '%kernel.project_dir%/templates'
     form_themes: [ 'bootstrap_5_layout.html.twig' ]
     strict_variables: false
     globals:
+        swiperTimer: 6000
         association: '@App\Service\GlobalAssociation'
+        mediaIcons: {
+            YOUTUBE: 'bi bi-youtube',
+            SOUNDCLOUD: 'bi bi-soundwave',
+            INSTAGRAM: 'bi bi-instagram',
+            FACEBOOK: 'bi bi-facebook',
+            IMAGE: 'bi bi-image',
+            OTHER: 'bi bi-link'
+        }
+    file_name_pattern: '*.twig'
 
 when@test:
     twig:

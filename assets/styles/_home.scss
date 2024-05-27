@@ -2,62 +2,43 @@ main.homepage {
   padding: 0;
 
   section#welcome {
-    display: inherit;
-    margin-bottom: $spacer*2;
+    margin-bottom: $spacer * 2;
 
     div.homeCarousel {
-      height: auto;
-      align-self: center;
-      max-width: 42rem;
-      margin:0 auto;
-      flex-basis: 50%;
-      min-width: 50vw;
+      max-height: 70vh;
+      max-width: 1200px;
+      overflow: hidden;
+      width: 100%;
+      margin: 0 auto; /* Centre la div horizontalement */
 
       #homeCarousel {
-        margin: $spacer;
+        margin: 0;
         box-shadow: 0 2px 10px -3px rgba(0, 0, 0, 0.65);
-        aspect-ratio: 3/2;
-    }
-      img {
-        object-fit: cover;
-      }
-    }
 
-    div.homeWelcome {
-      width: clamp(20rem, 80vw, 40rem);
-      box-shadow: 0 2px 10px -3px rgba(0, 0, 0, 0.65);
-      position: relative;
-      margin-top: -3rem;
-      margin-left: 10vw;
-      padding: $spacer;
-      background-color: $secondary;
-      @include media-breakpoint-up(lg) {
-        margin-top: inherit;
-        margin-left: -5rem;
-        h1 {
-          margin-left: -$spacer*2;
-          margin-bottom: $spacer;
+        img {
+          object-fit: cover;
+          object-position: center;
+          width: 100%;
+          height: auto;
         }
       }
-
-      .associationDescription {
-        padding-bottom: $spacer;
-      }
     }
+  }
 
+  div.homeWelcome {
+    width: clamp(20rem, 80vw, 80rem);
+    box-shadow: 0 2px 8px -3px rgba(0, 0, 0, 0.65);
+    position: relative;
+    margin: -3rem auto 0;
+    padding: $spacer;
+    background-color: $secondary;
 
-    @include media-breakpoint-up(lg) {
-      display: flex;
-      flex-direction: row;
-      //@include fullScreen();
-    }
-
-    div.homeCarousel {
-
+    .associationDescription {
+      padding-bottom: $spacer;
     }
   }
 }
 
 section#contact {
-  margin:$spacer;
+  margin: $spacer;
 }

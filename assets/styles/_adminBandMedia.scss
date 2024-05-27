@@ -1,0 +1,52 @@
+main.adminBandMedia {
+
+  @include mediaIframe();
+
+  section {
+    border: 5px outset $primary;
+    border-radius: $border-radius*2;
+    background-color: $light;
+    padding: $spacer*2;
+    margin: $spacer*2;
+
+    h2 {
+      text-align: center;
+    }
+
+  & > div.articleContainer {
+    display: grid;
+    gap: $spacer * 2;
+    place-content: center;
+    grid-template-columns: repeat( auto-fit, minmax(15rem, 20rem));
+    article {
+      border-radius: $border-radius;
+      border:1px solid $primary;
+      word-break: break-all;
+      ul {
+        margin:0;
+        padding:0;
+        list-style: none;
+        li {
+          padding: calc($spacer/2);
+          border-top: 1px solid $dark;
+          &:last-child {
+            border-bottom: 1px solid $dark;
+          }
+          border-top: 1px solid $dark;
+        }
+        span:first-child {
+          font-weight: bold;
+        }
+      }
+      img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+      }
+    }
+  }
+
+
+}
+}

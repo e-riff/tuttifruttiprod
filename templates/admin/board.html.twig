@@ -31,12 +31,33 @@
                     <h2 class="h3">
                         <a href="{{ path('admin_musicStyle_index') }}">
                             <mark>Les Styles</mark>
-                        </a>                    </h2>
+                        </a>
+                    </h2>
+                </div>
+            </article>
+            <article>
+                <img src="{{ asset('build/images/musicians.jpg') }}"
+                     alt="photo de musiciens">
+                <div class="categoryName">
+                    <h2 class="h3">
+                        <a href="{{ path('admin_musician_index') }}">
+                            <mark>Les musiciens</mark>
+                        </a>
+                    </h2>
+                </div>
+            </article>
+            <article>
+                <img src="{{ asset('build/images/concert.jpg') }}"
+                     alt="photo de concert">
+                <div class="categoryName">
+                    <h2 class="h3">
+                        <a href="{{ path('admin_concert_index') }}">
+                            <mark>Les concerts</mark>
+                        </a>
+                    </h2>
                 </div>
             </article>
         </section>
-
-
     </main>
 
 {% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des musiciens{% endblock %}
+
+{% block body %}
+    <main class="adminItemIndex container-lg">
+
+        <div class="d-flex justify-content-between">
+            <h1>Liste des musiciens</h1>
+            <div>
+            <a class="btn btn-primary" href="{{ path('admin_musician_new') }}"><i class="bi bi-plus-circle"></i> ajouter</a>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Actif ?</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for musician in musicians %}
+                <tr>
+                    <td class="fw-bold">{{ musician.lastname }}</td>
+                    <td>{{ musician.firstname }}</td>
+                    <td>{{ musician.email }}</td>
+                    <td>{{ musician.phone }}</td>
+                    <td>{{ musician.isActive ? 'Oui' : 'Non' }}</td>
+                    <td class="d-flex flex-row">
+                        <a class="btn btn-primary" href="{{ path('admin_musician_show', {'id': musician.id}) }}">Consulter</a>
+                        <a class="btn btn-warning" href="{{ path('admin_musician_edit', {'id': musician.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </main>
+{% endblock %}

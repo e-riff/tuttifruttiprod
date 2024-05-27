@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Les musiciens{% endblock %}
+
+{% block body %}
+    <main class="musicianIndex container-fluid container-lg">
+        <section class="musician-list list-unstyled text-decoration-none">
+            {% for musician in musicians %}
+                <article>
+                    <div>
+                        {% set musicianPhoto = vich_uploader_asset(musician) %}
+                        <img alt="Image de {{ musician.lastname|upper }} {{ musician.firstname|capitalize }}"
+                             src="{{ musicianPhoto ? musicianPhoto|imagine_filter('square_band') : asset('build/images/avatar.png') }}"
+                             class="d-block w-100">
+                    </div>
+                    <footer class="text-center"><span class="text-primary">{{ musician.lastname|upper }}</span> {{ musician.firstname|capitalize }}</footer>
+                </article>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}

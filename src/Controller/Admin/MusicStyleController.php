@@ -8,7 +8,7 @@ use App\Repository\MusicStyleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/musicstyle', name:'musicStyle_')]
@@ -33,7 +33,7 @@ class MusicStyleController extends AbstractController
             $musicStyle->setSlug($slugger->slug($musicStyle->getName()));
             $musicStyleRepository->save($musicStyle, true);
 
-            return $this->redirectToRoute('', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_musicStyle_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/music_style/new.html.twig', [
@@ -45,7 +45,7 @@ class MusicStyleController extends AbstractController
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(MusicStyle $musicStyle): Response
     {
-        return $this->render('admin/music_style/show.html.twig', [
+        return $this->render('admin/music_style/index.html.twig', [
             'music_style' => $musicStyle,
         ]);
     }

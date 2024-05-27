@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent }} - Media de {{ band.name }}{% endblock %}
+
+{% block body %}
+
+    <main class="adminBandMedia container-lg">
+        <h1 class="text-center"><span class="text-primary">{{ band.name }}</span> - Administration des medias</h1>
+
+        <section class="links">
+            {% include 'admin/band/_mediaInclude/_links.html.twig' %}
+        </section>
+
+        <section class="youtube border-primary">
+            {% include 'admin/band/_mediaInclude/_youtube.html.twig' %}
+
+        </section>
+
+        <section class="soundcloud">
+            {% include 'admin/band/_mediaInclude/_soundcloud.html.twig' %}
+        </section>
+
+        <section class="image">
+            {% include 'admin/band/_mediaInclude/_images.html.twig' %}
+
+        </section>
+    </main>
+{% endblock %}

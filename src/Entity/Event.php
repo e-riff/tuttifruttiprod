@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -21,6 +20,9 @@ class Event
 
     #[ORM\ManyToMany(targetEntity: Band::class, inversedBy: 'events')]
     private Collection $bands;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -64,6 +66,18 @@ class Event
     public function removeBand(Band $band): self
     {
         $this->bands->removeElement($band);
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -1,37 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}MusicStyle index{% endblock %}
+{% block title %}Liste des styles de musique{% endblock %}
 
 {% block body %}
-    <h1>MusicStyle index</h1>
+<main class="adminItemIndex container-lg">
+
+    <div class="d-flex justify-content-between">
+        <h1>Liste des styles</h1>
+        <div>
+            <a class="btn btn-primary" href="{{ path('admin_musicStyle_new') }}"><i class="bi bi-plus-circle"></i> Ajouter</a>
+        </div>
+    </div>
 
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>actions</th>
-            </tr>
-        </thead>
         <tbody>
         {% for music_style in music_styles %}
             <tr>
-                <td>{{ music_style.id }}</td>
                 <td>{{ music_style.name }}</td>
-                <td>{{ music_style.slug }}</td>
                 <td>
-                    <a href="{{ path('admin_musicStyle_show', {'id': music_style.id}) }}">show</a>
-                    <a href="{{ path('admin_musicStyle_edit', {'id': music_style.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('admin_musicStyle_edit', {'id': music_style.id}) }}">Gerer les groupes - modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Aucun style disponible</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('admin_musicStyle_new') }}">Create new</a>
 {% endblock %}

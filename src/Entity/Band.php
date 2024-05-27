@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 #[ORM\Entity(repositoryClass: BandRepository::class)]
 #[Vich\Uploadable]
 #[UniqueEntity(
@@ -67,12 +66,25 @@ class Band
     )]
     private ?File $pictureFile = null;
 
+    #[ORM\Column]
+    private ?bool $isOnHomepage = false;
+
+    #[ORM\ManyToMany(targetEntity: Musician::class, mappedBy: 'bands')]
+    private Collection $musicians;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column(type: "string", nullable: true, enumType: BandPriceEnum::class)]
+    private ?BandPriceEnum $priceCategory = null;
+
     public function __construct()
     {
         $this->concerts = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->musicStyles = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->musicians = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -292,6 +304,69 @@ class Band
         if ($pictureFile) {
             $this->updatedAt = new DateTime('now');
         }
+        return $this;
+    }
+
+    public function isIsOnHomepage(): ?bool
+    {
+        return $this->isOnHomepage;
+    }
+
+    public function setIsOnHomepage(bool $isOnHomepage): self
+    {
+        $this->isOnHomepage = $isOnHomepage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Musician>
+     */
+    public function getMusicians(): Collection
+    {
+        return $this->musicians;
+    }
+
+    public function addMusician(Musician $musician): self
+    {
+        if (!$this->musicians->contains($musician)) {
+            $this->musicians->add($musician);
+            $musician->addBand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusician(Musician $musician): self
+    {
+        if ($this->musicians->removeElement($musician)) {
+            $musician->removeBand($this);
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPriceCategory(): ?BandPriceEnum
+    {
+        return $this->priceCategory;
+    }
+
+    public function setPriceCategory(?BandPriceEnum $price): self
+    {
+        $this->priceCategory = $price;
+
         return $this;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Band;
+use App\Entity\BandPriceEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,47 +38,77 @@ class BandRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+
     }
 
-    public function bandSearch(string $searchQuery = ""): array
+    public function findAllWithPicture()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.picture IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function bandSearch(string $searchQuery, array $events, array $musicStyles, array $priceCategories): array
     {
         $queryBuilder = $this->createQueryBuilder('b')
-           ->leftJoin('b.musicStyles', 'm')
-             ->andWhere('b.isActive = true');
+            ->leftJoin('b.events', 'e')
+            ->leftJoin('b.musicStyles', 'ms')
+            ->andWhere('b.isActive = true');
+
         if ($searchQuery) {
-            $queryBuilder->where($queryBuilder->expr()->orX(
-                $queryBuilder->expr()->like('b.name', ':searchQuery'),
-                $queryBuilder->expr()->like('m.name', ':searchQuery'),
-            ))
+            $queryBuilder->andWhere('b.name like :searchQuery')
                 ->setParameter('searchQuery', '%' . $searchQuery . '%');
         }
-        $queryBuilder->orderBy("b.name")
-        ;
+
+        if ($events) {
+            $eventsQuery = "";
+            foreach ($events as $key => $event) {
+                if ($key == 0) {
+                    $eventsQuery .= 'e.name LIKE :event_' . $key . " ";
+                } else {
+                    $eventsQuery .= "OR e.name LIKE :event_" . $key . " ";
+                }
+            }
+            $queryBuilder->andWhere($eventsQuery);
+            foreach ($events as $key => $event) {
+                $queryBuilder->setParameter("event_" . $key, $event);
+            }
+        }
+
+
+        if ($musicStyles) {
+            $musicStylesQuery = "";
+            foreach ($musicStyles as $key => $musicStyle) {
+                if ($key == 0) {
+                    $musicStylesQuery .= 'ms.name LIKE :musicStyle_' . $key . " ";
+                } else {
+                    $musicStylesQuery .= "OR ms.name LIKE :musicStyle_" . $key . " ";
+                }
+            }
+            $queryBuilder->andWhere($musicStylesQuery);
+            foreach ($musicStyles as $key => $musicStyle) {
+                $queryBuilder->setParameter("musicStyle_" . $key, $musicStyle);
+            }
+        }
+
+        if ($priceCategories) {
+            $categoriesQuery = "";
+            foreach ($priceCategories as $key => $priceCategory) {
+                if ($key == 0) {
+                    $categoriesQuery .= "b.priceCategory = :priceCategory" . $key . " ";
+                } else {
+                    $categoriesQuery .= "OR b.priceCategory = :priceCategory" . $key . " ";
+                }
+            }
+            $queryBuilder->andWhere($categoriesQuery);
+            foreach ($priceCategories as $key => $priceCategory) {
+                $queryBuilder->setParameter("priceCategory" . $key, $priceCategory);
+            }
+        }
+
+        $queryBuilder->orderBy("b.name");
+
         return $queryBuilder->getQuery()->getResult();
     }
-
-//    /**
-//     * @return Band[] Returns an array of Band objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Band
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

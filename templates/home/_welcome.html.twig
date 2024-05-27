@@ -1,33 +1,29 @@
 <section id="welcome">
     <div class="homeCarousel">
-        <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-interval="100">
+        <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="100">
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="10000">
-                    <img src="https://picsum.photos/id/250/1500/1000" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="10000">
-                    <img src="https://picsum.photos/id/145/1500/1000" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="10000">
-                    <img src="https://picsum.photos/id/232/1500/1000" class="d-block w-100" alt="...">
-                </div>
+                {% for band in bands|filter(band => band.picture) %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}" data-bs-interval="{{ swiperTimer }}">
+                        <img src="{{ vich_uploader_asset(band)|imagine_filter('swipper_filter') }}" class="d-block w-100" alt="...">
+                    </div>
+                {% endfor %}
             </div>
-{#            <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel"
-                    data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel"
-                    data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
-            </button>#}
+            </button>
         </div>
     </div>
     <div class="homeWelcome">
         <div class="welcomText">
-        <h1><mark>BIENVENUE</mark></h1>
-        <p class="associationDescription">{{ association.getAssociation.description }}</p>
+            <h1>
+                <mark>BIENVENUE</mark>
+            </h1>
+            <p class="associationDescription">{{ association.getAssociation.description }}</p>
         </div>
     </div>
 </section>

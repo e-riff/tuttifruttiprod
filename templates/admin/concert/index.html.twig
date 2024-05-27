@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des concerts{% endblock %}
+
+{% block body %}
+    <main class="adminItemIndex container-lg mt-2">
+
+        <h1>Liste des concerts</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom du client</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Date</th>
+                <th>Informations supplémentaires</th>
+                <th>Confirmé ?</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for concert in concerts %}
+                <tr>
+                    <td>{{ concert.clientName }}</td>
+                    <td>{{ concert.address }}</td>
+                    <td>{{ concert.zipCode }}</td>
+                    <td>{{ concert.city }}</td>
+                    <td>{{ concert.date ? concert.date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ concert.otherInformations }}</td>
+                    <td>{{ concert.isConfirmed ? 'Oui' : 'Non' }}</td>
+                    <td class="d-flex flex-row">
+                        <a class="btn btn-warning" href="{{ path('admin_concert_edit', {'id': concert.id}) }}">modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Aucun enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" href="{{ path('admin_concert_new') }}">Ajouter un concert</a>
+    </main>
+{% endblock %}
