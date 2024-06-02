@@ -52,7 +52,7 @@ class ConcertController extends AbstractController
             return $this->redirectToRoute('admin_concert_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/concert/edit.html.twig', [
+        return $this->render('admin/concert/edit.html.twig', [
             'concert' => $concert,
             'form' => $form,
         ]);

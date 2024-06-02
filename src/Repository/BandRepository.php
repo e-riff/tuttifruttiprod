@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Band;
-use App\Entity\BandPriceEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

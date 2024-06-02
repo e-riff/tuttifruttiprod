@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Band;
 use App\Entity\Concert;
+use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -53,7 +54,7 @@ class ConcertType extends AbstractType
                 'html5' => true,
                 'attr' => [
                     'class' => 'form-control col-md-3',
-                    'min' => (new \DateTime())->format('Y-m-d\TH:i'),
+                    'min' => (new DateTime())->format('Y-m-d\TH:i'),
                 ],
                 'constraints' => [
                     new GreaterThanOrEqual([

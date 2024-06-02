@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/musicstyle', name:'musicStyle_')]
+#[Route('/musicstyle', name: 'musicStyle_')]
 class MusicStyleController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
@@ -36,7 +36,7 @@ class MusicStyleController extends AbstractController
             return $this->redirectToRoute('admin_musicStyle_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/music_style/new.html.twig', [
+        return $this->render('admin/music_style/new.html.twig', [
             'music_style' => $musicStyle,
             'form' => $form,
         ]);
@@ -51,8 +51,12 @@ class MusicStyleController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, SluggerInterface $slugger, MusicStyle $musicStyle, MusicStyleRepository $musicStyleRepository): Response
-    {
+    public function edit(
+        Request $request,
+        SluggerInterface $slugger,
+        MusicStyle $musicStyle,
+        MusicStyleRepository $musicStyleRepository
+    ): Response {
         $form = $this->createForm(MusicStyleType::class, $musicStyle);
         $form->handleRequest($request);
 
@@ -63,16 +67,19 @@ class MusicStyleController extends AbstractController
             return $this->redirectToRoute('admin_musicStyle_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/music_style/edit.html.twig', [
+        return $this->render('admin/music_style/edit.html.twig', [
             'music_style' => $musicStyle,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, MusicStyle $musicStyle, MusicStyleRepository $musicStyleRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$musicStyle->getId(), $request->request->get('_token'))) {
+    public function delete(
+        Request $request,
+        MusicStyle $musicStyle,
+        MusicStyleRepository $musicStyleRepository
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $musicStyle->getId(), $request->request->get('_token'))) {
             $musicStyleRepository->remove($musicStyle, true);
         }
 

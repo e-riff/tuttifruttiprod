@@ -2,12 +2,8 @@
 
 namespace App\Repository;
 
-use App\Entity\Band;
 use App\Entity\Media;
-use App\Entity\MediaTypeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
