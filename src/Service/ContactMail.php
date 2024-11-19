@@ -7,12 +7,12 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Mailer\MailerInterface;
 
-class ContactMail
+readonly class ContactMail
 {
     public function __construct(
-        private readonly MailerInterface $mailer,
-        private readonly UserRepository $userRepository,
-        private readonly ParameterBagInterface $parameterBag
+        private MailerInterface       $mailer,
+        private UserRepository        $userRepository,
+        private ParameterBagInterface $parameterBag
     ) {
     }
 

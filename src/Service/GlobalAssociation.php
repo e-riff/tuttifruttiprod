@@ -4,9 +4,9 @@ namespace App\Service;
 
 use App\Repository\AssociationRepository;
 
-class GlobalAssociation
+readonly class GlobalAssociation
 {
-    public function __construct(private readonly AssociationRepository $associationRepository)
+    public function __construct(private AssociationRepository $associationRepository)
     {
     }
     public function getAssociation() {

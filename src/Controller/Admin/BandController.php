@@ -13,7 +13,6 @@ use App\Form\MediaYoutubeType;
 use App\Repository\BandRepository;
 use App\Repository\ConcertRepository;
 use App\Repository\MediaRepository;
-use App\Repository\MediaTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +44,7 @@ class BandController extends AbstractController
             return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/band/new.html.twig', [
+        return $this->render('admin/band/new.html.twig', [
             'band' => $band,
             'form' => $form,
         ]);
@@ -65,8 +64,7 @@ class BandController extends AbstractController
         SluggerInterface $slugger,
         Band $band,
         BandRepository $bandRepository
-    ): Response
-    {
+    ): Response {
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
 
@@ -85,12 +83,11 @@ class BandController extends AbstractController
 
     #[Route('/{id}/media', name: 'media', methods: ['GET', 'POST'])]
     public function media(
-        Request          $request,
-        Band             $band,
-        MediaRepository  $mediaRepository,
-    ): Response
-    {
-        $media= new Media();
+        Request $request,
+        Band $band,
+        MediaRepository $mediaRepository,
+    ): Response {
+        $media = new Media();
         $youtubeForm = $this->createForm(MediaYoutubeType::class, $media);
         $soundcloudForm = $this->createForm(MediaSoundcloudType::class, $media);
         $mediaLinkForm = $this->createForm(MediaLinkType::class, $media);
@@ -163,11 +160,9 @@ class BandController extends AbstractController
 
     #[Route('/{band}/concert', name: 'concert', methods: ['GET', 'POST'])]
     public function concert(
-        Request          $request,
-        Band             $band,
+        Band $band,
         ConcertRepository $concertRepository,
-    ): Response
-    {
+    ): Response {
         return $this->render('admin/band/concert.html.twig', [
             'band' => $band,
             'concerts' => $concertRepository->findBy(['band' => $band]),

@@ -7,9 +7,7 @@ use App\Repository\BandRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Vich\UploaderBundle\FileAbstraction\ReplacingFile;
 
 class MusicianFixtures extends Fixture implements DependentFixtureInterface
