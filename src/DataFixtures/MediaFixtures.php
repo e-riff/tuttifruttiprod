@@ -29,7 +29,6 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
             $media->setMediaType(MediaTypeEnum::getType($mediaInfo['type']));
             $mediaBand = $this->bandRepository->findOneBy(['slug' => $mediaInfo['band']]);
             $media->setBand($mediaBand);
-            //$media->setIsActive($mediainfo['is_active']);
             $manager->persist($media);
         }
 
