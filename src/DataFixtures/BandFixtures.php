@@ -28,30 +28,31 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
         $csv = $this->decoder->decode(file_get_contents($filePath), 'csv');
 
         foreach ($csv as $bandInfo) {
+            $slug = $this->slugger->slug($bandInfo['name'])->lower();
             self::$bandIndex++;
             $band = new Band();
             $band->setName($bandInfo['name']);
             $band->setIsActive($bandInfo['is_active']);
-            $band->setSlug($this->slugger->slug($bandInfo['name']));
+            $band->setSlug($slug);
             $band->setTagline($bandInfo['tagline']);
             $band->setDescription($bandInfo["description"]);
             $band->setPriceCategory(BandPriceEnum::getType($bandInfo['price_category']));
 
-            $file = __DIR__ . "/data/bands/" . $this->slugger->slug($bandInfo['name']) . '.webp';
+            $file = __DIR__ . "/data/bands/" . $slug . '.webp';
 
             if (file_exists($file)) {
                 if (
                     copy($file, $this->containerBag->get("upload_directory") .
-                        "images/band/" . $this->slugger->slug($bandInfo['name']) . '.webp')
+                        "images/band/" . $slug . '.webp')
                 ) {
-                    $band->setPicture($this->slugger->slug($bandInfo['name']) . '.webp');
+                    $band->setPicture($slug . '.webp');
                 }
             } else {
                 if (
                     copy(__DIR__ . "/data/bands/band.webp", $this->containerBag->get("upload_directory") .
-                        "images/band/" . $this->slugger->slug($bandInfo['name']) . '.webp')
+                        "images/band/" . $slug . '.webp')
                 ) {
-                    $band->setPicture($this->slugger->slug($bandInfo['name']) . '.webp');
+                    $band->setPicture($slug . '.webp');
                 }
             }
 

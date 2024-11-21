@@ -28,9 +28,10 @@ class EventFixtures extends Fixture
             $event = new Event();
             $event->setName($style['name']);
 
-            $event->setSlug($this->slugger->slug($style['name']));
-            $this->addReference($event->getSlug(), $event);
-            self::$eventList[] = $event->getSlug();
+            $slug = $this->slugger->slug(mb_strtolower($style['name']));
+            $event->setSlug($slug);
+            $this->addReference($slug, $event);
+            self::$eventList[] = $slug;
 
             $manager->persist($event);
         }
