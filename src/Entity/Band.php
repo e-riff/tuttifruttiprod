@@ -81,6 +81,10 @@ class Band
     #[ORM\Column(type: "string", nullable: true, enumType: BandPriceEnum::class)]
     private ?BandPriceEnum $priceCategory = null;
 
+    #[ORM\Column(length: 7, options: ['default' => '#000000'])]
+    #[Assert\CssColor]
+    private ?string $color = '#000000';
+
     public function __construct()
     {
         $this->concerts = new ArrayCollection();
@@ -369,6 +373,18 @@ class Band
     public function setPriceCategory(?BandPriceEnum $price): self
     {
         $this->priceCategory = $price;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
 
         return $this;
     }

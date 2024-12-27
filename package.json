@@ -26,9 +26,12 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@fullcalendar/core": "^6.1.13",
-        "@fullcalendar/list": "^6.1.13",
+        "@fullcalendar/bootstrap5": "^6.1.15",
+        "@fullcalendar/core": "^6.1.15",
+        "@fullcalendar/interaction": "^6.1.15",
+        "@fullcalendar/list": "^6.1.15",
+        "@fullcalendar/moment-timezone": "^6.1.15",
         "@popperjs/core": "^2.11.6",
-        "bootstrap-icons": "^1.10.3"
+        "bootstrap-icons": "^1.11.3"
     }
 }

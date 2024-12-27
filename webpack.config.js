@@ -11,13 +11,23 @@ Encore
     .setOutputPath('public/build/')
 
     .copyFiles({
-            from: './assets/images',
+        from: './assets/images',
             // optional target path, relative to the output dir
-            to: 'images/[path][name].[ext]'
+        to: 'images/[path][name].[ext]'
     })
 
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    .setOutputPath('public/build/')
+    // IMPORTANT : on indique l'URL complète vers le dev-server
+    .setPublicPath('http://localhost:8080/build')
+    .setManifestKeyPrefix('build')
+    // ...
+    .configureDevServerOptions(options => {
+        options.hot = true;       // hot reload
+        options.liveReload = true; // ou false si vous ne voulez pas recharger la page
+        options.allowedHosts = 'all';
+        // ...
+    })
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
 
