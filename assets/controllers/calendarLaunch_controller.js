@@ -18,7 +18,6 @@ export default class extends Controller {
             locale: 'fr',
             events: '/concerts/confirmed',
             eventContent: function (arg) {
-                console.log(arg.event.extendedProps);
                 let url = arg.event.extendedProps.url;
                 let bandName = arg.event.title;
                 return {
@@ -33,7 +32,6 @@ export default class extends Controller {
                 right: 'listYear'
             },
         });
-
         calendar.render();
     }
 }

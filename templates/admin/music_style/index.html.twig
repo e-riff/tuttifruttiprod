@@ -5,12 +5,11 @@
 {% block body %}
 <main class="adminItemIndex container-lg">
 
-    <div class="d-flex justify-content-between">
         <h1>Liste des styles</h1>
-        <div>
+    <div class="d-flex justify-content-end gap-2  mb-2">
             <a class="btn btn-primary" href="{{ path('admin_musicStyle_new') }}"><i class="bi bi-plus-circle"></i> Ajouter</a>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
         </div>
-    </div>
 
     <table class="table">
         <tbody>
@@ -23,7 +22,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">Aucun style disponible</td>
+                <td colspan="3">Aucun style disponible</td>
             </tr>
         {% endfor %}
         </tbody>

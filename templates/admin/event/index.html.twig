@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types d'événement{% endblock %}
+
+{% block body %}
+<main class="adminForms container-md">
+<h1>Types d'événement</h1>
+    <div class="d-flex justify-content-end gap-2  mb-2">
+        <a class="btn btn-primary"  href="{{ path('admin_event_new') }}">Créer un événement</>
+        <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>{{ event.slug }}</td>
+                <td>
+                    <a href="{{ path('admin_event_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('admin_event_edit', {'id': event.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun style de musique</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}

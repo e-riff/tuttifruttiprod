@@ -26,8 +26,10 @@ Encore
         options.hot = true;       // hot reload
         options.liveReload = true; // ou false si vous ne voulez pas recharger la page
         options.allowedHosts = 'all';
-        // ...
-    })
+        // options.host = '0.0.0.0';
+        // options.port = 8080;
+        // options.firewall = false;
+        })
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
 

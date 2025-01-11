@@ -28,7 +28,8 @@ class ConcertFullCalendarNormalizer implements NormalizerInterface
         }
         $completeCityName = implode(' ', $parts);
         $titleParts = array_filter([$bandName, $completeCityName]); // filtrer les vides
-        $title = implode(' - ', $titleParts); // On concatène éventuellement " - $completeCityName" seulement si non vide
+        // On concatène " - $completeCityName" seulement si non vide
+        $title = implode(' - ', $titleParts);
 
         $start = $object->getDate()->format('Y-m-d\TH:i:s');
         $end = (clone $object->getDate())->setTime(23, 59, 59)->format('Y-m-d\TH:i:s');
