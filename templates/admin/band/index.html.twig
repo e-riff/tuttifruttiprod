@@ -20,7 +20,6 @@
                 <th>actif ?</th>
                 <th>Info Flash</th>
                 <th>Accroche</th>
-                <th>Slug</th>
                 <th></th>
             </tr>
             </thead>
@@ -29,10 +28,9 @@
                 <tr>
                     <td>{{ band.name }}</td>
                     <td class="largeContent">{{ band.description }}</td>
-                    <td>{{ band.isActive ? 'Yes' : 'No' }}</td>
+                    <td>{{ band.isActive ? 'Actif' : 'Inactif' }}</td>
                     <td class="largeContent">{{ band.flashInformation }}</td>
                     <td class="largeContent">{{ band.tagline }}</td>
-                    <td>{{ band.slug }}</td>
                     <td class="d-flex flex-row">
                         <a class="btn btn-primary" href="{{ path('band_show', {'slug': band.slug}) }}" target="_blank">consulter</a>
                         <a class="btn btn-warning" href="{{ path('admin_band_edit', {'id': band.id}) }}">modifier</a>

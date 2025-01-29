@@ -3,14 +3,16 @@
 {% block title %}Edit Event{% endblock %}
 
 {% block body %}
-<main class="adminForms container-md">
+    <main class="adminForms container-lg">
+        <h1>Modifier <span class="text-primary">{{ event.name }}</span></h1>
 
-<h1>Modification de l'événement</h1>
+        {{ include('admin/event/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
 
-    {{ include('admin/event/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="d-flex justify-content-start">
+            <a class="btn btn-primary me-2" href="{{ path('admin_event_index') }}">Retour à la liste</a>
+            {{ include('admin/event/_delete_form.html.twig') }}
+        </div>
 
-    <a href="{{ path('admin_event_index') }}">back to list</a>
-
-    {{ include('admin/event/_delete_form.html.twig') }}
-</main>
+        {{ include('admin/event/_delete_form.html.twig') }}
+    </main>
 {% endblock %}

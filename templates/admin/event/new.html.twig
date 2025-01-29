@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Event{% endblock %}
+{% block title %}Nouvel événement{% endblock %}
 
 {% block body %}
-    <h1>Create new Event</h1>
+
+<main class="adminForms container-md">
+    <h1 class="text-center"><span class="text-primary">Ajout d'un événement</span></h1>
 
     {{ include('admin/event/_form.html.twig') }}
 
-    <a href="{{ path('admin_event_index') }}">back to list</a>
+    <div class="mt-2">
+        <a class="btn btn-primary me-1" href="{{ path('admin_event_index') }}">retour aux concerts </a>
+    </div>
+</main>
 {% endblock %}

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/event', name: 'event_')]
 final class EventController extends AbstractController
@@ -23,7 +24,7 @@ final class EventController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
@@ -39,14 +40,6 @@ final class EventController extends AbstractController
         return $this->render('admin/event/new.html.twig', [
             'event' => $event,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Event $event): Response
-    {
-        return $this->render('admin/event/show.html.twig', [
-            'event' => $event,
         ]);
     }
 
