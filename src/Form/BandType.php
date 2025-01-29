@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Band;
 use App\Entity\BandPriceEnum;
 use App\Entity\Event;
+use App\Entity\Musician;
 use App\Entity\MusicStyle;
+use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -70,9 +72,28 @@ class BandType extends AbstractType
                 "required" => false,
                 'expanded' => true,
                 'multiple' => true,
-                'choice_label' => function (MusicStyle $musicStyle) {
-                    return $musicStyle->getName();
-                }
+                'choice_label' => 'name'
+            ])
+            ->add('leader', EntityType::class, [
+                'class' => Musician::class,
+                'choice_label' => function (Musician $musician) {
+                    return "{$musician->getLastname()} {$musician->getFirstname()}";
+                },
+                'required' => false,
+                'placeholder' => 'Sélectionnez un leader',
+                'multiple' => false,
+                'expanded' => false,
+            ])
+            ->add('musicians', EntityType::class, [
+                'label' => "Musiciens",
+                'class' => Musician::class,
+                'choice_label' => function (Musician $musician) {
+                    return "{$musician->getLastname()} {$musician->getFirstname()}";
+                },
+                'required' => false,
+                'placeholder' => 'Sélectionnez un leader',
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('pictureFile', VichImageType::class, [
                 'label' => "Photo",

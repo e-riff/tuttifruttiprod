@@ -40,14 +40,6 @@ class MusicianController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Musician $musician): Response
-    {
-        return $this->render('admin/musician/show.html.twig', [
-            'musician' => $musician,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Musician $musician, MusicianRepository $musicianRepository): Response
     {

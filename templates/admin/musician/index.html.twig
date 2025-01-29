@@ -31,7 +31,6 @@
                     <td>{{ musician.phone }}</td>
                     <td>{{ musician.isActive ? 'Oui' : 'Non' }}</td>
                     <td class="d-flex flex-row">
-                        <a class="btn btn-primary" href="{{ path('admin_musician_show', {'id': musician.id}) }}">Consulter</a>
                         <a class="btn btn-warning" href="{{ path('admin_musician_edit', {'id': musician.id}) }}">Modifier</a>
                     </td>
                 </tr>

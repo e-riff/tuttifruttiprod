@@ -59,9 +59,16 @@ class Musician
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
+    /**
+     * @var Collection<int, Band>
+     */
+    #[ORM\OneToMany(mappedBy: 'leader', targetEntity: Band::class)]
+    private Collection $leadingBands;
+
     public function __construct()
     {
         $this->bands = new ArrayCollection();
+        $this->leadingBands = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,6 +196,36 @@ class Musician
     public function setUpdatedAt(?DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Band>
+     */
+    public function getLeadingBands(): Collection
+    {
+        return $this->leadingBands;
+    }
+
+    public function addLeadingBand(Band $leadingBand): static
+    {
+        if (!$this->leadingBands->contains($leadingBand)) {
+            $this->leadingBands->add($leadingBand);
+            $leadingBand->setLeader($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeadingBand(Band $leadingBand): static
+    {
+        if ($this->leadingBands->removeElement($leadingBand)) {
+            // set the owning side to null (unless already changed)
+            if ($leadingBand->getLeader() === $this) {
+                $leadingBand->setLeader(null);
+            }
+        }
 
         return $this;
     }

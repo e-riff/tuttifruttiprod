@@ -85,6 +85,9 @@ class Band
     #[Assert\CssColor]
     private ?string $color = '#000000';
 
+    #[ORM\ManyToOne(inversedBy: 'leadingBands')]
+    private ?Musician $leader = null;
+
     public function __construct()
     {
         $this->concerts = new ArrayCollection();
@@ -349,6 +352,9 @@ class Band
         if ($this->musicians->removeElement($musician)) {
             $musician->removeBand($this);
         }
+        if ($this->leader === $musician) {
+            $this->leader = null;
+        }
 
         return $this;
     }
@@ -385,6 +391,22 @@ class Band
     public function setColor(?string $color): static
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getLeader(): ?Musician
+    {
+        return $this->leader;
+    }
+
+    public function setLeader(?Musician $leader): static
+    {
+        if ($leader && !$this->musicians->contains($leader)) {
+            $this->addMusician($leader);
+        }
+
+        $this->leader = $leader;
 
         return $this;
     }

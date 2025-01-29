@@ -47,7 +47,7 @@ class BandController extends AbstractController
 
     #[Route('/show/{slug}', name: 'show')]
     public function show(
-        MailerService $contactMail,
+        MailerService $mailer,
         Request       $request,
         Band          $band,
     ): Response {
@@ -55,8 +55,7 @@ class BandController extends AbstractController
         $contactForm->handleRequest($request);
 
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
-            // data is an array with "name", "phone", "email", and "message" keys
-            $contactMail->sendContactMail($contactForm->getData());
+            $mailer->sendContactMailForBand($band, $contactForm->getData());
             $this->addFlash("success", "Message envoyé avec succès");
             return $this->redirectToRoute('band_show', ['slug' => $band->getSlug()], Response::HTTP_SEE_OTHER);
         }
