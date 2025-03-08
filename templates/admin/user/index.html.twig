@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des administrateurs{% endblock %}
+
+{% block body %}
+    <main class="adminItemIndex container-lg">
+
+        <h1>Liste des administrateurs</h1>
+        <div class="d-flex justify-content-end gap-2  mb-2">
+            <a class="btn btn-primary" href="{{ path('admin_user_new') }}">Ajouter un administrateur</a>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
+        </div>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td class="largeContent">{{ user.lastname }} {{ user.firstname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td class="largeContent">{{ user.roles|join(' | ') }}</td>
+                    <td class="d-flex flex-row">
+                        {# <a class="btn btn-warning" href="{{ path('admin_band_edit', {'id': band.id}) }}">modifier</a> #}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">Aucun administrateur enregistré</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </main>
+{% endblock %}
