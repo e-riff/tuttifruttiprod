@@ -30,7 +30,7 @@
                     <td>{{ user.email }}</td>
                     <td class="largeContent">{{ user.roles|join(' | ') }}</td>
                     <td class="d-flex flex-row">
-                        {# <a class="btn btn-warning" href="{{ path('admin_band_edit', {'id': band.id}) }}">modifier</a> #}
+                        <a class="btn btn-warning" href="{{ path('admin_user_resend_invite', {'user': user.id}) }}">renvoyer l'invitation</a>
                     </td>
                 </tr>
             {% else %}
