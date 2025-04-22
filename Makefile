@@ -10,7 +10,6 @@ CONSOLE           := bin/console
 YARN              := yarn
 NODE_MODULES      := node_modules
 BUILD_DIR         := public/build
-CKEDITOR_VERSION  := 4.22.0
 
 .PHONY: help install composer-install migrations assets webpack \
         symlinks cache clear-cache warmup deploy
@@ -48,18 +47,17 @@ migrations:
 	  --no-interaction \
 	  --env=prod
 
-# – Assets (Webpack Encore + CKEditor)
+# – Assets (Webpack Encore + CKEditor via FOSCKEditorBundle)
 assets:
 	@echo "→ Installation des dépendances JS…"
 	$(YARN) install --frozen-lockfile
-	@echo "→ Ajout CKEditor v$(CKEDITOR_VERSION) (pour éviter le bug/a­vertissement)…"
-	# style Yoda : valeur à gauche dans la condition
-	if [ "$(CKEDITOR_VERSION)" = "" ]; then \
-	  echo "Erreur : CKEDITOR_VERSION non renseignée" >&2; exit 1; \
-	fi
-	$(YARN) add --exact ckeditor4@$(CKEDITOR_VERSION)
+
+	@echo "→ Installation CKEditor v4.22.1 via le bundle…"
+	$(PHP) $(CONSOLE) ckeditor:install --tag=4.22.1
+
 	@echo "→ Build Webpack Encore (prod)…"
 	$(YARN) encore production
+
 
 # – Symlinks d’assets
 symlinks:
