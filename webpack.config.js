@@ -1,108 +1,55 @@
 const Encore = require('@symfony/webpack-encore');
 
-// Manually configure the runtime environment if not already configured yet by the "encore" command.
-// It's useful when you use tools that rely on webpack.config.js file.
+// Configure toujours l’environnement (utile en CI ou production)
 if (!Encore.isRuntimeEnvironmentConfigured()) {
-    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'production');
 }
 
 Encore
-    // directory where compiled assets will be stored
+    // 1) Dossier de sortie
     .setOutputPath('public/build/')
+    // 2) Chemin public utilisé par Apache/nginx
+    .setPublicPath('/build')
 
+    // 3) Copie tes images/static avant build
     .copyFiles({
         from: './assets/images',
-            // optional target path, relative to the output dir
         to: 'images/[path][name].[ext]'
     })
 
-    // public path used by the web server to access the output path
-    .setOutputPath('public/build/')
-    // IMPORTANT : on indique l'URL complète vers le dev-server
-    .setPublicPath('http://localhost:8080/build')
-    .setManifestKeyPrefix('build')
-    // ...
-    .configureDevServerOptions(options => {
-        options.hot = true;       // hot reload
-        options.liveReload = true; // ou false si vous ne voulez pas recharger la page
-        options.allowedHosts = 'all';
-        // options.host = '0.0.0.0';
-        // options.port = 8080;
-        // options.firewall = false;
-        })
-    // only needed for CDN's or subdirectory deploy
-    //.setManifestKeyPrefix('build/')
-
-    /*
-     * ENTRY CONFIG
-     *
-     * Each entry will result in one JavaScript file (e.g. app.js)
-     * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
-     */
+    // 4) Ton entry principale
     .addEntry('app', './assets/app.js')
 
-    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    // 5) Symfony UX Stimulus (si besoin)
     .enableStimulusBridge('./assets/controllers.json')
 
-    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+    // 6) Optimisations : split des chunks + runtime séparé
     .splitEntryChunks()
-
-    // will require an extra script tag for runtime.js
-    // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
 
-    /*
-     * FEATURE CONFIG
-     *
-     * Enable & configure other features below. For a full
-     * list of features, see:
-     * https://symfony.com/doc/current/frontend.html#adding-more-features
-     */
+    // 7) Nettoyage du dossier public/build avant chaque build
     .cleanupOutputBeforeBuild()
+
+    // 8) Notifications desktop (optionnel)
     .enableBuildNotifications()
+
+    // 9) Sourcemaps uniquement hors production
     .enableSourceMaps(!Encore.isProduction())
-    // enables hashed filenames (e.g. app.abc123.css)
+
+    // 10) Hash dans le nom de fichier en production (app.abc123.css)
     .enableVersioning(Encore.isProduction())
 
-    // configure Babel
-    // .configureBabel((config) => {
-    //     config.plugins.push('@babel/a-babel-plugin');
-    // })
-
-    // enables and configure @babel/preset-env polyfills
+    // 11) Babel : polyfills “usage” + core-js v3
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
     })
 
-    // enables Sass/SCSS support
+    // 12) Support SCSS/Sass
     .enableSassLoader()
 
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
-
-    // uncomment if you use React
-    //.enableReactPreset()
-
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
-
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+// … tu peux décommenter si tu utilises TS/React/jQuery, etc.
 ;
 
-
-// module.exports = Encore.getWebpackConfig();
-const fullConfig = Encore.getWebpackConfig();
-fullConfig.devServer = {
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
-    },
-    watchFiles: {
-        paths: ['templates/**/*.html.twig'],
-    },
-};
-module.exports = fullConfig;
+// Exporte la config finale
+module.exports = Encore.getWebpackConfig();
