@@ -25,13 +25,6 @@ class HomeController extends AbstractController
         $contactForm = $this->createForm(MessageType::class);
         $contactForm->handleRequest($request);
 
-        $email = (new Email())
-            ->from('contact@jardin-sonore.fr')
-            ->to('emeric.riff@gmail.com')
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!');
-        $mailer->send($email);
-
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             $contactMail->sendContactMail($contactForm->getData());
             $this->addFlash("success", "Message envoyé avec succès");
