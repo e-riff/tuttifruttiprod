@@ -53,7 +53,7 @@ assets:
 	$(YARN) install --frozen-lockfile
 
 	@echo "→ Installation CKEditor v4.22.1 via le bundle…"
-	$(PHP) $(CONSOLE) ckeditor:install --tag=4.22.1
+	$(PHP) $(CONSOLE) ckeditor:install --clear=skip --tag=4.22.1
 
 	@echo "→ Build Webpack Encore (prod)…"
 	$(YARN) encore production
