@@ -28,7 +28,6 @@ class MusicianType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'sanitize_html' => true,
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
