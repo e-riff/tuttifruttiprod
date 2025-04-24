@@ -1,6 +1,6 @@
-<h1>Bonjour {{ admin.firstname }}</h1>
+<h1>Bonjour {{ user.firstname }}</h1>
 
-<p> Vous avez reçu un message de l'utilisateur suivant :</p>
+<p> Vous avez reçu un message de l'utilisateur :</p>
 <ul>
     <li>
         {{ dataMessage.name }}
@@ -12,5 +12,11 @@
         {{ dataMessage.email }}
     </li>
 </ul>
+
+{% if band is defined %}
+<p>Au sujet du groupe : {{ band.name }}</p>
+{% endif %}
+
+Message :
 
 {{ dataMessage.message|raw }}

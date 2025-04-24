@@ -1,29 +1,36 @@
 import {Controller} from '@hotwired/stimulus';
 import {Calendar} from '@fullcalendar/core';
-import ListPlugin from '@fullcalendar/list';
+import listPlugin from '@fullcalendar/list';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import allLocales from '@fullcalendar/core/locales-all';
 
 export default class extends Controller {
-
-    connect() {
+    connect()
+    {
         const calendar = new Calendar(this.element, {
-            plugins: [ListPlugin],
-            initialView: 'listYear',
-            events: [
-                {
-                    title: 'Meeting',
-                    start: '2024-08-12T14:30:00',
-                    extendedProps: {
-                        status: 'done'
-                    }
-                },
-                {
-                    title: 'Birthday Party',
-                    start: '2024-08-13T07:00:00',
-                    backgroundColor: 'green',
-                    borderColor: 'green'
-                }
+            plugins: [
+                listPlugin,
+                bootstrap5Plugin
             ],
-
+            initialView: 'listYear',
+            themeSystem: 'bootstrap5',
+            locales: allLocales,
+            locale: 'fr',
+            events: '/concerts/confirmed',
+            eventContent: function (arg) {
+                let url = arg.event.extendedProps.url;
+                let bandName = arg.event.title;
+                return {
+                    html: `<a href="${url}" target="_blank">
+                          ${bandName}
+                        </a>`
+                };
+            },
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'listYear'
+            },
         });
         calendar.render();
     }

@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
     <main class="login container-fluid container-lg d-flex justify-content-center">
-
 
         {% if error %}
             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -17,13 +16,16 @@
             </div>
             <div class="form-floating mb-3">
                 <input class="form-control" type="password" id="password" name="_password">
-                <label class="form-label" for="password">Password:</label>
+                <label class="form-label" for="password">Mot de passe:</label>
             </div>
             <input type="hidden" name="_target_path" value="{{ path('admin_board') }}">
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <button class="btn btn-primary w-50" type="submit">login</button>
+            <button class="btn btn-primary w-50" type="submit">Connexion</button>
+            <div class="text-center mt-3">
+                <a  class="text-muted fw-light" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+            </div>
         </form>
     </main>
 

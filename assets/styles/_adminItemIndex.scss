@@ -1,4 +1,5 @@
-.adminItemIndex {
+main.adminItemIndex {
+  padding-top: $spacer;
   tbody > tr {
     min-height: 5rem;
     td:not(:last-child) {

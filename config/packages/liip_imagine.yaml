@@ -4,7 +4,7 @@ liip_imagine:
     driver: "gd"
     default_filter_set_settings:
         format: webp
-        quality: 75
+        quality: 90
     twig:
         mode: lazy
     filter_sets:
@@ -12,8 +12,8 @@ liip_imagine:
             quality: 100
             filters:
                 fixed:
-                    width: 1200
-                    height: 900
+                    width: 1400
+                    height: 950
         square_band:
             filters:
                 thumbnail:

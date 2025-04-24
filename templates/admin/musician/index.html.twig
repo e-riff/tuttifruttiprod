@@ -4,13 +4,12 @@
 
 {% block body %}
     <main class="adminItemIndex container-lg">
-
-        <div class="d-flex justify-content-between">
-            <h1>Liste des musiciens</h1>
-            <div>
+        <h1>Liste des musiciens</h1>
+        <div class="d-flex justify-content-end gap-2  mb-2">
             <a class="btn btn-primary" href="{{ path('admin_musician_new') }}"><i class="bi bi-plus-circle"></i> ajouter</a>
-            </div>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
         </div>
+
 
         <table class="table">
             <thead>
@@ -32,13 +31,12 @@
                     <td>{{ musician.phone }}</td>
                     <td>{{ musician.isActive ? 'Oui' : 'Non' }}</td>
                     <td class="d-flex flex-row">
-                        <a class="btn btn-primary" href="{{ path('admin_musician_show', {'id': musician.id}) }}">Consulter</a>
                         <a class="btn btn-warning" href="{{ path('admin_musician_edit', {'id': musician.id}) }}">Modifier</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="9">no records found</td>
+                    <td colspan="6">no records found</td>
                 </tr>
             {% endfor %}
             </tbody>

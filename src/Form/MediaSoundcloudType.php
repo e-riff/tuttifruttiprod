@@ -22,7 +22,7 @@ class MediaSoundcloudType extends AbstractType
                 'label' => "ID de la piste audio",
                 'attr' => ['placeholder' => "exemple : 116512325"],
                 'row_attr' => ['class' => 'p-2'],
-                'purify_html' => true,
+                'sanitize_html' => true,
             ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],

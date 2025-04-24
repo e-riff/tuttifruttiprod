@@ -4,9 +4,11 @@
 
 {% block body %}
     <main class="adminItemIndex container-lg mt-2">
-
         <h1>Liste des concerts</h1>
-
+        <div class="d-flex justify-content-end gap-2  mb-2">
+            <a class="btn btn-primary" href="{{ path('admin_concert_new') }}">Ajouter un concert</a>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
+        </div>
         <table class="table">
             <thead>
             <tr>
@@ -41,7 +43,5 @@
             {% endfor %}
             </tbody>
         </table>
-
-        <a class="btn btn-primary" href="{{ path('admin_concert_new') }}">Ajouter un concert</a>
     </main>
 {% endblock %}

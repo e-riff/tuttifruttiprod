@@ -18,9 +18,9 @@ class AssociationFixtures extends Fixture
         $association->setCreatedAt(new DateTime('21-04-2014'));
         $association->setAddress('Le Mazot');
         $association->setZipCode('42140');
-        $association->setCity('La Gimonde');
+        $association->setCity('La Gimond');
         $association->setSiret('81126403500015');
-        $association->setDescription("Caméléon Production 42 est un groupement informel de musiciens professionnels liés par la même passion : animer vos soirées et moments festifs en leur donnant une vraie touche d'originalité, de convivialité et un goût d'authenticité 100% live qui feront de votre évènement un moment pas comme les autres !
+        $association->setDescription("Panel Production 42 est un groupement informel de musiciens professionnels liés par la même passion : animer vos soirées et moments festifs en leur donnant une vraie touche d'originalité, de convivialité et un goût d'authenticité 100% live qui feront de votre évènement un moment pas comme les autres !
         Salles de spectacles, communes, associations, particuliers, n'hésitez plus !");
         $manager->persist($association);
 

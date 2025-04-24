@@ -3,30 +3,42 @@
 {% block title %}Liste des styles de musique{% endblock %}
 
 {% block body %}
-<main class="adminItemIndex container-lg">
+    <main class="adminItemIndex container-lg">
 
-    <div class="d-flex justify-content-between">
         <h1>Liste des styles</h1>
-        <div>
-            <a class="btn btn-primary" href="{{ path('admin_musicStyle_new') }}"><i class="bi bi-plus-circle"></i> Ajouter</a>
+        <div class="d-flex justify-content-end gap-2  mb-2">
+            <a class="btn btn-primary" href="{{ path('admin_musicStyle_new') }}"><i class="bi bi-plus-circle"></i>
+                Ajouter</a>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
         </div>
-    </div>
 
-    <table class="table">
-        <tbody>
-        {% for music_style in music_styles %}
+        <table class="table">
+            <thead>
             <tr>
-                <td>{{ music_style.name }}</td>
-                <td>
-                    <a class="btn btn-primary" href="{{ path('admin_musicStyle_edit', {'id': music_style.id}) }}">Gerer les groupes - modifier</a>
-                </td>
+                <th>Nom</th>
+                <th>Groupes</th>
+                <th></th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">Aucun style disponible</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+            </thead>
+            <tbody>
+            {% for music_style in music_styles %}
+                <tr>
+                    <td>{{ music_style.name }}</td>
+                    <td>
+                        {% for band in music_style.bands %}
+                            {{ band.name }}{{ loop.last ? '' : ',' }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" href="{{ path('admin_musicStyle_edit', {'id': music_style.id}) }}">modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun style disponible</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
 {% endblock %}

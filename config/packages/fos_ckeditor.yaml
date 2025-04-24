@@ -8,10 +8,12 @@ fos_ck_editor:
     input_sync: true
     configs:
         my_config:
+            versionCheck: false
             toolbar: basic
         contentsCss:
             - '/build/admin.css'
         light:
+            versionCheck: false
             toolbar:
                 - name: light
                   uiColor: ""#FFFFFF"

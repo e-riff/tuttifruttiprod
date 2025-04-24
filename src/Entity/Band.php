@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -55,6 +56,7 @@ class Band
     private Collection $medias;
 
     #[ORM\Column(length: 255)]
+    #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -78,6 +80,13 @@ class Band
 
     #[ORM\Column(type: "string", nullable: true, enumType: BandPriceEnum::class)]
     private ?BandPriceEnum $priceCategory = null;
+
+    #[ORM\Column(length: 7, options: ['default' => '#000000'])]
+    #[Assert\CssColor]
+    private ?string $color = '#000000';
+
+    #[ORM\ManyToOne(inversedBy: 'leadingBands')]
+    private ?Musician $leader = null;
 
     public function __construct()
     {
@@ -343,6 +352,9 @@ class Band
         if ($this->musicians->removeElement($musician)) {
             $musician->removeBand($this);
         }
+        if ($this->leader === $musician) {
+            $this->leader = null;
+        }
 
         return $this;
     }
@@ -367,6 +379,34 @@ class Band
     public function setPriceCategory(?BandPriceEnum $price): self
     {
         $this->priceCategory = $price;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getLeader(): ?Musician
+    {
+        return $this->leader;
+    }
+
+    public function setLeader(?Musician $leader): static
+    {
+        if ($leader && !$this->musicians->contains($leader)) {
+            $this->addMusician($leader);
+        }
+
+        $this->leader = $leader;
 
         return $this;
     }

@@ -10,7 +10,7 @@
             </h1>
             <p>
                 {% for event in band.events %}
-                    {{ event.name|capitalize }}{{ loop.last ? "" : " ," }}
+                    {{ event.name|capitalize }}{{ loop.last ? "" : ", " }}
                 {% endfor %}
             </p>
             <h2 class="h3 text-primary ">{{ band.tagline }}</h2>

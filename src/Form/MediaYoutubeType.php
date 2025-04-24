@@ -22,7 +22,7 @@ class MediaYoutubeType extends AbstractType
                 'label' => "Lien ou ID de la video",
                 'attr' => ['placeholder' =>  "'5Afzed45' - https://www.youtube.com/watch?v=5Afzed45"],
                 'row_attr' => ['class' => 'p-2'],
-                'purify_html' => true,
+                'sanitize_html' => true,
             ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],

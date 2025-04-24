@@ -5,11 +5,14 @@ namespace App\Form;
 use App\Entity\Band;
 use App\Entity\BandPriceEnum;
 use App\Entity\Event;
+use App\Entity\Musician;
 use App\Entity\MusicStyle;
+use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,10 +26,10 @@ class BandType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => 'Nom du groupe',
-                'purify_html' => true,
+                'sanitize_html' => true,
             ])
             ->add('description', CKEditorType::class, [
-                'purify_html' => true,
+                'sanitize_html' => true,
                 'attr' => ['data-ckeditor' => true],
                 'config_name' => 'light',
                 'config' => ['editorplaceholder' => "Une rapide description du groupe..."]
@@ -36,11 +39,12 @@ class BandType extends AbstractType
                 'label' => 'Groupe Actif (visible sur le site)'
             ])
             ->add('flashInformation', null, [
-                'purify_html' => true
+                'label' => "Info flash",
+                'sanitize_html' => true
             ])
             ->add('tagline', null, [
                 'label' => "Phrase d'accroche",
-                'purify_html' => true
+                'sanitize_html' => true
             ])
             ->add('priceCategory', EnumType::class, [
                 'label' => "Catégorie de prix",
@@ -68,11 +72,31 @@ class BandType extends AbstractType
                 "required" => false,
                 'expanded' => true,
                 'multiple' => true,
-                'choice_label' => function (MusicStyle $musicStyle) {
-                    return $musicStyle->getName();
-                }
+                'choice_label' => 'name'
+            ])
+            ->add('leader', EntityType::class, [
+                'class' => Musician::class,
+                'choice_label' => function (Musician $musician) {
+                    return "{$musician->getLastname()} {$musician->getFirstname()}";
+                },
+                'required' => false,
+                'placeholder' => 'Sélectionnez un leader',
+                'multiple' => false,
+                'expanded' => false,
+            ])
+            ->add('musicians', EntityType::class, [
+                'label' => "Musiciens",
+                'class' => Musician::class,
+                'choice_label' => function (Musician $musician) {
+                    return "{$musician->getLastname()} {$musician->getFirstname()}";
+                },
+                'required' => false,
+                'placeholder' => 'Sélectionnez un leader',
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('pictureFile', VichImageType::class, [
+                'label' => "Photo",
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => true,
@@ -93,6 +117,10 @@ class BandType extends AbstractType
                         'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, GIF)',
                     ])
                 ],
+            ])
+            ->add('color', ColorType::class, [
+                'label' => "Couleur",
+                'html5' => true,
             ]);
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Band;
 use App\Entity\Concert;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,28 +41,24 @@ class ConcertRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Concert[] Returns an array of Concert objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findConfirmedConcerts(?DateTime $dateToFetchFrom = null, ?Band $band = null): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.isConfirmed = :isConfirmed')
+            ->setParameter('isConfirmed', true);
 
-//    public function findOneBySomeField($value): ?Concert
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ($dateToFetchFrom) {
+            $qb->andWhere('c.date >= :dateToFetchFrom')
+                ->setParameter('dateToFetchFrom', $dateToFetchFrom);
+        }
+
+        if ($band) {
+            $qb->andWhere('c.band = :band')
+                ->setParameter('band', $band);
+        }
+
+        $qb->orderBy('c.date', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

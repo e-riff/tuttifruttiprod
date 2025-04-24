@@ -16,7 +16,7 @@ class MusicStyleType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => 'Nom',
-                'purify_html' => true,
+                'sanitize_html' => true,
             ])
             ->add('bands', EntityType::class, [
                 'label' => 'Groupes',

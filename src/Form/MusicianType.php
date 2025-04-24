@@ -20,19 +20,19 @@ class MusicianType extends AbstractType
         $builder
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
-                'purify_html' => true,
+                'sanitize_html' => true,
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
-                'purify_html' => true,
+                'sanitize_html' => true,
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'purify_html' => true,
+                'sanitize_html' => true,
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
-                'purify_html' => true,
+                'sanitize_html' => true,
             ])
             ->add('isActive', CheckboxType::class, [
                 "required" => true,

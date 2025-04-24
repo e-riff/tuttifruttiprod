@@ -18,7 +18,7 @@ class MediaLinkType extends AbstractType
     {
         $builder
             ->add('link', UrlType::class, [
-                'purify_html' => true,
+                'sanitize_html' => true,
                 'label' => 'lien complet',
                 'attr' => ['placeholder' => 'https://www.perdu.com'],
             ])
