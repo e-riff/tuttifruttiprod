@@ -2,19 +2,34 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="Content-Language" content="fr">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
         <title>
-            {% block title %}Panel Production {% endblock %}
+            {% block title %}Panel Production{% endblock %}
         </title>
 
+        {# === META SEO === #}
+        {% block meta %}
+            <meta name="description"
+                  content="{% block meta_description %}Panel Production, association musicale de la région Aura !{% endblock %}">
+            <link rel="canonical"
+                  href="{% block canonical_url %}{{ absolute_url(app.request.uri) }}{% endblock %}">
+        {% endblock %}
+
+        {# === Données structurées JSON-LD (schema.org) === #}
+        {% block schema %}
+            {# Exemple générique, à surcharger sur les pages groupe / événement #}
+        {% endblock %}
+
+        {# === Assets (CSS & JS) === #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
     </head>
 
     <body {{ stimulus_controller('global') }}>
