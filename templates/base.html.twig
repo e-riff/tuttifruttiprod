@@ -1,57 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Language" content="fr">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
-        <title>
-            {% block title %}Panel Production{% endblock %}
-        </title>
+<head>
+    <meta charset="UTF-8">
 
-        {# === META SEO === #}
-        {% block meta %}
-            <meta name="description"
-                  content="{% block meta_description %}Panel Production, association musicale de la région Aura !{% endblock %}">
-            <link rel="canonical"
-                  href="{% block canonical_url %}{{ absolute_url(app.request.uri) }}{% endblock %}">
+    {# titre, override possible via block #}
+    <title>
+        {% block title %}
+            {{ seo.title ?? 'Panel Production' }}
         {% endblock %}
+    </title>
 
-        {# === Données structurées JSON-LD (schema.org) === #}
-        {% block schema %}
-            {# Exemple générique, à surcharger sur les pages groupe / événement #}
-        {% endblock %}
+    {# description #}
+    {% if seo.description is defined and seo.description %}
+        <meta name="description" content="{{ seo.description }}">
+    {% endif %}
 
-        {# === Assets (CSS & JS) === #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+    {# keywords (optionnel) #}
+    {% if seo.keywords is defined and seo.keywords %}
+        <meta name="keywords" content="{{ seo.keywords }}">
+    {% endif %}
 
-    </head>
+    {# canonical #}
+    {% if seo.canonical is defined %}
+        <link rel="canonical" href="{{ seo.canonical }}">
+    {% endif %}
 
-    <body {{ stimulus_controller('global') }}>
-
-    {% include '_include/_navbar.html.twig' %}
-
-    {% for category, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ category }}">
-                {{ message }}
-            </div>
+    {# Open Graph #}
+    {% if seo.og is defined %}
+        {% for prop, val in seo.og %}
+            <meta property="{{ prop }}" content="{{ val }}">
         {% endfor %}
+    {% endif %}
+
+    {# Twitter Cards #}
+    {% if seo.twitter is defined %}
+        {% for name, val in seo.twitter %}
+            <meta name="{{ name }}" content="{{ val }}">
+        {% endfor %}
+    {% endif %}
+
+    {# JSON-LD #}
+    {% if seo.schema is defined %}
+        <script type="application/ld+json">
+        {{ seo.schema|json_encode(constant('JSON_PRETTY_PRINT'))|raw }}
+
+        </script>
+    {% endif %}
+
+    {# === Assets === #}
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+    {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
+</head>
+
+<body {{ stimulus_controller('global') }}>
+
+{% include '_include/_navbar.html.twig' %}
+
+{% for category, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
     {% endfor %}
+{% endfor %}
 
 
-    {% block body %}{% endblock %}
-    {% include '_include/_footer.html.twig' %}
+{% block body %}{% endblock %}
+{% include '_include/_footer.html.twig' %}
 
 
-    {% block javascript %}
-    {% endblock %}
+{% block javascript %}
+{% endblock %}
 
-    </body>
+</body>
 
 </html>

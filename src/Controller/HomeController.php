@@ -28,7 +28,6 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
         }
 
-
         return $this->render('home/index.html.twig', [
             'contactForm' => $contactForm,
             'bands' => $bandRepository->findAllWithPicture()
