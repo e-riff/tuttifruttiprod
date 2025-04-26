@@ -2,7 +2,11 @@
 
 {% block body %}
     <main class="musicianIndex container-fluid container-lg">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1>Les Musiciens de Panel Production</h1>
+        </div>
         <section class="musician-list list-unstyled text-decoration-none">
+
             {% for musician in musicians %}
                 <article>
                     <div>
@@ -11,7 +15,9 @@
                              src="{{ musicianPhoto ? musicianPhoto|imagine_filter('square_band') : asset('build/images/avatar.png') }}"
                              class="d-block w-100">
                     </div>
-                    <footer class="text-center"><span class="text-primary">{{ musician.lastname|upper }}</span> {{ musician.firstname|capitalize }}</footer>
+                    <footer class="text-center"><span
+                                class="text-primary">{{ musician.lastname|upper }}</span> {{ musician.firstname|capitalize }}
+                    </footer>
                 </article>
             {% endfor %}
         </section>
