@@ -11,7 +11,17 @@ body {
   flex-direction: column;
 
   @include scrollBar();
+
+  h1 {
+    padding: $spacer*2 $spacer*2 0;
+    border-bottom: 1px solid $primary;
+    font-size: xx-large;
+    @include media-breakpoint-up(md) {
+      font-size: xxx-large;
+    }
+  }
 }
+
 
 mark {
   background-color: $primary;

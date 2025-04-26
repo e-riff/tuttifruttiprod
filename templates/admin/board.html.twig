@@ -1,85 +1,107 @@
+{# templates/admin/board.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} - Board Admin{% endblock %}
+{% block title %}{{ parent() }} - Board Admin{% endblock %}
 
 {% block body %}
-
     <main class="adminBoard">
-
         <section class="welcomeAdmin">
             <div class="d-flex flex-column m-4 justify-content-center align-items-center">
                 <h1>Bienvenue, {{ app.user.firstname }}</h1>
-                <h2>Qu'est-ce qu'on administre aujourdhui ?</h2>
+                <h2>Qu'est-ce qu'on administre aujourd'hui ?</h2>
             </div>
         </section>
+
         <section class="adminList container-lg">
-            <article>
-                <img src="{{ asset('build/images/band.jpg') }}"
-                     alt="photo de groupe">
+            {# ——————— Les Groupes ——————— #}
+            <article
+                    {{ stimulus_controller(
+                        'clickable-article',
+                        { url: path('admin_band_index') },
+                        ['position-relative']
+                    ) }}
+                    {{ stimulus_action('clickable-article', 'redirect', 'click') }}
+            >
+                <img src="{{ asset('build/images/band.jpg') }}" alt="photo de groupe">
                 <div class="categoryName">
-                    <h2 class="h3">
-                        <a href="{{ path('admin_band_index') }}">
-                            <mark>Les Groupes</mark>
-                        </a>
-                    </h2>
+                    <h2 class="h3"><mark>Les Groupes</mark></h2>
                 </div>
             </article>
-            <article>
-                <img src="{{ asset('build/images/styles.png') }}"
-                     alt="photo de styles musicaux">
+
+            {# ——————— Les Styles ——————— #}
+            <article
+                    {{ stimulus_controller(
+                        'clickable-article',
+                        { url: path('admin_musicStyle_index') },
+                        ['position-relative']
+                    ) }}
+                    {{ stimulus_action('clickable-article', 'redirect', 'click') }}
+            >
+                <img src="{{ asset('build/images/styles.png') }}" alt="photo de styles musicaux">
                 <div class="categoryName">
-                    <h2 class="h3">
-                        <a href="{{ path('admin_musicStyle_index') }}">
-                            <mark>Les Styles</mark>
-                        </a>
-                    </h2>
+                    <h2 class="h3"><mark>Les Styles</mark></h2>
                 </div>
             </article>
-            <article>
-                <img src="{{ asset('build/images/musicians.jpg') }}"
-                     alt="photo de musiciens">
+
+            {# ——————— Les Musiciens ——————— #}
+            <article
+                    {{ stimulus_controller(
+                        'clickable-article',
+                        { url: path('admin_musician_index') },
+                        ['position-relative']
+                    ) }}
+                    {{ stimulus_action('clickable-article', 'redirect', 'click') }}
+            >
+                <img src="{{ asset('build/images/musicians.jpg') }}" alt="photo de musiciens">
                 <div class="categoryName">
-                    <h2 class="h3">
-                        <a href="{{ path('admin_musician_index') }}">
-                            <mark>Les musiciens</mark>
-                        </a>
-                    </h2>
+                    <h2 class="h3"><mark>Les Musiciens</mark></h2>
                 </div>
             </article>
-            <article>
-                <img src="{{ asset('build/images/concert.jpg') }}"
-                     alt="photo de concert">
+
+            {# ——————— Les Concerts ——————— #}
+            <article
+                    {{ stimulus_controller(
+                        'clickable-article',
+                        { url: path('admin_concert_index') },
+                        ['position-relative']
+                    ) }}
+                    {{ stimulus_action('clickable-article', 'redirect', 'click') }}
+            >
+                <img src="{{ asset('build/images/concert.jpg') }}" alt="photo de concert">
                 <div class="categoryName">
-                    <h2 class="h3">
-                        <a href="{{ path('admin_concert_index') }}">
-                            <mark>Les concerts</mark>
-                        </a>
-                    </h2>
+                    <h2 class="h3"><mark>Les Concerts</mark></h2>
                 </div>
             </article>
-            <article>
-                <img src="{{ asset('build/images/concert.jpg') }}"
-                     alt="photo type d'evenement">
+
+            {# ——————— Types d'Événement ——————— #}
+            <article
+                    {{ stimulus_controller(
+                        'clickable-article',
+                        { url: path('admin_event_index') },
+                        ['position-relative']
+                    ) }}
+                    {{ stimulus_action('clickable-article', 'redirect', 'click') }}
+            >
+                <img src="{{ asset('build/images/concert.jpg') }}" alt="photo type d'événement">
                 <div class="categoryName">
-                    <h2 class="h3">
-                        <a href="{{ path('admin_event_index') }}">
-                            <mark>Les types d'événement</mark>
-                        </a>
-                    </h2>
+                    <h2 class="h3"><mark>Types d'Événement</mark></h2>
                 </div>
             </article>
-            <article>
-                <img src="{{ asset('build/images/admin.png') }}"
-                     alt="photo users">
+
+            {# ——————— Les Utilisateurs ——————— #}
+            <article
+                    {{ stimulus_controller(
+                        'clickable-article',
+                        { url: path('admin_user_index') },
+                        ['position-relative']
+                    ) }}
+                    {{ stimulus_action('clickable-article', 'redirect', 'click') }}
+            >
+                <img src="{{ asset('build/images/admin.png') }}" alt="photo users">
                 <div class="categoryName">
-                    <h2 class="h3">
-                        <a href="{{ path('admin_user_index') }}">
-                            <mark>Les Utilisateurs</mark>
-                        </a>
-                    </h2>
+                    <h2 class="h3"><mark>Les Utilisateurs</mark></h2>
                 </div>
             </article>
         </section>
     </main>
-
 {% endblock %}
