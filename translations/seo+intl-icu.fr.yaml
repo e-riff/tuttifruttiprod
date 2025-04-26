@@ -1,0 +1,19 @@
+index:
+  title:       "Panel Production – association musicale régionale"
+  index.description: "Panel Production, association musicale Auvergne-Rhône-Alpes : découvrez groupes et concerts près de chez vous."
+
+app_concert_index:
+  title:       "Calendrier des concerts – Panel Production"
+  description: "Consultez le planning des événements musicaux et venez nous voir en concert !"
+
+band_index:
+  title:       "Recherchez un groupe – Panel Production"
+  description: "Trouvez un groupe qui vous convient par style ou budget sur Panel Production."
+
+band_show:
+  title:       "{name} – Panel Production"
+  description: "Découvrez {name}, groupe de {styles} : biographie, photos et prochaines dates."
+
+musician_index:
+  title:       "Découvrez nos musiciens – Panel Production"
+  description: "Consultez tous les musiciens de Panel production !"

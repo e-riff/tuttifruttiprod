@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Prochains événements{% endblock %}
-
 {% block body %}
-    <div class=" container mt-2">
+    <main class=" container mt-2" id="concertIndex">
     {% include 'concert/_eventList.html.twig' %}
-    </div>
+    </main>
 {% endblock %}

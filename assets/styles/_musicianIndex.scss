@@ -1,5 +1,6 @@
 main.musicianIndex {
   section.musician-list {
+    margin-top: $spacer;
     display: grid;
     gap: $spacer * 5;
     place-content: center;

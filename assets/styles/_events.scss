@@ -1,5 +1,11 @@
-.fc-toolbar-chunk {
-  button {
-    padding-bottom: 0;
+#concertIndex {
+  .fc-toolbar-chunk {
+    button {
+      padding-bottom: 0;
+    }
+  }
+
+  #eventListSection {
+    margin-bottom: $spacer;
   }
 }

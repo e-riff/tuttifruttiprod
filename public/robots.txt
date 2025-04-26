@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /login
+Disallow: /logout
+Disallow: /reset-password
+Disallow: /reset-password/check-email
+Disallow: /reset-password/reset/
+
+Sitemap: https://panelproduction.fr/sitemap.xml
