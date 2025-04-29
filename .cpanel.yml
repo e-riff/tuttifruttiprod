@@ -1,5 +1,7 @@
+---
 deployment:
   tasks:
+    - export DEPLOYPATH=/home/brle7172/repositories/panelproduction.fr
     - composer install --no-dev --optimize-autoloader
     - php bin/console doctrine:migrations:migrate --no-interaction --env=prod
     - php bin/console ckeditor:install --tag=4.22.1
