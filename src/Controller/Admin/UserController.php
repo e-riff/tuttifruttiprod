@@ -77,7 +77,7 @@ class UserController extends AbstractController
                 );
 
             $mailer->send($emailMessage);
-            $this->redirectToRoute('admin_user_index');
+            return $this->redirectToRoute('admin_user_index');
         }
 
         return $this->render('admin/user/new.html.twig', [
@@ -85,7 +85,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{user}/resend-invite', name: 'resend_invite', methods: ['POST'])]
+    #[Route('/{user}/resend-invite', name: 'resend_invite', methods: ['POST', 'GET'])]
     public function resendInvite(
         User $user,
         MailerInterface $mailer,
