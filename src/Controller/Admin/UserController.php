@@ -111,6 +111,6 @@ class UserController extends AbstractController
 
         $this->addFlash('success', 'Invitation renvoyée avec succès !');
 
-        return $this->redirectToRoute('user_index');
+        return $this->redirectToRoute('admin_user_index');
     }
 }
