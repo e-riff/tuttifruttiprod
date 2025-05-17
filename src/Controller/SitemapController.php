@@ -40,7 +40,7 @@ class SitemapController extends AbstractController
         ]);
 
         $response
-            ->headers->set('Content-Type', 'application/xml');
+            ->headers->set('Content-Type', 'text/xml');
 
         return $response;
     }
@@ -72,7 +72,7 @@ class SitemapController extends AbstractController
         $response = $this->render('sitemap/main.xml.twig', [
             'urls' => $urls,
         ]);
-        $response->headers->set('Content-Type', 'application/xml');
+        $response->headers->set('Content-Type', 'text/xml');
 
         return $response;
     }
@@ -88,7 +88,7 @@ class SitemapController extends AbstractController
             'urls' => $urls,
         ]);
 
-        $response->headers->set('Content-Type', 'application/xml');
+        $response->headers->set('Content-Type', 'text/xml');
         return $response;
     }
 
