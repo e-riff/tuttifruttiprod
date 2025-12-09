@@ -25,10 +25,10 @@ class ConcertController extends AbstractController
     public function getConcertForm(
         ConcertRepository $concertRepository,
         SerializerInterface $serializer,
-        #[MapQueryParameter('dateToFetchFrom')]
-        Datetime $dateToFechFrom = null,
+        #[MapQueryParameter('start')]
+        string $start = null,
     ): Response {
-        $dateToFetchFrom = new DateTime($dateToFechFrom) ?? new DateTime('today midnight');
+        $dateToFetchFrom = new DateTime($start) ?? new DateTime('today midnight');
         $concerts = $concertRepository->findConfirmedConcerts($dateToFetchFrom);
         $jsonConcert = $serializer->normalize($concerts, 'json', ['fullcalendar' => true]);
         return new JsonResponse($jsonConcert);
