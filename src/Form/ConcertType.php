@@ -54,13 +54,6 @@ class ConcertType extends AbstractType
                 'html5' => true,
                 'attr' => [
                     'class' => 'form-control col-md-3',
-                    'min' => (new DateTime())->format('Y-m-d\TH:i'),
-                ],
-                'constraints' => [
-                    new GreaterThanOrEqual([
-                        'value' => 'now',
-                        'message' => 'La date doit être supérieure ou égale à la date actuelle.',
-                    ]),
                 ],
             ])
             ->add('otherInformations', TextareaType::class, [
