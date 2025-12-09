@@ -26,25 +26,25 @@ class BandType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => 'Nom du groupe',
-                'sanitize_html' => true,
+                'sanitize_html' => false,
             ])
             ->add('description', CKEditorType::class, [
-                'sanitize_html' => true,
+                'sanitize_html' => false,
                 'attr' => ['data-ckeditor' => true],
                 'config_name' => 'light',
                 'config' => ['editorplaceholder' => "Une rapide description du groupe..."]
             ])
             ->add('isActive', CheckboxType::class, [
-                "required" => true,
+                'required' => false,
                 'label' => 'Groupe Actif (visible sur le site)'
             ])
             ->add('flashInformation', null, [
                 'label' => "Info flash",
-                'sanitize_html' => true
+                'sanitize_html' => false,
             ])
             ->add('tagline', null, [
                 'label' => "Phrase d'accroche",
-                'sanitize_html' => true
+                'sanitize_html' => false,
             ])
             ->add('priceCategory', EnumType::class, [
                 'label' => "Catégorie de prix",
