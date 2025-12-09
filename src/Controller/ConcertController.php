@@ -26,9 +26,9 @@ class ConcertController extends AbstractController
         ConcertRepository $concertRepository,
         SerializerInterface $serializer,
         #[MapQueryParameter('start')]
-        string $start = null,
+        ?string $start = null,
     ): Response {
-        $dateToFetchFrom = new DateTime($start) ?? new DateTime('today midnight');
+        $dateToFetchFrom = $start !== null ? new DateTime($start) : new DateTime('today midnight');
         $concerts = $concertRepository->findConfirmedConcerts($dateToFetchFrom);
         $jsonConcert = $serializer->normalize($concerts, 'json', ['fullcalendar' => true]);
         return new JsonResponse($jsonConcert);
