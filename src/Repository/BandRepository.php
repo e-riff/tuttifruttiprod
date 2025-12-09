@@ -37,7 +37,6 @@ class BandRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-
     }
 
     public function findAllWithPicture()
