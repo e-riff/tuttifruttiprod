@@ -102,13 +102,9 @@ class BandType extends AbstractType
                 'download_uri' => true,
                 'constraints' => [
                     new Image([
-                        'minWidth' => 600,
-                        'maxWidth' => 3000,
-                        'minHeight' => 600,
-                        'maxHeight' => 2000,
                         'minRatio' => 1.5,
                         'maxRatio' => 2.5,
-                        'maxSize' => '5M',
+                        'maxSize' => '6M',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
