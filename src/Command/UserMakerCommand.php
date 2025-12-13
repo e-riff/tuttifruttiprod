@@ -35,48 +35,39 @@ class UserMakerCommand extends Command
 
         $helper = $this->getHelper('question');
 
-        // Ask for the email
         $emailQuestion = new Question('Email: ');
         $email = $helper->ask($input, $output, $emailQuestion);
 
-        // Ask for the first name
         $firstNameQuestion = new Question('First name: ');
         $firstName = $helper->ask($input, $output, $firstNameQuestion);
 
-        // Ask for the last name
         $lastNameQuestion = new Question('Last name: ');
         $lastName = $helper->ask($input, $output, $lastNameQuestion);
 
-        // Ask for the password
         $passwordQuestion = new Question('Password: ');
         $passwordQuestion->setHidden(true);
         $passwordQuestion->setHiddenFallback(false);
         $password = $helper->ask($input, $output, $passwordQuestion);
 
-        // Confirm the password
         $confirmPassQuestion = new Question('Confirm Password: ');
         $confirmPassQuestion->setHidden(true);
         $confirmPassQuestion->setHiddenFallback(false);
         $confirmPassword = $helper->ask($input, $output, $confirmPassQuestion);
 
-        // Check if passwords match
         if ($password !== $confirmPassword) {
             $symfonyIo->error('Passwords do not match!');
             return Command::FAILURE;
         }
 
-        // Create the user and set its properties
         $user = new User();
         $user->setEmail($email);
         $user->setFirstname($firstName);
         $user->setLastname($lastName);
         $user->setRoles(['ROLE_ADMIN']);
 
-        // Hash the password and set it
         $hashedPassword = $this->passwordHasher->hashPassword($user, $password);
         $user->setPassword($hashedPassword);
 
-        // Persist and flush the user
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
