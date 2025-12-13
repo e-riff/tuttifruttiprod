@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Band;
 use App\Repository\BandRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,7 +83,7 @@ class SitemapController extends AbstractController
     {
         $bands = $this->bandRepository->findBy(['isActive' => true]);
 
-        $urls = array_map(fn($band) => $this->buildBandEntry($band), $bands);
+        $urls = array_map(fn(Band $band): array => $this->buildBandEntry($band), $bands);
 
         $response = $this->render('sitemap/bands.xml.twig', [
             'urls' => $urls,
