@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,16 +14,16 @@ class Event
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(type: Types::STRING, length: 100)]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Band::class, inversedBy: 'events')]
     private Collection $bands;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
 

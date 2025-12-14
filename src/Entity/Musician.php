@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MusicianRepository;
-use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -24,29 +24,29 @@ class Musician
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(type: Types::STRING, length: 80)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(type: Types::STRING, length: 80)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     #[Assert\Email]
     private ?string $email = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
     private ?string $phone = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isActive = null;
 
     #[ORM\ManyToMany(targetEntity: Band::class, inversedBy: 'musicians')]
     private Collection $bands;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $picture = null;
 
     #[Vich\UploadableField(mapping: 'musician_picture', fileNameProperty: 'picture')]
@@ -56,7 +56,7 @@ class Musician
     )]
     private ?File $pictureFile = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
     /**
@@ -183,7 +183,7 @@ class Musician
     {
         $this->pictureFile = $pictureFile;
         if ($pictureFile) {
-            $this->updatedAt = new DateTime('now');
+            $this->updatedAt = new DateTimeImmutable('now');
         }
         return $this;
     }
