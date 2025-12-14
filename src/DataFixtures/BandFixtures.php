@@ -3,11 +3,13 @@
 namespace App\DataFixtures;
 
 use App\Entity\Band;
-use App\Entity\BandPriceEnum;
+use App\Entity\Event;
+use App\Entity\MusicStyle;
+use App\Enums\BandPriceEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -17,7 +19,8 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
     public function __construct(
         private readonly DecoderInterface $decoder,
         private readonly SluggerInterface $slugger,
-        private readonly ContainerBagInterface $containerBag
+        #[Autowire('%upload_directory%')]
+        private readonly string $uploadDirectory,
     ) {
     }
 
@@ -42,14 +45,14 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
 
             if (file_exists($file)) {
                 if (
-                    copy($file, $this->containerBag->get("upload_directory") .
+                    copy($file, $this->uploadDirectory .
                         "images/band/" . $slug . '.webp')
                 ) {
                     $band->setPicture($slug . '.webp');
                 }
             } else {
                 if (
-                    copy(__DIR__ . "/data/bands/band.webp", $this->containerBag->get("upload_directory") .
+                    copy(__DIR__ . "/data/bands/band.webp", $this->uploadDirectory .
                         "images/band/" . $slug . '.webp')
                 ) {
                     $band->setPicture($slug . '.webp');
@@ -58,12 +61,12 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
 
             foreach ($bandInfo as $key => $info) {
                 if (in_array($key, MusicStyleFixtures::$styleList) && $info == true) {
-                    $band->addMusicStyle($this->getReference($key));
+                    $band->addMusicStyle($this->getReference($key, MusicStyle::class));
                 }
             }
             foreach ($bandInfo as $key => $info) {
                 if (in_array($key, EventFixtures::$eventList) && $info == true) {
-                    $band->addEvent($this->getReference($key));
+                    $band->addEvent($this->getReference($key, Event::class));
                 }
             }
             $this->addReference("band_" . self::$bandIndex, $band);

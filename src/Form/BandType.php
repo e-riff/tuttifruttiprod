@@ -3,11 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Band;
-use App\Entity\BandPriceEnum;
 use App\Entity\Event;
 use App\Entity\Musician;
 use App\Entity\MusicStyle;
-use Doctrine\ORM\EntityRepository;
+use App\Enums\BandPriceEnum;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

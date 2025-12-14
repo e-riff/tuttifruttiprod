@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Band;
 use App\Entity\Media;
-use App\Entity\MediaTypeEnum;
+use App\Enums\MediaTypeEnum;
 use App\Form\BandType;
 use App\Form\MediaImageType;
 use App\Form\MediaLinkType;
@@ -47,14 +47,6 @@ class BandController extends AbstractController
         return $this->render('admin/band/new.html.twig', [
             'band' => $band,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Band $band): Response
-    {
-        return $this->render('admin/band/show.html.twig', [
-            'band' => $band,
         ]);
     }
 

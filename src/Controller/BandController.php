@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Band;
-use App\Entity\BandPriceEnum;
-use App\Entity\MediaTypeEnum;
+use App\Enums\BandPriceEnum;
+use App\Enums\MediaTypeEnum;
 use App\Form\MessageType;
 use App\Repository\BandRepository;
 use App\Service\MailerService;

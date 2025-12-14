@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\BandPriceEnum;
+use App\Enums\BandPriceEnum;
 use App\Repository\EventRepository;
 use App\Repository\MusicStyleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
