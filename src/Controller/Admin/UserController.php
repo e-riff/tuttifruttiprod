@@ -24,13 +24,11 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 #[IsGranted('ROLE_ADMIN')]
 class UserController extends AbstractController
 {
-
     public function __construct(
         #[Autowire('%mailer_from%')]
         private readonly string $mailerFrom,
         private readonly ResetPasswordHelperInterface $resetPasswordHelper,
-    )
-    {
+    ) {
     }
 
     #[Route('/index', name: 'index')]
@@ -45,12 +43,11 @@ class UserController extends AbstractController
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function inviteAdmin(
-        Request                      $request,
-        EntityManagerInterface       $entityManager,
-        MailerInterface              $mailer,
-        UserPasswordHasherInterface      $passwordHasher
-    ): Response
-    {
+        Request $request,
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer,
+        UserPasswordHasherInterface $passwordHasher,
+    ): Response {
         $userForm = $this->createForm(UserType::class);
         $userForm->handleRequest($request);
 
@@ -77,6 +74,7 @@ class UserController extends AbstractController
                 );
 
             $mailer->send($emailMessage);
+
             return $this->redirectToRoute('admin_user_index');
         }
 

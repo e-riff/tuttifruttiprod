@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Band;
@@ -56,56 +58,55 @@ class BandRepository extends ServiceEntityRepository
 
         if ($searchQuery) {
             $queryBuilder->andWhere('b.name like :searchQuery')
-                ->setParameter('searchQuery', '%' . $searchQuery . '%');
+                ->setParameter('searchQuery', '%'.$searchQuery.'%');
         }
 
         if ($events) {
-            $eventsQuery = "";
+            $eventsQuery = '';
             foreach ($events as $key => $event) {
-                if ($key == 0) {
-                    $eventsQuery .= 'e.name LIKE :event_' . $key . " ";
+                if (0 == $key) {
+                    $eventsQuery .= 'e.name LIKE :event_'.$key.' ';
                 } else {
-                    $eventsQuery .= "OR e.name LIKE :event_" . $key . " ";
+                    $eventsQuery .= 'OR e.name LIKE :event_'.$key.' ';
                 }
             }
             $queryBuilder->andWhere($eventsQuery);
             foreach ($events as $key => $event) {
-                $queryBuilder->setParameter("event_" . $key, $event);
+                $queryBuilder->setParameter('event_'.$key, $event);
             }
         }
 
-
         if ($musicStyles) {
-            $musicStylesQuery = "";
+            $musicStylesQuery = '';
             foreach ($musicStyles as $key => $musicStyle) {
-                if ($key == 0) {
-                    $musicStylesQuery .= 'ms.name LIKE :musicStyle_' . $key . " ";
+                if (0 == $key) {
+                    $musicStylesQuery .= 'ms.name LIKE :musicStyle_'.$key.' ';
                 } else {
-                    $musicStylesQuery .= "OR ms.name LIKE :musicStyle_" . $key . " ";
+                    $musicStylesQuery .= 'OR ms.name LIKE :musicStyle_'.$key.' ';
                 }
             }
             $queryBuilder->andWhere($musicStylesQuery);
             foreach ($musicStyles as $key => $musicStyle) {
-                $queryBuilder->setParameter("musicStyle_" . $key, $musicStyle);
+                $queryBuilder->setParameter('musicStyle_'.$key, $musicStyle);
             }
         }
 
         if ($priceCategories) {
-            $categoriesQuery = "";
+            $categoriesQuery = '';
             foreach ($priceCategories as $key => $priceCategory) {
-                if ($key == 0) {
-                    $categoriesQuery .= "b.priceCategory = :priceCategory" . $key . " ";
+                if (0 == $key) {
+                    $categoriesQuery .= 'b.priceCategory = :priceCategory'.$key.' ';
                 } else {
-                    $categoriesQuery .= "OR b.priceCategory = :priceCategory" . $key . " ";
+                    $categoriesQuery .= 'OR b.priceCategory = :priceCategory'.$key.' ';
                 }
             }
             $queryBuilder->andWhere($categoriesQuery);
             foreach ($priceCategories as $key => $priceCategory) {
-                $queryBuilder->setParameter("priceCategory" . $key, $priceCategory);
+                $queryBuilder->setParameter('priceCategory'.$key, $priceCategory);
             }
         }
 
-        $queryBuilder->orderBy("b.name");
+        $queryBuilder->orderBy('b.name');
 
         return $queryBuilder->getQuery()->getResult();
     }

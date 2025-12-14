@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Band;
@@ -21,12 +23,12 @@ class MusicStyleType extends AbstractType
             ->add('bands', EntityType::class, [
                 'label' => 'Groupes',
                 'class' => Band::class,
-                "required" => false,
+                'required' => false,
                 'expanded' => true,
                 'multiple' => true,
                 'choice_label' => function (Band $band) {
                     return $band->getName();
-                }
+                },
             ]);
     }
 

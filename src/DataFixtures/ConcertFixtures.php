@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
+use App\Entity\Band;
 use App\Entity\Concert;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -14,21 +17,21 @@ class ConcertFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i = 1; $i <= BandFixtures::$bandIndex; $i++) {
-            for ($j = 0; $j < 4; $j++) {
-                $concert = new concert();
+        for ($i = 1; $i <= BandFixtures::$bandIndex; ++$i) {
+            for ($j = 0; $j < 4; ++$j) {
+                $concert = new Concert();
                 $concert->setCity($faker->city);
                 $concert->setAddress($faker->streetAddress);
                 $concert->setZipCode($faker->postcode);
                 $concert->setClientName($faker->name);
                 $concert->setIsConfirmed(true);
                 $concert->setOtherInformations($faker->sentence(8));
-                if ($j == 0) {
-                    $concert->setDate($faker->dateTimeBetween("-2 month", "now"));
+                if (0 == $j) {
+                    $concert->setDate($faker->dateTimeBetween('-2 month', 'now'));
                 } else {
-                    $concert->setDate($faker->dateTimeBetween("now", '+10 month'));
+                    $concert->setDate($faker->dateTimeBetween('now', '+10 month'));
                 }
-                $concert->setBand($this->getReference("band_" . $i));
+                $concert->setBand($this->getReference('band_'.$i, Band::class));
 
                 $manager->persist($concert);
             }

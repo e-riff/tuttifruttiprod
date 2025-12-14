@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\MusicianRepository;
@@ -156,6 +158,7 @@ class Musician
     public function removeBand(Band $band): self
     {
         $this->bands->removeElement($band);
+
         return $this;
     }
 
@@ -176,15 +179,13 @@ class Musician
         return $this->pictureFile;
     }
 
-    /**
-     * @param File|null $pictureFile
-     */
     public function setPictureFile(?File $pictureFile = null): self
     {
         $this->pictureFile = $pictureFile;
         if ($pictureFile) {
             $this->updatedAt = new DateTimeImmutable('now');
         }
+
         return $this;
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Musician;
@@ -17,8 +19,8 @@ class MusicianController extends AbstractController
     public function index(MusicianRepository $musicianRepository): Response
     {
         return $this->render('admin/musician/index.html.twig', [
-            'musicians' => $musicianRepository->findBy([], ['lastname' => 'ASC'])
-            ]);
+            'musicians' => $musicianRepository->findBy([], ['lastname' => 'ASC']),
+        ]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]

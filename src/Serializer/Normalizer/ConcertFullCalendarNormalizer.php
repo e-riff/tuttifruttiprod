@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Serializer\Normalizer;
 
 use App\Entity\Concert;
@@ -53,7 +55,7 @@ class ConcertFullCalendarNormalizer implements NormalizerInterface
     public function supportsNormalization(
         mixed $data,
         ?string $format = null,
-        array $context = []
+        array $context = [],
     ): bool {
         return $data instanceof Concert
             && $context['fullcalendar'] ?? false;

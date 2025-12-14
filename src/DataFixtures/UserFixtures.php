@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
 use App\Entity\User;
@@ -15,14 +17,13 @@ class UserFixtures extends Fixture
             'password' => 'motdepasse',
             'firstname' => 'Emeric',
             'lastname' => 'RIFF',
-            'role' => 'ROLE_ADMIN'
-        ]
-        ];
+            'role' => 'ROLE_ADMIN',
+        ],
+    ];
 
     public function __construct(private readonly UserPasswordHasherInterface $passwordHasher)
     {
     }
-
 
     public function load(ObjectManager $manager): void
     {
@@ -36,11 +37,11 @@ class UserFixtures extends Fixture
             );
             $user->setPassword($hashedPassword);
 
-            $user->setRoles(array($adminInfo['role']));
+            $user->setRoles([$adminInfo['role']]);
 
             $user->setFirstname($adminInfo['firstname']);
             $user->setLastname($adminInfo['lastname']);
-//            $user->setIsVerified(true);
+            //            $user->setIsVerified(true);
             $manager->persist($user);
         }
 

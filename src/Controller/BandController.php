@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Band;
@@ -30,7 +32,7 @@ class BandController extends AbstractController
         );
 
         $searchData['priceCategory'] = array_map(
-            fn(string $code): BandPriceEnum => BandPriceEnum::getType($code),
+            fn (string $code): BandPriceEnum => BandPriceEnum::getType($code),
             $searchData['priceCategory']
         );
 
@@ -50,15 +52,16 @@ class BandController extends AbstractController
     #[Route('/show/{slug}', name: 'show')]
     public function show(
         MailerService $mailer,
-        Request       $request,
-        Band          $band,
+        Request $request,
+        Band $band,
     ): Response {
         $contactForm = $this->createForm(MessageType::class);
         $contactForm->handleRequest($request);
 
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             $mailer->sendContactMailForBand($band, $contactForm->getData());
-            $this->addFlash("success", "Message envoyé avec succès");
+            $this->addFlash('success', 'Message envoyé avec succès');
+
             return $this->redirectToRoute('band_show', ['slug' => $band->getSlug()], Response::HTTP_SEE_OTHER);
         }
 

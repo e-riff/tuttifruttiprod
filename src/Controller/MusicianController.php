@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Repository\MusicianRepository;
@@ -8,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/musician', name: 'musician')]
-
 class MusicianController extends AbstractController
 {
     #[Route('/', name: '_index', methods: ['GET'])]

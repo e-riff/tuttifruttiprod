@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
 use App\Entity\Association;
@@ -12,7 +14,7 @@ class AssociationFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $association = new Association();
-        $association->setName("Tutti Frutti");
+        $association->setName('Tutti Frutti');
         $association->setPhone('+33980727471');
         $association->setEmail('cameleonproduction42@gmail.com');
         $association->setCreatedAt(new DateTime('21-04-2014'));

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Enums\BandPriceEnum;
@@ -15,12 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 class SearchBarController extends AbstractController
 {
     public function searchBar(
-        array                $searchData,
-        EventRepository      $eventRepository,
+        array $searchData,
+        EventRepository $eventRepository,
         MusicStyleRepository $musicStyleRepository,
-        RequestStack         $requestStack
-    ): Response
-    {
+        RequestStack $requestStack,
+    ): Response {
         $eventsChoiceList = [];
         foreach ($eventRepository->findAll() as $event) {
             $eventsChoiceList[$event->getName()] = $event->getName();
@@ -35,7 +36,7 @@ class SearchBarController extends AbstractController
             ->add('query', TextType::class, [
                 'attr' => [
                     'placeholder' => 'rechercher un groupe, un style',
-                    'data-model' => "searchQuery",
+                    'data-model' => 'searchQuery',
                 ],
                 'required' => false,
             ])
@@ -50,7 +51,7 @@ class SearchBarController extends AbstractController
                 'required' => false,
             ])
             ->add('musicStyles', ChoiceType::class, [
-                'label' => "Style de musique",
+                'label' => 'Style de musique',
                 'choices' => $musicStylesList,
                 'choice_attr' => function () {
                     return ['data-model' => 'musicStyles'];
@@ -60,8 +61,8 @@ class SearchBarController extends AbstractController
                 'required' => false,
             ])
             ->add('priceCategory', EnumType::class, [
-                'label' => "Catégorie de prix",
-                "required" => false,
+                'label' => 'Catégorie de prix',
+                'required' => false,
                 'class' => BandPriceEnum::class,
                 'expanded' => true,
                 'multiple' => true,

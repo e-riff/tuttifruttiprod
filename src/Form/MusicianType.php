@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Band;
@@ -34,8 +36,8 @@ class MusicianType extends AbstractType
                 'sanitize_html' => true,
             ])
             ->add('isActive', CheckboxType::class, [
-                "required" => true,
-                'label' => 'Musicien Actif (visible sur le site)'
+                'required' => true,
+                'label' => 'Musicien Actif (visible sur le site)',
             ])
             ->add('pictureFile', VichImageType::class, [
                 'required' => false,
@@ -44,14 +46,14 @@ class MusicianType extends AbstractType
                 'download_uri' => true,
             ])
             ->add('bands', EntityType::class, [
-                'label' => "Groupes",
+                'label' => 'Groupes',
                 'class' => Band::class,
-                "required" => false,
+                'required' => false,
                 'expanded' => true,
                 'multiple' => true,
                 'choice_label' => function (Band $musicStyle) {
                     return $musicStyle->getName();
-                }
+                },
             ]);
     }
 

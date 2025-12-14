@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Band;
@@ -38,7 +40,7 @@ class BandController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $band->setSlug($slugger->slug($band->getName()));
+            $band->setSlug((string) $slugger->slug($band->getName()));
             $bandRepository->save($band, true);
 
             return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
@@ -55,13 +57,13 @@ class BandController extends AbstractController
         Request $request,
         SluggerInterface $slugger,
         Band $band,
-        BandRepository $bandRepository
+        BandRepository $bandRepository,
     ): Response {
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $band->setSlug($slugger->slug($band->getName()));
+            $band->setSlug((string) $slugger->slug($band->getName()));
             $bandRepository->save($band, true);
 
             return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
@@ -98,6 +100,7 @@ class BandController extends AbstractController
             $mediaRepository->save($media, true);
 
             $this->addFlash('success', 'Video ajoutée !');
+
             return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -108,6 +111,7 @@ class BandController extends AbstractController
             $mediaRepository->save($media, true);
 
             $this->addFlash('success', 'Piste soundcloud ajoutée !');
+
             return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -117,6 +121,7 @@ class BandController extends AbstractController
             $mediaRepository->save($media, true);
 
             $this->addFlash('success', 'Lien Ajouté !');
+
             return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -127,6 +132,7 @@ class BandController extends AbstractController
             $mediaRepository->save($media, true);
 
             $this->addFlash('success', 'Image Ajoutée !');
+
             return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -143,7 +149,7 @@ class BandController extends AbstractController
     #[Route('/{band}/media/{media}', name: 'media_delete', methods: ['POST'])]
     public function mediaDelete(Request $request, Media $media, Band $band, MediaRepository $mediaRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $media->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$media->getId(), $request->request->get('_token'))) {
             $mediaRepository->remove($media, true);
         }
 
@@ -161,11 +167,10 @@ class BandController extends AbstractController
         ]);
     }
 
-
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function bandDelete(Request $request, Band $band, BandRepository $bandRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $band->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$band->getId(), $request->request->get('_token'))) {
             $bandRepository->remove($band, true);
         }
 

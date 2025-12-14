@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -22,7 +24,7 @@ class MessageType extends AbstractType
                 'label' => 'Votre nom',
                 'constraints' => [
                     new NotBlank(),
-                ]
+                ],
             ])
             ->add('email', TextType::class, [
                 'row_attr' => ['class' => 'form-floating mb-3'],
@@ -36,7 +38,7 @@ class MessageType extends AbstractType
                 'sanitize_html' => true,
                 'row_attr' => ['class' => 'form-floating mb-3'],
                 'required' => false,
-                'label' => 'Votre numéro de téléphone'
+                'label' => 'Votre numéro de téléphone',
             ])
             ->add('message', CKEditorType::class, [
                 'sanitize_html' => true,
@@ -49,7 +51,7 @@ class MessageType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Publier',
-                'row_attr' => ['class' => 'd-flex justify-content-center']
+                'row_attr' => ['class' => 'd-flex justify-content-center'],
             ]);
     }
 

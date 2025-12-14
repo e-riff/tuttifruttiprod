@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Media;
@@ -8,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
-
 
 class MediaImageType extends AbstractType
 {
@@ -24,7 +25,6 @@ class MediaImageType extends AbstractType
                 'attr' => ['class' => 'btn btn-primary'],
                 'row_attr' => ['class' => 'text-center pb-2'],
             ])
-        ;
         ;
     }
 
