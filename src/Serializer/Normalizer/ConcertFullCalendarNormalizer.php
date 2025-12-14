@@ -8,55 +8,62 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ConcertFullCalendarNormalizer implements NormalizerInterface
 {
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
-    {
+    public function __construct(
+        private readonly UrlGeneratorInterface $urlGenerator,
+    ) {
     }
 
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
-        $band = $object->getBand();
-        $bandName = $object->getBand()->getName();
-        $city = $object->getCity();
-        $zipCode = $object->getZipCode();
+        /** @var Concert $concert */
+        $concert = $data;
 
-        $parts = [];
-        if ($city) {
-            $parts[] = $city;
+        $band = $concert->getBand();
+        $city = $concert->getCity();
+        $zipCode = $concert->getZipCode();
+
+        $cityParts = [];
+        if (null !== $city) {
+            $cityParts[] = $city;
         }
-        if ($zipCode) {
-            $parts[] = "($zipCode)";
+        if (null !== $zipCode) {
+            $cityParts[] = "({$zipCode})";
         }
-        $completeCityName = implode(' ', $parts);
-        $titleParts = array_filter([$bandName, $completeCityName]); // filtrer les vides
-        // On concatène " - $completeCityName" seulement si non vide
+
+        $completeCityName = implode(' ', $cityParts);
+        $titleParts = array_filter([$band->getName(), $completeCityName]);
         $title = implode(' - ', $titleParts);
 
-        $start = $object->getDate()->format('Y-m-d\TH:i:s');
-        $end = (clone $object->getDate())->setTime(23, 59, 59)->format('Y-m-d\TH:i:s');
+        $start = $concert->getDate()->format('Y-m-d\TH:i:s');
+        $end = (clone $concert->getDate())->setTime(23, 59, 59)->format('Y-m-d\TH:i:s');
+
         return [
-            'id' => (string)$object->getId(),
+            'id' => (string) $concert->getId(),
             'title' => $title,
             'start' => $start,
             'end' => $end,
             'backgroundColor' => $band->getColor(),
             'extendedProps' => [
                 'url' => $this->urlGenerator->generate('band_show', ['slug' => $band->getSlug()]),
-                'bandId' => (string)$band->getId(),
+                'bandId' => (string) $band->getId(),
             ],
         ];
     }
 
-    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
-    {
-        return $data instanceof Concert && (isset($context['fullcalendar']) && $context['fullcalendar'] === true);
+    public function supportsNormalization(
+        mixed $data,
+        ?string $format = null,
+        array $context = []
+    ): bool {
+        return $data instanceof Concert
+            && $context['fullcalendar'] ?? false;
     }
 
-    public function __call(string $name, array $arguments)
+    public function getSupportedTypes(?string $format): array
     {
         return [
-            'object' => null,             // Doesn't support any classes or interfaces
-            '*' => false,                 // Supports any other types, but the result is not cacheable
-            ConcertFullCalendarNormalizer::class => true, //Supports ConcertFullCalendarNormalizer, and result cacheable
+            Concert::class => true,
+            '*' => false,
         ];
     }
 }
