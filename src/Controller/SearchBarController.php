@@ -76,9 +76,15 @@ class SearchBarController extends AbstractController
             ->setMethod('GET')
             ->getForm();
 
+        $rawData = $requestStack->getParentRequest()?->query->get('data');
+        $decodedData = [];
+        if (is_string($rawData) && '' !== $rawData) {
+            $decodedData = json_decode($rawData, true) ?? [];
+        }
+
         return $this->render('band/_searchBarBand.html.twig', [
             'searchBar' => $searchBar,
-            'data' => json_decode($requestStack->getParentRequest()->query->get('data')),
+            'data' => $decodedData,
         ]);
     }
 }
