@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BandRepository;
-use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,16 +25,16 @@ class Band
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isActive = null;
 
     #[ORM\OneToMany(mappedBy: 'band', targetEntity: Concert::class, orphanRemoval: true)]
@@ -43,7 +43,7 @@ class Band
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $flashInformation = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $tagline = null;
 
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'bands')]
@@ -55,11 +55,11 @@ class Band
     #[ORM\OneToMany(mappedBy: 'band', targetEntity: Media::class, orphanRemoval: true)]
     private Collection $medias;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $picture = null;
 
     #[Vich\UploadableField(mapping: 'band_picture', fileNameProperty: 'picture')]
@@ -69,19 +69,19 @@ class Band
     )]
     private ?File $pictureFile = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private ?bool $isOnHomepage = false;
 
     #[ORM\ManyToMany(targetEntity: Musician::class, mappedBy: 'bands')]
     private Collection $musicians;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column(type: "string", nullable: true, enumType: BandPriceEnum::class)]
+    #[ORM\Column(type: Types::STRING, length: 32, nullable: true, enumType: BandPriceEnum::class)]
     private ?BandPriceEnum $priceCategory = null;
 
-    #[ORM\Column(length: 7, options: ['default' => '#000000'])]
+    #[ORM\Column(type: Types::STRING, length: 7, options: ['default' => '#000000'])]
     #[Assert\CssColor]
     private ?string $color = '#000000';
 
@@ -312,7 +312,7 @@ class Band
     {
         $this->pictureFile = $pictureFile;
         if ($pictureFile) {
-            $this->updatedAt = new DateTime('now');
+            $this->updatedAt = new DateTimeImmutable('now');
         }
         return $this;
     }

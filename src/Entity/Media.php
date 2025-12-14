@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MediaRepository;
-use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,17 +22,17 @@ class Media
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $link = null;
 
     #[ORM\ManyToOne(inversedBy: 'medias')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Band $band = null;
 
-    #[ORM\Column(type: "string", length: 80, enumType: MediaTypeEnum::class)]
+    #[ORM\Column(type: Types::STRING, length: 80, enumType: MediaTypeEnum::class)]
     private MediaTypeEnum $mediaType;
 
     #[Vich\UploadableField(mapping: 'media_picture', fileNameProperty: 'link', size: 'pictureSize')]
@@ -42,13 +42,13 @@ class Media
     )]
     private ?File $pictureFile = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $pictureSize = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isActive = true;
 
 
@@ -121,9 +121,7 @@ class Media
         $this->pictureFile = $pictureFile;
 
         if (null !== $pictureFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new DateTime();
+            $this->updatedAt = new DateTimeImmutable();
         }
     }
 
