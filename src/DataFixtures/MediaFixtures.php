@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Media;
-use App\Entity\MediaTypeEnum;
+use App\Enums\MediaTypeEnum;
 use App\Repository\BandRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

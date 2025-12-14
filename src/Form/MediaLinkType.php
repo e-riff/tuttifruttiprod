@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Media;
-use App\Entity\MediaTypeEnum;
+use App\Enums\MediaTypeEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
