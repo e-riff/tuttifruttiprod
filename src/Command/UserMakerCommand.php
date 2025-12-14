@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\User;
@@ -20,7 +22,7 @@ class UserMakerCommand extends Command
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly UserPasswordHasherInterface $passwordHasher
+        private readonly UserPasswordHasherInterface $passwordHasher,
     ) {
         parent::__construct();
     }
@@ -56,6 +58,7 @@ class UserMakerCommand extends Command
 
         if ($password !== $confirmPassword) {
             $symfonyIo->error('Passwords do not match!');
+
             return Command::FAILURE;
         }
 

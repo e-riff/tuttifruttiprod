@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Components;
 
 use App\Enums\BandPriceEnum;
@@ -37,6 +39,7 @@ class BandSearchComponent
         foreach ($this->priceCategory as &$priceCategory) {
             $priceCategory = is_string($priceCategory) ? BandPriceEnum::getType($priceCategory) : $priceCategory;
         }
+
         return $this->bandRepository->bandSearch(
             $this->searchQuery,
             $this->events,

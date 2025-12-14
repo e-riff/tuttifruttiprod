@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
 use App\Entity\Band;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\UrlHelper;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 final readonly class SeoFactory
@@ -18,18 +20,16 @@ final readonly class SeoFactory
 
     public function __construct(
         private TranslatorInterface $translator,
-        private UrlHelper           $urlHelper,
-        private UploaderHelper      $uploaderHelper,
-    )
-    {
+        private UrlHelper $urlHelper,
+        private UploaderHelper $uploaderHelper,
+    ) {
     }
 
     public function createForRequest(
         Request $request,
-        string  $route,
-        ?Band   $band = null
-    ): array
-    {
+        string $route,
+        ?Band $band = null,
+    ): array {
         if ($band instanceof Band) {
             return $this->createForBand($request, $band);
         }
@@ -39,8 +39,8 @@ final readonly class SeoFactory
 
     private function createForRoute(Request $request, string $route): array
     {
-        $titleKey = $route . self::TRANSL_KEY_TITLE;
-        $descKey = $route . self::TRANSL_KEY_DESC;
+        $titleKey = $route.self::TRANSL_KEY_TITLE;
+        $descKey = $route.self::TRANSL_KEY_DESC;
 
         $title = $this->translator->trans($titleKey, [], self::DEFAULT_DOMAIN);
         $description = $this->translator->trans($descKey, [], self::DEFAULT_DOMAIN);
@@ -51,13 +51,14 @@ final readonly class SeoFactory
         ];
 
         $seo['canonical'] = $this->urlHelper->getAbsoluteUrl($request->getRequestUri());
+
         return $seo;
     }
 
     private function createForBand(Request $request, Band $band): array
     {
         $name = $band->getName();
-        $styles = array_map(fn($s) => $s->getName(), $band->getMusicStyles()->toArray());
+        $styles = array_map(fn ($s) => $s->getName(), $band->getMusicStyles()->toArray());
         $list = implode(', ', $styles);
         $url = $this->urlHelper->getAbsoluteUrl($request->getRequestUri());
 
@@ -65,10 +66,10 @@ final readonly class SeoFactory
         $imgUrl = $imgPath ? $this->urlHelper->getAbsoluteUrl($imgPath) : null;
 
         $title = $this->translator->trans(
-                'band_show.title',
-                ['name' => $name],
-                self::DEFAULT_DOMAIN
-            ) . self::TITLE_SUFFIX;
+            'band_show.title',
+            ['name' => $name],
+            self::DEFAULT_DOMAIN
+        ).self::TITLE_SUFFIX;
 
         $description = $this->translator->trans(
             'band_show.description',
@@ -98,6 +99,7 @@ final readonly class SeoFactory
         if ($imgUrl) {
             $og['og:image'] = $imgUrl;
         }
+
         return $og;
     }
 
@@ -111,17 +113,17 @@ final readonly class SeoFactory
         if ($imgUrl) {
             $twitter['twitter:image'] = $imgUrl;
         }
+
         return $twitter;
     }
 
     private function buildSchema(
-        string  $name,
-        array   $genres,
-        string  $url,
+        string $name,
+        array $genres,
+        string $url,
         ?string $imgUrl,
-        string  $description
-    ): array
-    {
+        string $description,
+    ): array {
         $schema = [
             '@context' => 'https://schema.org',
             '@type' => 'MusicGroup',
@@ -133,6 +135,7 @@ final readonly class SeoFactory
         if ($imgUrl) {
             $schema['image'] = $imgUrl;
         }
+
         return $schema;
     }
 }

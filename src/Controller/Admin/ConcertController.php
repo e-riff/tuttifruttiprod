@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Concert;
@@ -10,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('concert', name: 'concert_',)]
+#[Route('concert', name: 'concert_', )]
 class ConcertController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
@@ -61,7 +63,7 @@ class ConcertController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Concert $concert, ConcertRepository $concertRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $concert->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$concert->getId(), $request->request->get('_token'))) {
             $concertRepository->remove($concert, true);
         }
 

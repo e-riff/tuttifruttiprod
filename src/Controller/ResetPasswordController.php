@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -27,9 +29,8 @@ class ResetPasswordController extends AbstractController
 
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
-        private EntityManagerInterface       $entityManager
-    )
-    {
+        private EntityManagerInterface $entityManager,
+    ) {
     }
 
     /**
@@ -131,11 +132,10 @@ class ResetPasswordController extends AbstractController
     }
 
     private function processSendingPasswordResetEmail(
-        string              $emailFormData,
-        MailerInterface     $mailer,
-        TranslatorInterface $translator
-    ): RedirectResponse
-    {
+        string $emailFormData,
+        MailerInterface $mailer,
+        TranslatorInterface $translator,
+    ): RedirectResponse {
         $user = $this->entityManager->getRepository(User::class)->findOneBy([
             'email' => $emailFormData,
         ]);
@@ -163,7 +163,7 @@ class ResetPasswordController extends AbstractController
 
         $email = (new TemplatedEmail())
             ->from(new Address('emeric.riff@gmail.com', 'PanelProduction'))
-            ->to((string)$user->getEmail())
+            ->to((string) $user->getEmail())
             ->subject('Your password reset request')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([

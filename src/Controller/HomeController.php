@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Form\MessageType;
@@ -14,23 +16,23 @@ class HomeController extends AbstractController
 {
     #[Route('/', name: 'index')]
     public function index(
-        Request         $request,
-        MailerService   $contactMail,
-        BandRepository  $bandRepository,
-    ): Response
-    {
+        Request $request,
+        MailerService $contactMail,
+        BandRepository $bandRepository,
+    ): Response {
         $contactForm = $this->createForm(MessageType::class);
         $contactForm->handleRequest($request);
 
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             $contactMail->sendContactMail($contactForm->getData());
-            $this->addFlash("success", "Message envoyé avec succès");
+            $this->addFlash('success', 'Message envoyé avec succès');
+
             return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('home/index.html.twig', [
             'contactForm' => $contactForm,
-            'bands' => $bandRepository->findAllWithPicture()
+            'bands' => $bandRepository->findAllWithPicture(),
         ]);
     }
 }

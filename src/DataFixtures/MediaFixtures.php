@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
 use App\Entity\Media;
@@ -14,13 +16,14 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(
         private readonly DecoderInterface $decoder,
-        private readonly BandRepository $bandRepository
+        private readonly BandRepository $bandRepository,
     ) {
     }
+
     public function load(ObjectManager $manager): void
     {
         $file = 'medias.csv';
-        $filePath = __DIR__ . '/data/' . $file;
+        $filePath = __DIR__.'/data/'.$file;
         $csv = $this->decoder->decode(file_get_contents($filePath), 'csv');
 
         foreach ($csv as $mediaInfo) {

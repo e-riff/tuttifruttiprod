@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Enums\MediaTypeEnum;
@@ -52,7 +54,6 @@ class Media
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isActive = true;
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +103,7 @@ class Media
     public function setPictureSize(?int $pictureSize): self
     {
         $this->pictureSize = $pictureSize;
+
         return $this;
     }
 

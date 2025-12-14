@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
 use App\Repository\AssociationRepository;
@@ -9,7 +11,9 @@ readonly class GlobalAssociation
     public function __construct(private AssociationRepository $associationRepository)
     {
     }
-    public function getAssociation() {
+
+    public function getAssociation()
+    {
         return $this->associationRepository->findOneBy([]);
     }
 }

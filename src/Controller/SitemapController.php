@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Band;
 use App\Repository\BandRepository;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\UrlHelper;
@@ -18,8 +21,7 @@ class SitemapController extends AbstractController
         private readonly BandRepository $bandRepository,
         private readonly UploaderHelper $uploaderHelper,
         private readonly UrlHelper $urlHelper,
-    )
-    {
+    ) {
     }
 
     #[Route('/sitemap.xml', name: 'sitemap_index', defaults: ['_format' => 'xml'])]
@@ -28,11 +30,11 @@ class SitemapController extends AbstractController
         $sitemaps = [
             [
                 'loc' => $this->generateUrl('sitemap_main', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'lastmod' => (new \DateTimeImmutable())->format('Y-m-d'),
+                'lastmod' => (new DateTimeImmutable())->format('Y-m-d'),
             ],
             [
                 'loc' => $this->generateUrl('sitemap_bands', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'lastmod' => (new \DateTimeImmutable())->format('Y-m-d'),
+                'lastmod' => (new DateTimeImmutable())->format('Y-m-d'),
             ],
         ];
 
@@ -52,19 +54,19 @@ class SitemapController extends AbstractController
         $urls = [
             [
                 'loc' => $this->generateUrl('index', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'lastmod' => (new \DateTimeImmutable())->format('Y-m-d'),
+                'lastmod' => (new DateTimeImmutable())->format('Y-m-d'),
                 'changefreq' => 'weekly',
                 'priority' => '1.0',
             ],
             [
                 'loc' => $this->generateUrl('app_concert_index', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'lastmod' => (new \DateTimeImmutable())->format('Y-m-d'),
+                'lastmod' => (new DateTimeImmutable())->format('Y-m-d'),
                 'changefreq' => 'daily',
                 'priority' => '0.8',
             ],
             [
                 'loc' => $this->generateUrl('musician_index', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'lastmod' => (new \DateTimeImmutable())->format('Y-m-d'),
+                'lastmod' => (new DateTimeImmutable())->format('Y-m-d'),
                 'changefreq' => 'monthly',
                 'priority' => '0.6',
             ],
@@ -83,29 +85,30 @@ class SitemapController extends AbstractController
     {
         $bands = $this->bandRepository->findBy(['isActive' => true]);
 
-        $urls = array_map(fn(Band $band): array => $this->buildBandEntry($band), $bands);
+        $urls = array_map(fn (Band $band): array => $this->buildBandEntry($band), $bands);
 
         $response = $this->render('sitemap/bands.xml.twig', [
             'urls' => $urls,
         ]);
 
         $response->headers->set('Content-Type', 'text/xml');
+
         return $response;
     }
 
     private function buildBandEntry(object $band): array
     {
         $entry = [
-            'loc'        => $this->generateUrl('band_show', ['slug' => $band->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
-            'lastmod'    => $band->getUpdatedAt()?->format('Y-m-d') ?? (new \DateTimeImmutable())->format('Y-m-d'),
+            'loc' => $this->generateUrl('band_show', ['slug' => $band->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL),
+            'lastmod' => $band->getUpdatedAt()?->format('Y-m-d') ?? (new DateTimeImmutable())->format('Y-m-d'),
             'changefreq' => 'monthly',
-            'priority'   => '0.9',
+            'priority' => '0.9',
         ];
 
         if (null !== $band->getPicture()) {
             $entry['image'] = [
-                'loc'     => $this->urlHelper->getAbsoluteUrl($this->uploaderHelper->asset($band, 'pictureFile')),
-                'title'   => $band->getName(),
+                'loc' => $this->urlHelper->getAbsoluteUrl($this->uploaderHelper->asset($band, 'pictureFile')),
+                'title' => $band->getName(),
                 'caption' => "Photo du groupe {$band->getName()}",
             ];
         }

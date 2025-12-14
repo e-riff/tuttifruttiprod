@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Band;
@@ -31,14 +33,14 @@ class BandType extends AbstractType
                 'sanitize_html' => false,
                 'attr' => ['data-ckeditor' => true],
                 'config_name' => 'light',
-                'config' => ['editorplaceholder' => "Une rapide description du groupe..."]
+                'config' => ['editorplaceholder' => 'Une rapide description du groupe...'],
             ])
             ->add('isActive', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Groupe Actif (visible sur le site)'
+                'label' => 'Groupe Actif (visible sur le site)',
             ])
             ->add('flashInformation', null, [
-                'label' => "Info flash",
+                'label' => 'Info flash',
                 'sanitize_html' => false,
             ])
             ->add('tagline', null, [
@@ -46,8 +48,8 @@ class BandType extends AbstractType
                 'sanitize_html' => false,
             ])
             ->add('priceCategory', EnumType::class, [
-                'label' => "Catégorie de prix",
-                "required" => false,
+                'label' => 'Catégorie de prix',
+                'required' => false,
                 'class' => BandPriceEnum::class,
                 'expanded' => false,
                 'multiple' => false,
@@ -58,20 +60,20 @@ class BandType extends AbstractType
             ->add('events', EntityType::class, [
                 'label' => "Type d'événements du groupe",
                 'class' => Event::class,
-                "required" => false,
+                'required' => false,
                 'expanded' => true,
                 'multiple' => true,
                 'choice_label' => function (Event $event) {
                     return $event->getName();
-                }
+                },
             ])
             ->add('musicStyles', EntityType::class, [
-                'label' => "Styles musicaux",
+                'label' => 'Styles musicaux',
                 'class' => MusicStyle::class,
-                "required" => false,
+                'required' => false,
                 'expanded' => true,
                 'multiple' => true,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
             ])
             ->add('leader', EntityType::class, [
                 'class' => Musician::class,
@@ -84,7 +86,7 @@ class BandType extends AbstractType
                 'expanded' => false,
             ])
             ->add('musicians', EntityType::class, [
-                'label' => "Musiciens",
+                'label' => 'Musiciens',
                 'class' => Musician::class,
                 'choice_label' => function (Musician $musician) {
                     return "{$musician->getLastname()} {$musician->getFirstname()}";
@@ -95,7 +97,7 @@ class BandType extends AbstractType
                 'expanded' => true,
             ])
             ->add('pictureFile', VichImageType::class, [
-                'label' => "Photo",
+                'label' => 'Photo',
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => true,
@@ -110,11 +112,11 @@ class BandType extends AbstractType
                             'image/gif',
                         ],
                         'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, GIF)',
-                    ])
+                    ]),
                 ],
             ])
             ->add('color', ColorType::class, [
-                'label' => "Couleur",
+                'label' => 'Couleur',
                 'html5' => true,
             ]);
     }

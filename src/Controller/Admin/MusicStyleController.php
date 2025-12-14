@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\MusicStyle;
@@ -30,7 +32,7 @@ class MusicStyleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $musicStyle->setSlug($slugger->slug($musicStyle->getName()));
+            $musicStyle->setSlug((string) $slugger->slug($musicStyle->getName()));
             $musicStyleRepository->save($musicStyle, true);
 
             return $this->redirectToRoute('admin_musicStyle_index', [], Response::HTTP_SEE_OTHER);
@@ -55,13 +57,13 @@ class MusicStyleController extends AbstractController
         Request $request,
         SluggerInterface $slugger,
         MusicStyle $musicStyle,
-        MusicStyleRepository $musicStyleRepository
+        MusicStyleRepository $musicStyleRepository,
     ): Response {
         $form = $this->createForm(MusicStyleType::class, $musicStyle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $musicStyle->setSlug($slugger->slug($musicStyle->getName()));
+            $musicStyle->setSlug((string) $slugger->slug($musicStyle->getName()));
             $musicStyleRepository->save($musicStyle, true);
 
             return $this->redirectToRoute('admin_musicStyle_index', [], Response::HTTP_SEE_OTHER);
@@ -77,9 +79,9 @@ class MusicStyleController extends AbstractController
     public function delete(
         Request $request,
         MusicStyle $musicStyle,
-        MusicStyleRepository $musicStyleRepository
+        MusicStyleRepository $musicStyleRepository,
     ): Response {
-        if ($this->isCsrfTokenValid('delete' . $musicStyle->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$musicStyle->getId(), $request->request->get('_token'))) {
             $musicStyleRepository->remove($musicStyle, true);
         }
 

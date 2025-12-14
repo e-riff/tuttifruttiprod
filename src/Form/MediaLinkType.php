@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Media;
@@ -33,7 +35,6 @@ class MediaLinkType extends AbstractType
                 'choice_label' => function (MediaTypeEnum $choice) {
                     return $choice->value;
                 },
-
             ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listener;
 
 use App\Entity\Band;
@@ -16,10 +18,9 @@ use Twig\Environment as TwigEnvironment;
 final readonly class SeoListener
 {
     public function __construct(
-        private SeoFactory      $seoFactory,
+        private SeoFactory $seoFactory,
         private TwigEnvironment $twig,
-    )
-    {
+    ) {
     }
 
     public function onControllerArguments(ControllerArgumentsEvent $event): void

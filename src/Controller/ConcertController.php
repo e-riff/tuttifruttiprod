@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
-use App\Entity\Band;
 use App\Repository\ConcertRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,9 +29,10 @@ class ConcertController extends AbstractController
         #[MapQueryParameter('start')]
         ?string $start = null,
     ): Response {
-        $dateToFetchFrom = $start !== null ? new DateTime($start) : new DateTime('today midnight');
+        $dateToFetchFrom = null !== $start ? new DateTime($start) : new DateTime('today midnight');
         $concerts = $concertRepository->findConfirmedConcerts($dateToFetchFrom);
         $jsonConcert = $serializer->normalize($concerts, 'json', ['fullcalendar' => true]);
+
         return new JsonResponse($jsonConcert);
     }
 }
