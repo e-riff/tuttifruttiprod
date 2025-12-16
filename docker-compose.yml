@@ -1,21 +1,56 @@
-version: '3'
-
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-15}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: symfony_php
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - ./:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - symfony
+
+  mysql:
+    image: mysql:8.4
+    container_name: symfony_mysql
+    ports:
+      - "${MYSQL_PORT:-3307}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - symfony
+    env_file:
+      - .env.local
+
+  nginx:
+    build:
+      context: docker/nginx
+    container_name: symfony_nginx
+    ports:
+      - "${NGINX_PORT:-8080}:80"
+    volumes:
+      - ./:/var/www/html:ro
+    depends_on:
+      - php
+    networks:
+      - symfony
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: symfony_mailpit
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - symfony
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  mysql_data:
+
+networks:
+  symfony:
+    driver: bridge
