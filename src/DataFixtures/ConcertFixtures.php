@@ -6,6 +6,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Band;
 use App\Entity\Concert;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -27,9 +28,9 @@ class ConcertFixtures extends Fixture implements DependentFixtureInterface
                 $concert->setIsConfirmed(true);
                 $concert->setOtherInformations($faker->sentence(8));
                 if (0 == $j) {
-                    $concert->setDate($faker->dateTimeBetween('-2 month', 'now'));
+                    $concert->setDate(DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-2 month', 'now')));
                 } else {
-                    $concert->setDate($faker->dateTimeBetween('now', '+10 month'));
+                    $concert->setDate(DateTimeImmutable::createFromMutable($faker->dateTimeBetween('now', '+10 month')));
                 }
                 $concert->setBand($this->getReference('band_'.$i, Band::class));
 
