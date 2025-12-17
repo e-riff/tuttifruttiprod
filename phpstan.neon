@@ -8,5 +8,4 @@ parameters:
         - tests/
     # Le temps de faire les corrections :)
     ignoreErrors:
-        - # checkMissingIterableValueType has been removed since phpstan 2.0. So the error needs to be ignored with an identifier instead
-            identifier: missingType.iterableValue
+        identifier: missingType.iterableValue
