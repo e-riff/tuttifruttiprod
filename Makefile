@@ -55,7 +55,7 @@ db-reset-fixtures:
 # Node / Webpack Encore via conteneur Node
 .PHONY: npm-install
 npm-install:
-	$(DRUN) $(NODE_SVC) npm ci
+	$(DRUN) $(NODE_SVC) npm i
 
 .PHONY: npm-build
 npm-build:
