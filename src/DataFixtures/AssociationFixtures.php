@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Association;
-use DateTime;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -17,7 +17,7 @@ class AssociationFixtures extends Fixture
         $association->setName('Tutti Frutti');
         $association->setPhone('+33980727471');
         $association->setEmail('cameleonproduction42@gmail.com');
-        $association->setCreatedAt(new DateTime('21-04-2014'));
+        $association->setCreatedAt(new DateTimeImmutable('21-04-2014'));
         $association->setAddress('Le Mazot');
         $association->setZipCode('42140');
         $association->setCity('La Gimond');
