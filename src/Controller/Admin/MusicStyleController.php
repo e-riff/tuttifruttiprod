@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\MusicStyle;
 use App\Form\MusicStyleType;
 use App\Repository\MusicStyleRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,8 +46,10 @@ class MusicStyleController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(MusicStyle $musicStyle): Response
-    {
+    public function show(
+        #[MapEntity(id: 'id')]
+        MusicStyle $musicStyle
+    ): Response {
         return $this->render('admin/music_style/index.html.twig', [
             'music_style' => $musicStyle,
         ]);
@@ -56,6 +59,7 @@ class MusicStyleController extends AbstractController
     public function edit(
         Request $request,
         SluggerInterface $slugger,
+        #[MapEntity(id: 'id')]
         MusicStyle $musicStyle,
         MusicStyleRepository $musicStyleRepository,
     ): Response {
@@ -78,6 +82,7 @@ class MusicStyleController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(
         Request $request,
+        #[MapEntity(id: 'id')]
         MusicStyle $musicStyle,
         MusicStyleRepository $musicStyleRepository,
     ): Response {

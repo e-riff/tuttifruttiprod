@@ -7,6 +7,7 @@ namespace App\Controller\Admin;
 use App\Entity\Musician;
 use App\Form\MusicianType;
 use App\Repository\MusicianRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,8 +44,12 @@ class MusicianController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Musician $musician, MusicianRepository $musicianRepository): Response
-    {
+    public function edit(
+        Request $request,
+        #[MapEntity(id: 'id')]
+        Musician $musician,
+        MusicianRepository $musicianRepository
+    ): Response {
         $form = $this->createForm(MusicianType::class, $musician);
         $form->handleRequest($request);
 
@@ -61,8 +66,12 @@ class MusicianController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Musician $musician, MusicianRepository $musicianRepository): Response
-    {
+    public function delete(
+        Request $request,
+        #[MapEntity(id: 'id')]
+        Musician $musician,
+        MusicianRepository $musicianRepository
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$musician->getId(), $request->request->get('_token'))) {
             $musicianRepository->remove($musician, true);
         }

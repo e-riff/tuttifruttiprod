@@ -10,6 +10,7 @@ use App\Enums\MediaTypeEnum;
 use App\Form\MessageType;
 use App\Repository\BandRepository;
 use App\Service\MailerService;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +54,7 @@ class BandController extends AbstractController
     public function show(
         MailerService $mailer,
         Request $request,
+        #[MapEntity(mapping: ['slug' => 'slug'])]
         Band $band,
     ): Response {
         $contactForm = $this->createForm(MessageType::class);

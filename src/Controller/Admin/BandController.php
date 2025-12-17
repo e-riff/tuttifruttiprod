@@ -15,6 +15,7 @@ use App\Form\MediaYoutubeType;
 use App\Repository\BandRepository;
 use App\Repository\ConcertRepository;
 use App\Repository\MediaRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,6 +57,7 @@ class BandController extends AbstractController
     public function edit(
         Request $request,
         SluggerInterface $slugger,
+        #[MapEntity(id: 'id')]
         Band $band,
         BandRepository $bandRepository,
     ): Response {
@@ -78,6 +80,7 @@ class BandController extends AbstractController
     #[Route('/{id}/media', name: 'media', methods: ['GET', 'POST'])]
     public function media(
         Request $request,
+        #[MapEntity(id: 'id')]
         Band $band,
         MediaRepository $mediaRepository,
     ): Response {
@@ -147,7 +150,14 @@ class BandController extends AbstractController
     }
 
     #[Route('/{band}/media/{media}', name: 'media_delete', methods: ['POST'])]
-    public function mediaDelete(Request $request, Media $media, Band $band, MediaRepository $mediaRepository): Response
+    public function mediaDelete(
+        Request $request,
+        #[MapEntity(id: 'media')]
+        Media $media,
+        #[MapEntity(id: 'band')]
+        Band $band,
+        MediaRepository $mediaRepository
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$media->getId(), $request->request->get('_token'))) {
             $mediaRepository->remove($media, true);
@@ -156,8 +166,10 @@ class BandController extends AbstractController
         return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
     }
 
+
     #[Route('/{band}/concert', name: 'concert', methods: ['GET', 'POST'])]
     public function concert(
+        #[MapEntity(id: 'band')]
         Band $band,
         ConcertRepository $concertRepository,
     ): Response {
@@ -167,9 +179,14 @@ class BandController extends AbstractController
         ]);
     }
 
+
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function bandDelete(Request $request, Band $band, BandRepository $bandRepository): Response
-    {
+    public function bandDelete(
+        Request $request,
+        #[MapEntity(id: 'id')]
+        Band $band,
+        BandRepository $bandRepository
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$band->getId(), $request->request->get('_token'))) {
             $bandRepository->remove($band, true);
         }
