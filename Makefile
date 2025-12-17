@@ -1,82 +1,82 @@
-# Makefile – Symfony 6.4 PROD
-SHELL := /bin/bash
-.SHELLFLAGS := -eu -o pipefail -c
+DC = docker compose
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Variables DRY
-PHP               := php
-COMPOSER          := composer
-CONSOLE           := bin/console
-YARN              := yarn
-NODE_MODULES      := node_modules
-BUILD_DIR         := public/build
+# Services
+PHP_SVC = php
+NODE_SVC = node
+NGINX_SVC = nginx
+MYSQL_SVC = mysql
 
-.PHONY: help install composer-install migrations assets webpack \
-        symlinks cache clear-cache warmup deploy
+# Helper to exec in containers
+DEXEC = $(DC) exec
+DRUN = $(DC) run --rm
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+.PHONY: help
 help:
-	@echo "Usage: make [target]"
-	@echo ""
-	@echo "Targets disponibles :"
-	@echo "  install            = composer-install migrations assets symlinks cache"
-	@echo "  composer-install   = Installe deps PHP en prod"
-	@echo "  migrations         = Applique les migrations Doctrine"
-	@echo "  assets             = Installe JS/CSS (Webpack Encore + CKEditor)"
-	@echo "  symlinks           = assets:install avec symlinks"
-	@echo "  cache              = clear-cache + warmup"
-	@echo "  clear-cache        = Symfony cache:clear --env=prod"
-	@echo "  warmup             = Symfony cache:warmup --env=prod"
-	@echo "  deploy             = alias pour install"
+	@echo "Cibles disponibles:"
+	@echo "  docker-up            -> démarre les services"
+	@echo "  docker-down          -> arrête et supprime les services"
+	@echo "  docker-restart       -> redémarre les services"
+	@echo "  composer-install     -> installe les dépendances Composer (dans le conteneur PHP)"
+	@echo "  db-reset-fixtures    -> recrée la base (drop/create/migrate) + charge les fixtures"
+	@echo "  npm-install          -> npm ci (dans le conteneur Node)"
+	@echo "  npm-build            -> build de prod (Encore production)"
+	@echo "  npm-dev              -> build de dev (Encore dev)"
+	@echo "  npm-watch            -> watch (Encore dev --watch)"
+	@echo "  npm-dev-server       -> démarre le dev-server (expose 8080)"
+	@echo "  cs-check             -> vérifie le code avec PHP-CS-Fixer (dry-run + --diff)"
+	@echo "  cs-fix               -> applique les corrections PHP-CS-Fixer"
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-install: composer-install migrations assets symlinks cache
+.PHONY: docker-up
+docker-up:
+	$(DC) up -d --remove-orphans
 
-# – Composer
+.PHONY: docker-down
+docker-down:
+	$(DC) down --remove-orphans
+
+.PHONY: docker-restart
+docker-restart: docker-down docker-up
+
+# Composer
+.PHONY: composer-install
 composer-install:
-	@echo "→ Installation Composer (prod optimisé)…"
-	$(COMPOSER) install \
-	  --no-dev \
-	  --optimize-autoloader \
-	  --classmap-authoritative
+	$(DEXEC) $(PHP_SVC) composer install --no-interaction --prefer-dist
 
-# – Migrations
-migrations:
-	@echo "→ Exécution des migrations Doctrine…"
-	$(PHP) $(CONSOLE) doctrine:migrations:migrate \
-	  --no-interaction \
-	  --env=prod
+# Doctrine: drop/create/migrate + fixtures sans interaction
+.PHONY: db-reset-fixtures
+db-reset-fixtures:
+	$(DEXEC) $(PHP_SVC) php bin/console doctrine:database:drop --force --if-exists --no-interaction
+	$(DEXEC) $(PHP_SVC) php bin/console doctrine:database:create --no-interaction
+	$(DEXEC) $(PHP_SVC) php bin/console doctrine:migrations:migrate --no-interaction
+	$(DEXEC) $(PHP_SVC) php bin/console doctrine:fixtures:load --no-interaction
 
-# – Assets (Webpack Encore + CKEditor via FOSCKEditorBundle)
-assets:
-	@echo "→ Installation des dépendances JS…"
-	$(YARN) install --frozen-lockfile
+# Node / Webpack Encore via conteneur Node
+.PHONY: npm-install
+npm-install:
+	$(DRUN) $(NODE_SVC) npm ci
 
-	@echo "→ Installation CKEditor v4.22.1 via le bundle…"
-	$(PHP) $(CONSOLE) ckeditor:install --clear=skip --tag=4.22.1
+.PHONY: npm-build
+npm-build:
+	$(DRUN) $(NODE_SVC) npm run build
 
-	@echo "→ Build Webpack Encore (prod)…"
-	$(YARN) encore production
+.PHONY: npm-dev
+npm-dev:
+	$(DRUN) $(NODE_SVC) npm run dev
 
+.PHONY: npm-watch
+npm-watch:
+	$(DRUN) $(NODE_SVC) npm run watch
 
-# – Symlinks d’assets
-symlinks:
-	@echo "→ Création des symlinks d’assets…"
-	$(PHP) $(CONSOLE) assets:install public \
-	  --symlink --relative --env=prod
+# Dev-server accessible sur http://localhost:8081 si besoin; on force l'écoute 0.0.0.0
+.PHONY: npm-dev-server
+npm-dev-server:
+	$(DC) run --rm -p 8081:8080 $(NODE_SVC) bash -lc "npx encore dev-server --host 0.0.0.0 --port 8080"
 
-# – Cache
-cache: clear-cache warmup
+# PHP-CS-Fixer
+.PHONY: cs-check
+cs-check:
+	$(DEXEC) $(PHP_SVC) php -d memory_limit=-1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff
 
-clear-cache:
-	@echo "→ Vide le cache prod…"
-	$(PHP) $(CONSOLE) cache:clear \
-	  --env=prod --no-warmup
-
-warmup:
-	@echo "→ Warmup du cache prod…"
-	$(PHP) $(CONSOLE) cache:warmup --env=prod
-
-# – Déploiement global
-deploy: install
-	@echo "✅ Déploiement terminé !"
+.PHONY: cs-fix
+cs-fix:
+	$(DEXEC) $(PHP_SVC) php -d memory_limit=-1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php

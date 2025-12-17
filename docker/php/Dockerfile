@@ -27,6 +27,7 @@ RUN docker-php-ext-configure gd \
         pdo_mysql \
         zip \
         gd \
+        mbstring \
         opcache \
         ctype \
         iconv \

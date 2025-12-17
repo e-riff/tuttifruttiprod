@@ -10,9 +10,15 @@ services:
     volumes:
       - ./:/var/www/html
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - symfony
+    healthcheck:
+      test: ["CMD", "php", "-m"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   mysql:
     image: mysql:8.4
@@ -25,6 +31,11 @@ services:
       - symfony
     env_file:
       - .env.local
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
 
   nginx:
     build:
@@ -36,6 +47,16 @@ services:
       - ./:/var/www/html:ro
     depends_on:
       - php
+    networks:
+      - symfony
+
+  node:
+    image: node:24
+    container_name: symfony_node
+    working_dir: /var/www/html
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./:/var/www/html
     networks:
       - symfony
 
