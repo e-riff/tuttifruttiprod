@@ -17,12 +17,15 @@ help:
 	@echo "  docker-down          -> arrête et supprime les services"
 	@echo "  docker-restart       -> redémarre les services"
 	@echo "  composer-install     -> installe les dépendances Composer (dans le conteneur PHP)"
+	@echo "  composer-update-phpstan -> met à jour uniquement PHPStan et ses extensions (régénère le lock)"
 	@echo "  db-reset-fixtures    -> recrée la base (drop/create/migrate) + charge les fixtures"
 	@echo "  npm-install          -> npm ci (dans le conteneur Node)"
 	@echo "  npm-build            -> build de prod (Encore production)"
 	@echo "  npm-dev              -> build de dev (Encore dev)"
 	@echo "  npm-watch            -> watch (Encore dev --watch)"
 	@echo "  npm-dev-server       -> démarre le dev-server (expose 8080)"
+	@echo "  make-stan            -> lance PHPStan (analyse)"
+	@echo "  cs-all               -> exécute php-cs-fixer (fix) puis PHPStan"
 	@echo "  cs-check             -> vérifie le code avec PHP-CS-Fixer (dry-run + --diff)"
 	@echo "  cs-fix               -> applique les corrections PHP-CS-Fixer"
 
@@ -41,6 +44,11 @@ docker-restart: docker-down docker-up
 .PHONY: composer-install
 composer-install:
 	$(DEXEC) $(PHP_SVC) composer install --no-interaction --prefer-dist
+
+# Composer update ciblé PHPStan (régénère le lock pour phpstan/*)
+.PHONY: composer-update-phpstan
+composer-update-phpstan:
+	$(DEXEC) $(PHP_SVC) composer update phpstan/phpstan phpstan/phpstan-doctrine phpstan/phpstan-symfony --no-interaction --with-dependencies
 
 # Doctrine: drop/create/migrate + fixtures sans interaction
 .PHONY: db-reset-fixtures
@@ -80,3 +88,12 @@ cs-check:
 .PHONY: cs-fix
 cs-fix:
 	$(DEXEC) $(PHP_SVC) php -d memory_limit=-1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php
+
+# PHPStan
+.PHONY: cs-stan
+cs-stan:
+	$(DEXEC) $(PHP_SVC) php -d memory_limit=-1 vendor/bin/phpstan analyse -c phpstan.neon
+
+# Tout en un: fixer le CS puis lancer PHPStan
+.PHONY: cs-all
+cs-all: cs-fix make-stan

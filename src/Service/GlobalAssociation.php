@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Association;
 use App\Repository\AssociationRepository;
 
 readonly class GlobalAssociation
@@ -12,7 +13,7 @@ readonly class GlobalAssociation
     {
     }
 
-    public function getAssociation()
+    public function getAssociation(): Association
     {
         return $this->associationRepository->findOneBy([]);
     }
