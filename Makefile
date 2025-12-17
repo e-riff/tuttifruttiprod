@@ -17,7 +17,6 @@ help:
 	@echo "  docker-down          -> arrête et supprime les services"
 	@echo "  docker-restart       -> redémarre les services"
 	@echo "  composer-install     -> installe les dépendances Composer (dans le conteneur PHP)"
-	@echo "  composer-update-phpstan -> met à jour uniquement PHPStan et ses extensions (régénère le lock)"
 	@echo "  db-reset-fixtures    -> recrée la base (drop/create/migrate) + charge les fixtures"
 	@echo "  npm-install          -> npm ci (dans le conteneur Node)"
 	@echo "  npm-build            -> build de prod (Encore production)"
@@ -44,11 +43,6 @@ docker-restart: docker-down docker-up
 .PHONY: composer-install
 composer-install:
 	$(DEXEC) $(PHP_SVC) composer install --no-interaction --prefer-dist
-
-# Composer update ciblé PHPStan (régénère le lock pour phpstan/*)
-.PHONY: composer-update-phpstan
-composer-update-phpstan:
-	$(DEXEC) $(PHP_SVC) composer update phpstan/phpstan phpstan/phpstan-doctrine phpstan/phpstan-symfony --no-interaction --with-dependencies
 
 # Doctrine: drop/create/migrate + fixtures sans interaction
 .PHONY: db-reset-fixtures
