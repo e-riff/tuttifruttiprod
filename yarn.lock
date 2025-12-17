@@ -1125,6 +1125,11 @@
   resolved "https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.53.5.tgz"
   integrity sha512-Pg6E+oP7GvZ4XwgRJBuSXZjcqpIW3yCBhK4BcsANvb47qMvAbCjR6E+1a/U2WXz1JJxp9/4Dno3/iSJLcm5auw==
 
+"@rollup/rollup-linux-x64-musl@4.53.5":
+  version "4.53.5"
+  resolved "https://registry.npmjs.org/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.53.5.tgz"
+  integrity sha512-txGtluxDKTxaMDzUduGP0wdfng24y1rygUMnmlUJ88fzCCULCLn7oE5kb2+tRB+MWq1QDZT6ObT5RrR8HFRKqg==
+
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
   resolved "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.27.8.tgz"
@@ -1144,8 +1149,6 @@
 "@symfony/ux-live-component@file:vendor/symfony/ux-live-component/assets":
   version "2.30.0"
   resolved "file:vendor/symfony/ux-live-component/assets"
-  dependencies:
-    idiomorph "^0.3.0"
 
 "@symfony/webpack-encore@^4.0.0":
   version "4.6.1"
