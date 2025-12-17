@@ -7,12 +7,13 @@ namespace App\Controller\Admin;
 use App\Entity\Concert;
 use App\Form\ConcertType;
 use App\Repository\ConcertRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('concert', name: 'concert_', )]
+#[Route('concert', name: 'concert_')]
 class ConcertController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
@@ -43,8 +44,12 @@ class ConcertController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Concert $concert, ConcertRepository $concertRepository): Response
-    {
+    public function edit(
+        Request $request,
+        #[MapEntity(id: 'id')]
+        Concert $concert,
+        ConcertRepository $concertRepository
+    ): Response {
         $form = $this->createForm(ConcertType::class, $concert);
         $form->handleRequest($request);
 
@@ -61,8 +66,12 @@ class ConcertController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Concert $concert, ConcertRepository $concertRepository): Response
-    {
+    public function delete(
+        Request $request,
+        #[MapEntity(id: 'id')]
+        Concert $concert,
+        ConcertRepository $concertRepository
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$concert->getId(), $request->request->get('_token'))) {
             $concertRepository->remove($concert, true);
         }

@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,10 +86,10 @@ class UserController extends AbstractController
 
     #[Route('/{user}/resend-invite', name: 'resend_invite', methods: ['POST', 'GET'])]
     public function resendInvite(
+        #[MapEntity(id: 'user')]
         User $user,
         MailerInterface $mailer,
     ): Response {
-        // On peut vérifier ici s'il a déjà un mot de passe ou un flag "invitation déjà envoyée"
         $resetToken = $this->resetPasswordHelper->generateResetToken($user);
 
         $link = $this->generateUrl(
