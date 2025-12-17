@@ -1,12 +1,12 @@
-includes:
-    - vendor/phpstan/phpstan-doctrine/extension.neon
-    - vendor/phpstan/phpstan-doctrine/rules.neon
-    - vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
-    excludePaths:
-        - src/Security
+    level: 6
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        - tests/
+    # Le temps de faire les corrections :)
     ignoreErrors:
-        - '#Call to an undefined method Faker#'
-    reportUnmatchedIgnoredErrors: false
-    checkGenericClassInNonGenericObjectType: false
-    checkMissingIterableValueType: false
+        - # checkMissingIterableValueType has been removed since phpstan 2.0. So the error needs to be ignored with an identifier instead
+            identifier: missingType.iterableValue

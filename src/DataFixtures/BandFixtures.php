@@ -38,7 +38,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             ++self::$bandIndex;
             $band = new Band();
             $band->setName($bandInfo['name']);
-            $band->setIsActive($bandInfo['is_active']);
+            $band->setIsActive(filter_var($bandInfo['is_active'], FILTER_VALIDATE_BOOLEAN));
             $band->setSlug((string) $slug);
             $band->setTagline($bandInfo['tagline']);
             $band->setDescription($bandInfo['description']);

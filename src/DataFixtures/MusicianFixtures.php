@@ -32,7 +32,7 @@ class MusicianFixtures extends Fixture implements DependentFixtureInterface
                 ->setLastname($musicianInfo['lastname'])
                 ->setEmail($musicianInfo['email'])
                 ->setPhone($musicianInfo['phone'])
-                ->setIsActive($musicianInfo['is_active'])
+                ->setIsActive(filter_var($musicianInfo['is_active'], FILTER_VALIDATE_BOOLEAN))
                 ->setPictureFile(new ReplacingFile(__DIR__.'/../../assets/images/avatar.png'));
 
             foreach ($musicianInfo as $key => $info) {
