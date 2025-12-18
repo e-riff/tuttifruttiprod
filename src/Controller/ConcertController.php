@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[Route('/concerts', name: 'app_concert_')]
 class ConcertController extends AbstractController
@@ -25,14 +25,18 @@ class ConcertController extends AbstractController
     #[Route('/confirmed', name: 'get_confirmed_concert', methods: ['GET'])]
     public function getConcertForm(
         ConcertRepository $concertRepository,
-        SerializerInterface $serializer,
+        NormalizerInterface $normalizer,
         #[MapQueryParameter('start')]
         ?string $start = null,
     ): Response {
         $dateToFetchFrom = null !== $start ? new DateTime($start) : new DateTime('today midnight');
         $concerts = $concertRepository->findConfirmedConcerts($dateToFetchFrom);
-        $jsonConcert = $serializer->normalize($concerts, 'json', ['fullcalendar' => true]);
+        $normalizedConcerts = $normalizer->normalize(
+            $concerts,
+            'json',
+            ['fullcalendar' => true]
+        );
 
-        return new JsonResponse($jsonConcert);
+        return new JsonResponse($normalizedConcerts);
     }
 }
