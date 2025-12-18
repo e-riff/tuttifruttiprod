@@ -32,7 +32,7 @@ class ConcertFixtures extends Fixture implements DependentFixtureInterface
                 } else {
                     $concert->setDate(DateTimeImmutable::createFromMutable($faker->dateTimeBetween('now', '+10 month')));
                 }
-                $concert->setBand($this->getReference('band_'.$i, Band::class));
+                $concert->setBand($this->getReference('band_' . $i, Band::class));
 
                 $manager->persist($concert);
             }

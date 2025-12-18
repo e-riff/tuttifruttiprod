@@ -23,7 +23,7 @@ class EventFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $file = 'events.csv';
-        $filePath = __DIR__.'/data/'.$file;
+        $filePath = __DIR__ . '/data/' . $file;
         $csv = $this->decoder->decode(file_get_contents($filePath), 'csv');
         $csv = $this->decoder->decode(file_get_contents($filePath), 'csv');
 

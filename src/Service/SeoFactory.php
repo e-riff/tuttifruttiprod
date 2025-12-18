@@ -39,8 +39,8 @@ final readonly class SeoFactory
 
     private function createForRoute(Request $request, string $route): array
     {
-        $titleKey = $route.self::TRANSL_KEY_TITLE;
-        $descKey = $route.self::TRANSL_KEY_DESC;
+        $titleKey = $route . self::TRANSL_KEY_TITLE;
+        $descKey = $route . self::TRANSL_KEY_DESC;
 
         $title = $this->translator->trans($titleKey, [], self::DEFAULT_DOMAIN);
         $description = $this->translator->trans($descKey, [], self::DEFAULT_DOMAIN);
@@ -69,7 +69,7 @@ final readonly class SeoFactory
             'band_show.title',
             ['name' => $name],
             self::DEFAULT_DOMAIN
-        ).self::TITLE_SUFFIX;
+        ) . self::TITLE_SUFFIX;
 
         $description = $this->translator->trans(
             'band_show.description',

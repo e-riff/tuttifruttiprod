@@ -72,7 +72,7 @@ class MusicianController extends AbstractController
         Musician $musician,
         MusicianRepository $musicianRepository,
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$musician->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $musician->getId(), $request->request->get('_token'))) {
             $musicianRepository->remove($musician, true);
         }
 

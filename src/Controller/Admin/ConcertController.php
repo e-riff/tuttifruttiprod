@@ -72,7 +72,7 @@ class ConcertController extends AbstractController
         Concert $concert,
         ConcertRepository $concertRepository,
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$concert->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $concert->getId(), $request->request->get('_token'))) {
             $concertRepository->remove($concert, true);
         }
 

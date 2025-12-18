@@ -75,7 +75,7 @@ final class EventController extends AbstractController
         Event $event,
         EntityManagerInterface $entityManager,
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($event);
             $entityManager->flush();
         }

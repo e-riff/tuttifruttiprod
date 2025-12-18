@@ -86,7 +86,7 @@ class MusicStyleController extends AbstractController
         MusicStyle $musicStyle,
         MusicStyleRepository $musicStyleRepository,
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$musicStyle->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $musicStyle->getId(), $request->request->get('_token'))) {
             $musicStyleRepository->remove($musicStyle, true);
         }
 

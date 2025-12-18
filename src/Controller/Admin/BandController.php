@@ -158,7 +158,7 @@ class BandController extends AbstractController
         Band $band,
         MediaRepository $mediaRepository,
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$media->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $media->getId(), $request->request->get('_token'))) {
             $mediaRepository->remove($media, true);
         }
 
@@ -184,7 +184,7 @@ class BandController extends AbstractController
         Band $band,
         BandRepository $bandRepository,
     ): Response {
-        if ($this->isCsrfTokenValid('delete'.$band->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $band->getId(), $request->request->get('_token'))) {
             $bandRepository->remove($band, true);
         }
 
