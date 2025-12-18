@@ -1,11 +1,7 @@
 parameters:
     level: 6
     paths:
-        - bin/
-        - config/
-        - public/
         - src/
-        - tests/
     # Le temps de faire les corrections :)
     ignoreErrors:
         - identifier: missingType.iterableValue
