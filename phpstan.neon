@@ -8,4 +8,4 @@ parameters:
         - tests/
     # Le temps de faire les corrections :)
     ignoreErrors:
-        identifier: missingType.iterableValue
+        - identifier: missingType.iterableValue

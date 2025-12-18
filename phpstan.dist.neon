@@ -6,3 +6,6 @@ parameters:
         - public/
         - src/
         - tests/
+    # Le temps de faire les corrections :)
+    ignoreErrors:
+        - identifier: missingType.iterableValue

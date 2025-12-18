@@ -18,7 +18,7 @@ help:
 	@echo "  docker-restart       -> redémarre les services"
 	@echo "  composer-install     -> installe les dépendances Composer (dans le conteneur PHP)"
 	@echo "  db-reset-fixtures    -> recrée la base (drop/create/migrate) + charge les fixtures"
-	@echo "  npm-install          -> npm ci (dans le conteneur Node)"
+	@echo "  npm-install          -> npm i (dans le conteneur Node)"
 	@echo "  npm-build            -> build de prod (Encore production)"
 	@echo "  npm-dev              -> build de dev (Encore dev)"
 	@echo "  npm-watch            -> watch (Encore dev --watch)"
