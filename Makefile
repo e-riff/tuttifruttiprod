@@ -23,7 +23,7 @@ help:
 	@echo "  npm-dev              -> build de dev (Encore dev)"
 	@echo "  npm-watch            -> watch (Encore dev --watch)"
 	@echo "  npm-dev-server       -> démarre le dev-server (expose 8080)"
-	@echo "  make-stan            -> lance PHPStan (analyse)"
+	@echo "  stan            	  -> lance PHPStan (analyse)"
 	@echo "  cs-all               -> exécute php-cs-fixer (fix) puis PHPStan"
 	@echo "  cs-check             -> vérifie le code avec PHP-CS-Fixer (dry-run + --diff)"
 	@echo "  cs-fix               -> applique les corrections PHP-CS-Fixer"
@@ -90,4 +90,4 @@ cs-stan:
 
 # Tout en un: fixer le CS puis lancer PHPStan
 .PHONY: cs-all
-cs-all: cs-fix make-stan
+cs-all: cs-fix cs-stan
