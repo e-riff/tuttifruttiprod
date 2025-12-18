@@ -63,7 +63,8 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             }
 
             foreach ($bandInfo as $key => $info) {
-                if (in_array($key, MusicStyleFixtures::$styleList) && true == $info) {
+                if (in_array($key, MusicStyleFixtures::$styleList) && filter_var($info, FILTER_VALIDATE_BOOLEAN)) {
+                    var_dump("{$bandInfo['name']} add $key");
                     $band->addMusicStyle($this->getReference($key, MusicStyle::class));
                 }
             }
