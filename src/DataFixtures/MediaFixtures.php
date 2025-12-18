@@ -23,7 +23,7 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $file = 'medias.csv';
-        $filePath = __DIR__.'/data/'.$file;
+        $filePath = __DIR__ . '/data/' . $file;
         $csv = $this->decoder->decode(file_get_contents($filePath), 'csv');
 
         foreach ($csv as $mediaInfo) {

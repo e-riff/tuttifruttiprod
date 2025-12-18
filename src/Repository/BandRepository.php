@@ -58,21 +58,21 @@ class BandRepository extends ServiceEntityRepository
 
         if ($searchQuery) {
             $queryBuilder->andWhere('b.name like :searchQuery')
-                ->setParameter('searchQuery', '%'.$searchQuery.'%');
+                ->setParameter('searchQuery', '%' . $searchQuery . '%');
         }
 
         if ($events) {
             $eventsQuery = '';
             foreach ($events as $key => $event) {
                 if (0 == $key) {
-                    $eventsQuery .= 'e.name LIKE :event_'.$key.' ';
+                    $eventsQuery .= 'e.name LIKE :event_' . $key . ' ';
                 } else {
-                    $eventsQuery .= 'OR e.name LIKE :event_'.$key.' ';
+                    $eventsQuery .= 'OR e.name LIKE :event_' . $key . ' ';
                 }
             }
             $queryBuilder->andWhere($eventsQuery);
             foreach ($events as $key => $event) {
-                $queryBuilder->setParameter('event_'.$key, $event);
+                $queryBuilder->setParameter('event_' . $key, $event);
             }
         }
 
@@ -80,14 +80,14 @@ class BandRepository extends ServiceEntityRepository
             $musicStylesQuery = '';
             foreach ($musicStyles as $key => $musicStyle) {
                 if (0 == $key) {
-                    $musicStylesQuery .= 'ms.name LIKE :musicStyle_'.$key.' ';
+                    $musicStylesQuery .= 'ms.name LIKE :musicStyle_' . $key . ' ';
                 } else {
-                    $musicStylesQuery .= 'OR ms.name LIKE :musicStyle_'.$key.' ';
+                    $musicStylesQuery .= 'OR ms.name LIKE :musicStyle_' . $key . ' ';
                 }
             }
             $queryBuilder->andWhere($musicStylesQuery);
             foreach ($musicStyles as $key => $musicStyle) {
-                $queryBuilder->setParameter('musicStyle_'.$key, $musicStyle);
+                $queryBuilder->setParameter('musicStyle_' . $key, $musicStyle);
             }
         }
 
@@ -95,14 +95,14 @@ class BandRepository extends ServiceEntityRepository
             $categoriesQuery = '';
             foreach ($priceCategories as $key => $priceCategory) {
                 if (0 == $key) {
-                    $categoriesQuery .= 'b.priceCategory = :priceCategory'.$key.' ';
+                    $categoriesQuery .= 'b.priceCategory = :priceCategory' . $key . ' ';
                 } else {
-                    $categoriesQuery .= 'OR b.priceCategory = :priceCategory'.$key.' ';
+                    $categoriesQuery .= 'OR b.priceCategory = :priceCategory' . $key . ' ';
                 }
             }
             $queryBuilder->andWhere($categoriesQuery);
             foreach ($priceCategories as $key => $priceCategory) {
-                $queryBuilder->setParameter('priceCategory'.$key, $priceCategory);
+                $queryBuilder->setParameter('priceCategory' . $key, $priceCategory);
             }
         }
 

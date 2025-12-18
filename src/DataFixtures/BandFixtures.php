@@ -12,26 +12,33 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class BandFixtures extends Fixture implements DependentFixtureInterface
 {
+    private const string DATA_BANDS_DIR = __DIR__ . '/data/bands/';
+    private const string FALLBACK_PICTURE = 'band.webp';
+    private const string EXT = '.webp';
+
     public static int $bandIndex = 0;
 
     public function __construct(
         private readonly DecoderInterface $decoder,
         private readonly SluggerInterface $slugger,
-        #[Autowire('%upload_directory%')]
-        private readonly string $uploadDirectory,
+        private readonly Filesystem $filesystem,
+        #[Autowire('%upload_directory%images/band/')]
+        private readonly string $bandPicturesDir,
     ) {
     }
 
     public function load(ObjectManager $manager): void
     {
         $file = 'bands.csv';
-        $filePath = __DIR__.'/data/'.$file;
+        $filePath = __DIR__ . '/data/' . $file;
         $csv = $this->decoder->decode(file_get_contents($filePath), 'csv');
+        $this->filesystem->mkdir($this->bandPicturesDir);
 
         foreach ($csv as $bandInfo) {
             $slug = $this->slugger->slug($bandInfo['name'])->lower();
@@ -44,36 +51,27 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
             $band->setDescription($bandInfo['description']);
             $band->setPriceCategory(BandPriceEnum::getType($bandInfo['price_category']));
 
-            $file = __DIR__.'/data/bands/'.$slug.'.webp';
+            $sourceCandidate = self::DATA_BANDS_DIR . $slug . self::EXT;
+            $targetPath = $this->bandPicturesDir . $slug . self::EXT;
 
-            if (file_exists($file)) {
-                if (
-                    copy($file, $this->uploadDirectory.
-                        'images/band/'.$slug.'.webp')
-                ) {
-                    $band->setPicture($slug.'.webp');
-                }
-            } else {
-                if (
-                    copy(__DIR__.'/data/bands/band.webp', $this->uploadDirectory.
-                        'images/band/'.$slug.'.webp')
-                ) {
-                    $band->setPicture($slug.'.webp');
-                }
-            }
+            $origin = is_file($sourceCandidate)
+                ? $sourceCandidate
+                : self::DATA_BANDS_DIR . self::FALLBACK_PICTURE;
+
+            $this->filesystem->copy($origin, $targetPath, true);
+            $band->setPicture($slug . self::EXT);
 
             foreach ($bandInfo as $key => $info) {
                 if (in_array($key, MusicStyleFixtures::$styleList) && filter_var($info, FILTER_VALIDATE_BOOLEAN)) {
-                    var_dump("{$bandInfo['name']} add $key");
                     $band->addMusicStyle($this->getReference($key, MusicStyle::class));
                 }
             }
             foreach ($bandInfo as $key => $info) {
-                if (in_array($key, EventFixtures::$eventList) && true == $info) {
+                if (in_array($key, EventFixtures::$eventList) && filter_var($info, FILTER_VALIDATE_BOOLEAN)) {
                     $band->addEvent($this->getReference($key, Event::class));
                 }
             }
-            $this->addReference('band_'.self::$bandIndex, $band);
+            $this->addReference('band_' . self::$bandIndex, $band);
 
             $manager->persist($band);
         }
