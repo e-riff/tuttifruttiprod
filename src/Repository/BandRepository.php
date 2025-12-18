@@ -41,10 +41,11 @@ class BandRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllWithPicture()
+    public function findAllWithPicture(): iterable
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.picture IS NOT NULL')
+            ->andWhere('b.isOnHomepage = 1')
             ->getQuery()
             ->getResult();
     }
