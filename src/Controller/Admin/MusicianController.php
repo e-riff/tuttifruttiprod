@@ -48,7 +48,7 @@ class MusicianController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Musician $musician,
-        MusicianRepository $musicianRepository
+        MusicianRepository $musicianRepository,
     ): Response {
         $form = $this->createForm(MusicianType::class, $musician);
         $form->handleRequest($request);
@@ -70,7 +70,7 @@ class MusicianController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Musician $musician,
-        MusicianRepository $musicianRepository
+        MusicianRepository $musicianRepository,
     ): Response {
         if ($this->isCsrfTokenValid('delete'.$musician->getId(), $request->request->get('_token'))) {
             $musicianRepository->remove($musician, true);

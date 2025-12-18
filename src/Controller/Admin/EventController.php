@@ -73,7 +73,7 @@ final class EventController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Event $event,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
     ): Response {
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($event);

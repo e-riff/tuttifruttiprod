@@ -156,16 +156,14 @@ class BandController extends AbstractController
         Media $media,
         #[MapEntity(id: 'band')]
         Band $band,
-        MediaRepository $mediaRepository
-    ): Response
-    {
+        MediaRepository $mediaRepository,
+    ): Response {
         if ($this->isCsrfTokenValid('delete'.$media->getId(), $request->request->get('_token'))) {
             $mediaRepository->remove($media, true);
         }
 
         return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
     }
-
 
     #[Route('/{band}/concert', name: 'concert', methods: ['GET', 'POST'])]
     public function concert(
@@ -179,13 +177,12 @@ class BandController extends AbstractController
         ]);
     }
 
-
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function bandDelete(
         Request $request,
         #[MapEntity(id: 'id')]
         Band $band,
-        BandRepository $bandRepository
+        BandRepository $bandRepository,
     ): Response {
         if ($this->isCsrfTokenValid('delete'.$band->getId(), $request->request->get('_token'))) {
             $bandRepository->remove($band, true);
