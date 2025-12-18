@@ -29,8 +29,7 @@ class MusicStyleFixtures extends Fixture
         foreach ($csv as $style) {
             $musicStyle = new MusicStyle();
             $musicStyle->setName($style['name']);
-
-            $musicStyle->setSlug((string) $this->slugger->slug($style['name']));
+            $musicStyle->setSlug((string) $this->slugger->slug($style['name'])->lower());
             $this->addReference($musicStyle->getSlug(), $musicStyle);
             self::$styleList[] = $musicStyle->getSlug();
 
