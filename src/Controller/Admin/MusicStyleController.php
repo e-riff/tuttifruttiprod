@@ -48,7 +48,7 @@ class MusicStyleController extends AbstractController
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(
         #[MapEntity(id: 'id')]
-        MusicStyle $musicStyle
+        MusicStyle $musicStyle,
     ): Response {
         return $this->render('admin/music_style/index.html.twig', [
             'music_style' => $musicStyle,
