@@ -27,6 +27,8 @@ help:
 	@echo "  cs-all               -> exécute php-cs-fixer (fix) puis PHPStan"
 	@echo "  cs-check             -> vérifie le code avec PHP-CS-Fixer (dry-run + --diff)"
 	@echo "  cs-fix               -> applique les corrections PHP-CS-Fixer"
+	@echo "  rector-check         -> vérifie les upload de code avec Rector (dry-run)"
+	@echo "  rector-fix           -> applique les corrections Rector"
 
 .PHONY: docker-up
 docker-up:
@@ -82,6 +84,15 @@ cs-check:
 .PHONY: cs-fix
 cs-fix:
 	$(DEXEC) $(PHP_SVC) php -d memory_limit=-1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php
+
+# Rector
+.PHONY: rector-check
+rector-check:
+	$(DEXEC) $(PHP_SVC) php -d memory_limit=-1 vendor/bin/rector src --dry-run
+
+.PHONY: rector-fix
+rector-fix:
+	$(DEXEC) $(PHP_SVC) php -d memory_limit=-1 vendor/bin/rector src
 
 # PHPStan
 .PHONY: cs-stan

@@ -12,11 +12,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 final readonly class SeoFactory
 {
-    public const DEFAULT_DOMAIN = 'seo';
-    public const ROUTE_BAND_SHOW = 'band_show';
-    public const TRANSL_KEY_TITLE = '.title';
-    public const TRANSL_KEY_DESC = '.description';
-    public const TITLE_SUFFIX = ' – Panel Production';
+    public const string DEFAULT_DOMAIN = 'seo';
+    public const string ROUTE_BAND_SHOW = 'band_show';
+    public const string TRANSL_KEY_TITLE = '.title';
+    public const string TRANSL_KEY_DESC = '.description';
+    public const string TITLE_SUFFIX = ' – Panel Production';
 
     public function __construct(
         private TranslatorInterface $translator,

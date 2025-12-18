@@ -21,7 +21,6 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
     private const string DATA_BANDS_DIR = __DIR__ . '/data/bands/';
     private const string FALLBACK_PICTURE = 'band.webp';
     private const string EXT = '.webp';
-
     public static int $bandIndex = 0;
 
     public function __construct(
