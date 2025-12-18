@@ -22,7 +22,7 @@ class MusicStyle
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null;
+    private ?int $id = null; // @phpstan-ignore-line
 
     #[ORM\Column(type: Types::STRING, length: 100)]
     private ?string $name = null;

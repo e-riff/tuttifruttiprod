@@ -10,7 +10,6 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -35,26 +34,11 @@ class UserMakerCommand extends Command
     {
         $symfonyIo = new SymfonyStyle($input, $output);
 
-        $helper = $this->getHelper('question');
-
-        $emailQuestion = new Question('Email: ');
-        $email = $helper->ask($input, $output, $emailQuestion);
-
-        $firstNameQuestion = new Question('First name: ');
-        $firstName = $helper->ask($input, $output, $firstNameQuestion);
-
-        $lastNameQuestion = new Question('Last name: ');
-        $lastName = $helper->ask($input, $output, $lastNameQuestion);
-
-        $passwordQuestion = new Question('Password: ');
-        $passwordQuestion->setHidden(true);
-        $passwordQuestion->setHiddenFallback(false);
-        $password = $helper->ask($input, $output, $passwordQuestion);
-
-        $confirmPassQuestion = new Question('Confirm Password: ');
-        $confirmPassQuestion->setHidden(true);
-        $confirmPassQuestion->setHiddenFallback(false);
-        $confirmPassword = $helper->ask($input, $output, $confirmPassQuestion);
+        $email = $symfonyIo->ask('Email: ');
+        $firstName = $symfonyIo->ask('First name: ');
+        $lastName = $symfonyIo->ask('Last name: ');
+        $password = $symfonyIo->askHidden('Password: ');
+        $confirmPassword = $symfonyIo->askHidden('Confirm Password: ');
 
         if ($password !== $confirmPassword) {
             $symfonyIo->error('Passwords do not match!');
