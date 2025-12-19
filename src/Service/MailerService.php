@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Band;
+use App\Entity\Musician;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -24,14 +25,13 @@ readonly class MailerService
 
     public function sendContactMail(array $dataMessage = []): void
     {
-        $admin = $this->userRepository->findBy([], [], 5);
+        $admins = $this->userRepository->findBy(criteria: [], limit: 5);
         $email = (new TemplatedEmail())
-            ->to(...array_map(fn ($admin) => $admin->getEmail(), $admin))
+            ->to(...array_map(fn ($admin) => $admin->getEmail(), $admins))
             ->from($this->mailerFrom)
             ->subject('Nouveau message pour Tutti Frutti Pro')
             ->htmlTemplate('_include/_MailContact.html.twig')
             ->context([
-                'user' => $admin,
                 'dataMessage' => $dataMessage,
             ]);
         $this->mailer->send($email);
@@ -40,12 +40,20 @@ readonly class MailerService
     public function sendContactMailForBand(Band $band, array $dataMessage = []): void
     {
         $bandLeader = $band->getLeader();
-        $contacts = $bandLeader ? [$bandLeader->getEmail()] : [...[$bandLeader->getEmail()], ...array_map(fn ($user) => $user->getEmail(), $this->userRepository->findBy([], [], 5))];
+        $contacts = [];
+
+        if ($bandLeader instanceof Musician) {
+            $contacts[] = $bandLeader->getEmail();
+        } else {
+            foreach ($this->userRepository->findBy(criteria: [], limit: 5) as $user) {
+                $contacts[] = $user->getEmail();
+            }
+        }
 
         $emailMessage = (new TemplatedEmail())
             ->to(...$contacts)
             ->from($this->parameterBag->get('mailer_from'))
-            ->from($dataMessage['email'])
+            ->replyTo($dataMessage['email'])
             ->subject("Contact pour {$band->getName()}")
             ->htmlTemplate('_include/_MailContact.html.twig')
             ->context([

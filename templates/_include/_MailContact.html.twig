@@ -1,4 +1,4 @@
-<h1>Bonjour {{ user.firstname }}</h1>
+<h1>Bonjour {{ user.firstname|default('') }}</h1>
 
 <p> Vous avez reçu un message de l'utilisateur :</p>
 <ul>

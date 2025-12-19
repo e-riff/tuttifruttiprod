@@ -7,7 +7,6 @@ namespace App\Entity;
 use App\Enums\MediaTypeEnum;
 use App\Repository\MediaRepository;
 use DateTimeImmutable;
-use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -49,10 +48,10 @@ class Media
     private ?int $pictureSize = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeInterface $updatedAt = null;
+    private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
-    private ?bool $isActive = true;
+    private bool $isActive = true;
 
     public function getId(): ?int
     {
@@ -107,12 +106,12 @@ class Media
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -133,7 +132,7 @@ class Media
         return $this->pictureFile;
     }
 
-    public function isIsActive(): ?bool
+    public function isIsActive(): bool
     {
         return $this->isActive;
     }
