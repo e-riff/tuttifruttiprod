@@ -58,7 +58,7 @@ class ConcertFullCalendarNormalizer implements NormalizerInterface
         array $context = [],
     ): bool {
         return $data instanceof Concert
-            && $context['fullcalendar'] ?? false;
+            && ($context['fullcalendar'] ?? false);
     }
 
     public function getSupportedTypes(?string $format): array
