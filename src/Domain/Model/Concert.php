@@ -1,0 +1,129 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\Model;
+
+use DateTimeImmutable;
+
+class Concert
+{
+    private ?int $id = null;
+
+    private ?string $clientName = null;
+
+    private ?string $address = null;
+
+    private ?string $zipCode = null;
+
+    private ?string $city = null;
+
+    private ?DateTimeImmutable $date = null;
+
+    private ?string $otherInformations = null;
+
+    private ?bool $isConfirmed = null;
+
+    private ?Band $band = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getClientName(): ?string
+    {
+        return $this->clientName;
+    }
+
+    public function setClientName(string $clientName): self
+    {
+        $this->clientName = $clientName;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(?string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDate(): ?DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    public function setDate(DateTimeImmutable $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getOtherInformations(): ?string
+    {
+        return $this->otherInformations;
+    }
+
+    public function setOtherInformations(?string $otherInformations): self
+    {
+        $this->otherInformations = $otherInformations;
+
+        return $this;
+    }
+
+    public function isIsConfirmed(): ?bool
+    {
+        return $this->isConfirmed;
+    }
+
+    public function setIsConfirmed(bool $isConfirmed): self
+    {
+        $this->isConfirmed = $isConfirmed;
+
+        return $this;
+    }
+
+    public function getBand(): ?Band
+    {
+        return $this->band;
+    }
+
+    public function setBand(?Band $band): self
+    {
+        $this->band = $band;
+
+        return $this;
+    }
+}

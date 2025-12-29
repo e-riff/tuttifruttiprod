@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Band;
-use App\Entity\Media;
+use App\Domain\Model\Band;
+use App\Domain\Model\Media;
+use App\Domain\Repository\BandRepositoryInterface;
+use App\Domain\Repository\ConcertRepositoryInterface;
+use App\Domain\Repository\MediaRepositoryInterface;
 use App\Enums\MediaTypeEnum;
 use App\Form\BandType;
 use App\Form\MediaImageType;
 use App\Form\MediaLinkType;
 use App\Form\MediaSoundcloudType;
 use App\Form\MediaYoutubeType;
-use App\Repository\BandRepository;
-use App\Repository\ConcertRepository;
-use App\Repository\MediaRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class BandController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(BandRepository $bandRepository): Response
+    public function index(BandRepositoryInterface $bandRepository): Response
     {
         return $this->render('admin/band/index.html.twig', [
             'bands' => $bandRepository->findAll(),
@@ -34,7 +34,7 @@ class BandController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, SluggerInterface $slugger, BandRepository $bandRepository): Response
+    public function new(Request $request, SluggerInterface $slugger, BandRepositoryInterface $bandRepository): Response
     {
         $band = new Band();
         $form = $this->createForm(BandType::class, $band);
@@ -59,7 +59,7 @@ class BandController extends AbstractController
         SluggerInterface $slugger,
         #[MapEntity(id: 'id')]
         Band $band,
-        BandRepository $bandRepository,
+        BandRepositoryInterface $bandRepository,
     ): Response {
         $form = $this->createForm(BandType::class, $band);
         $form->handleRequest($request);
@@ -82,7 +82,7 @@ class BandController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Band $band,
-        MediaRepository $mediaRepository,
+        MediaRepositoryInterface $mediaRepository,
     ): Response {
         $media = new Media();
         $youtubeForm = $this->createForm(MediaYoutubeType::class, $media);
@@ -156,7 +156,7 @@ class BandController extends AbstractController
         Media $media,
         #[MapEntity(id: 'band')]
         Band $band,
-        MediaRepository $mediaRepository,
+        MediaRepositoryInterface $mediaRepository,
     ): Response {
         if ($this->isCsrfTokenValid('delete' . $media->getId(), $request->request->get('_token'))) {
             $mediaRepository->remove($media, true);
@@ -169,7 +169,7 @@ class BandController extends AbstractController
     public function concert(
         #[MapEntity(id: 'band')]
         Band $band,
-        ConcertRepository $concertRepository,
+        ConcertRepositoryInterface $concertRepository,
     ): Response {
         return $this->render('admin/band/concert.html.twig', [
             'band' => $band,
@@ -182,7 +182,7 @@ class BandController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Band $band,
-        BandRepository $bandRepository,
+        BandRepositoryInterface $bandRepository,
     ): Response {
         if ($this->isCsrfTokenValid('delete' . $band->getId(), $request->request->get('_token'))) {
             $bandRepository->remove($band, true);

@@ -2,23 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Infrastructure\Doctrine\Repository;
 
-use App\Entity\Band;
-use App\Entity\Concert;
+use App\Domain\Model\Band;
+use App\Domain\Model\Concert;
+use App\Domain\Repository\ConcertRepositoryInterface;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Concert>
- *
- * @method Concert|null find($id, $lockMode = null, $lockVersion = null)
- * @method Concert|null findOneBy(array $criteria, array $orderBy = null)
- * @method Concert[]    findAll()
- * @method Concert[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ConcertRepository extends ServiceEntityRepository
+class DoctrineConcertRepository extends ServiceEntityRepository implements ConcertRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -43,6 +39,9 @@ class ConcertRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Concert[]
+     */
     public function findConfirmedConcerts(?DateTime $dateToFetchFrom = null, ?Band $band = null): array
     {
         $qb = $this->createQueryBuilder('c')

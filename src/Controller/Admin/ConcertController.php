@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Concert;
+use App\Domain\Model\Concert;
+use App\Domain\Repository\ConcertRepositoryInterface;
 use App\Form\ConcertType;
-use App\Repository\ConcertRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class ConcertController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(ConcertRepository $concertRepository): Response
+    public function index(ConcertRepositoryInterface $concertRepository): Response
     {
         return $this->render('admin/concert/index.html.twig', [
             'concerts' => $concertRepository->findAll(),
@@ -25,7 +25,7 @@ class ConcertController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ConcertRepository $concertRepository): Response
+    public function new(Request $request, ConcertRepositoryInterface $concertRepository): Response
     {
         $concert = new Concert();
         $form = $this->createForm(ConcertType::class, $concert);
@@ -48,7 +48,7 @@ class ConcertController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Concert $concert,
-        ConcertRepository $concertRepository,
+        ConcertRepositoryInterface $concertRepository,
     ): Response {
         $form = $this->createForm(ConcertType::class, $concert);
         $form->handleRequest($request);
@@ -70,7 +70,7 @@ class ConcertController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Concert $concert,
-        ConcertRepository $concertRepository,
+        ConcertRepositoryInterface $concertRepository,
     ): Response {
         if ($this->isCsrfTokenValid('delete' . $concert->getId(), $request->request->get('_token'))) {
             $concertRepository->remove($concert, true);

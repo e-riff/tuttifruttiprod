@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
+use App\Domain\Model\User;
+use App\Domain\Repository\UserRepositoryInterface;
 use App\Form\UserType;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +33,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/index', name: 'index')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepositoryInterface $userRepository): Response
     {
         $users = $userRepository->findAll();
 

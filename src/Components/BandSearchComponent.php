@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Components;
 
+use App\Domain\Repository\BandRepositoryInterface;
 use App\Enums\BandPriceEnum;
-use App\Repository\BandRepository;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -30,7 +30,7 @@ class BandSearchComponent
     #[LiveProp(writable: true)]
     public ?array $priceCategory;
 
-    public function __construct(private readonly BandRepository $bandRepository)
+    public function __construct(private readonly BandRepositoryInterface $bandRepository)
     {
     }
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\Band;
-use App\Entity\Event;
-use App\Entity\Musician;
-use App\Entity\MusicStyle;
+use App\Domain\Model\Band;
+use App\Domain\Model\Event;
+use App\Domain\Model\Musician;
+use App\Domain\Model\MusicStyle;
 use App\Enums\BandPriceEnum;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

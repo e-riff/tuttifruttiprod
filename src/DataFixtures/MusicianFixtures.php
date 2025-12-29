@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\Musician;
-use App\Repository\BandRepository;
+use App\Domain\Model\Musician;
+use App\Domain\Repository\BandRepositoryInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -16,7 +16,7 @@ class MusicianFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(
         private readonly DecoderInterface $decoder,
-        private readonly BandRepository $bandRepository,
+        private readonly BandRepositoryInterface $bandRepository,
     ) {
     }
 

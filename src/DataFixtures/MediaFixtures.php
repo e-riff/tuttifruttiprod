@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\Media;
+use App\Domain\Model\Media;
+use App\Domain\Repository\BandRepositoryInterface;
 use App\Enums\MediaTypeEnum;
-use App\Repository\BandRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -16,7 +16,7 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(
         private readonly DecoderInterface $decoder,
-        private readonly BandRepository $bandRepository,
+        private readonly BandRepositoryInterface $bandRepository,
     ) {
     }
 

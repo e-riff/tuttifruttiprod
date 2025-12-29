@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Musician;
+use App\Domain\Model\Musician;
+use App\Domain\Repository\MusicianRepositoryInterface;
 use App\Form\MusicianType;
-use App\Repository\MusicianRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class MusicianController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(MusicianRepository $musicianRepository): Response
+    public function index(MusicianRepositoryInterface $musicianRepository): Response
     {
         return $this->render('admin/musician/index.html.twig', [
             'musicians' => $musicianRepository->findBy([], ['lastname' => 'ASC']),
@@ -25,7 +25,7 @@ class MusicianController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MusicianRepository $musicianRepository): Response
+    public function new(Request $request, MusicianRepositoryInterface $musicianRepository): Response
     {
         $musician = new Musician();
         $form = $this->createForm(MusicianType::class, $musician);
@@ -48,7 +48,7 @@ class MusicianController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Musician $musician,
-        MusicianRepository $musicianRepository,
+        MusicianRepositoryInterface $musicianRepository,
     ): Response {
         $form = $this->createForm(MusicianType::class, $musician);
         $form->handleRequest($request);
@@ -70,7 +70,7 @@ class MusicianController extends AbstractController
         Request $request,
         #[MapEntity(id: 'id')]
         Musician $musician,
-        MusicianRepository $musicianRepository,
+        MusicianRepositoryInterface $musicianRepository,
     ): Response {
         if ($this->isCsrfTokenValid('delete' . $musician->getId(), $request->request->get('_token'))) {
             $musicianRepository->remove($musician, true);

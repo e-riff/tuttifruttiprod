@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\Band;
-use App\Entity\Event;
-use App\Entity\MusicStyle;
+use App\Domain\Model\Band;
+use App\Domain\Model\Event;
+use App\Domain\Model\MusicStyle;
 use App\Enums\BandPriceEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Repository\ConcertRepository;
+use App\Domain\Repository\ConcertRepositoryInterface;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +24,7 @@ class ConcertController extends AbstractController
 
     #[Route('/confirmed', name: 'get_confirmed_concert', methods: ['GET'])]
     public function getConcertForm(
-        ConcertRepository $concertRepository,
+        ConcertRepositoryInterface $concertRepository,
         NormalizerInterface $normalizer,
         #[MapQueryParameter('start')]
         ?string $start = null,

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\Band;
-use App\Entity\Musician;
-use App\Repository\UserRepository;
+use App\Domain\Model\Band;
+use App\Domain\Model\Musician;
+use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -16,7 +16,7 @@ readonly class MailerService
 {
     public function __construct(
         private MailerInterface $mailer,
-        private UserRepository $userRepository,
+        private UserRepositoryInterface $userRepository,
         private ParameterBagInterface $parameterBag,
         #[Autowire('%mailer_from%')]
         private string $mailerFrom,

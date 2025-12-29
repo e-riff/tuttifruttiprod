@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Band;
+use App\Domain\Model\Band;
+use App\Domain\Repository\BandRepositoryInterface;
 use App\Enums\BandPriceEnum;
 use App\Enums\MediaTypeEnum;
 use App\Form\MessageType;
-use App\Repository\BandRepository;
 use App\Service\MailerService;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class BandController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, BandRepository $bandRepository): Response
+    public function index(Request $request, BandRepositoryInterface $bandRepository): Response
     {
         $searchData = array_merge(
             [

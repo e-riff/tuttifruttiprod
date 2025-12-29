@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\Association;
-use App\Repository\AssociationRepository;
+use App\Domain\Model\Association;
+use App\Domain\Repository\AssociationRepositoryInterface;
 
 readonly class GlobalAssociation
 {
-    public function __construct(private AssociationRepository $associationRepository)
+    public function __construct(private AssociationRepositoryInterface $associationRepository)
     {
     }
 

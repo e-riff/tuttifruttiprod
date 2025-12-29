@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Band;
-use App\Repository\BandRepository;
+use App\Domain\Model\Band;
+use App\Domain\Repository\BandRepositoryInterface;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 class SitemapController extends AbstractController
 {
     public function __construct(
-        private readonly BandRepository $bandRepository,
+        private readonly BandRepositoryInterface $bandRepository,
         private readonly UploaderHelper $uploaderHelper,
         private readonly UrlHelper $urlHelper,
     ) {

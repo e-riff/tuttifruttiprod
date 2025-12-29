@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -18,8 +19,11 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            - '../src/Entity_old/'
+            - '../src/Domain/Model/'
+            - '../src/Infrastructure/Doctrine/Mapping/'
             - '../src/Kernel.php'
+
     App\Serializer\Normalizer\ConcertFullCalendarNormalizer:
         tags:
             - { name: 'serializer.normalizer', priority: 500 }

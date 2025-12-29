@@ -2,21 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Infrastructure\Doctrine\Repository;
 
-use App\Entity\MusicStyle;
+use App\Domain\Model\MusicStyle;
+use App\Domain\Repository\MusicStyleRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<MusicStyle>
- *
- * @method MusicStyle|null find($id, $lockMode = null, $lockVersion = null)
- * @method MusicStyle|null findOneBy(array $criteria, array $orderBy = null)
- * @method MusicStyle[]    findAll()
- * @method MusicStyle[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MusicStyleRepository extends ServiceEntityRepository
+class DoctrineMusicStyleRepository extends ServiceEntityRepository implements MusicStyleRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -2,21 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Infrastructure\Doctrine\Repository;
 
-use App\Entity\Band;
+use App\Domain\Model\Band;
+use App\Domain\Repository\BandRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Band>
- *
- * @method Band|null find($id, $lockMode = null, $lockVersion = null)
- * @method Band|null findOneBy(array $criteria, array $orderBy = null)
- * @method Band[]    findAll()
- * @method Band[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BandRepository extends ServiceEntityRepository
+class DoctrineBandRepository extends ServiceEntityRepository implements BandRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -41,6 +37,9 @@ class BandRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return iterable<int, Band>
+     */
     public function findAllWithPicture(): iterable
     {
         return $this->createQueryBuilder('b')
@@ -50,6 +49,13 @@ class BandRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @param string[] $events
+     * @param string[] $musicStyles
+     * @param string[] $priceCategories
+     *
+     * @return Band[]
+     */
     public function bandSearch(string $searchQuery, array $events, array $musicStyles, array $priceCategories): array
     {
         $queryBuilder = $this->createQueryBuilder('b')

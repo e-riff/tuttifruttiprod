@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Domain\Repository\EventRepositoryInterface;
+use App\Domain\Repository\MusicStyleRepositoryInterface;
 use App\Enums\BandPriceEnum;
-use App\Repository\EventRepository;
-use App\Repository\MusicStyleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -18,8 +18,8 @@ class SearchBarController extends AbstractController
 {
     public function searchBar(
         array $searchData,
-        EventRepository $eventRepository,
-        MusicStyleRepository $musicStyleRepository,
+        EventRepositoryInterface $eventRepository,
+        MusicStyleRepositoryInterface $musicStyleRepository,
         RequestStack $requestStack,
     ): Response {
         $eventsChoiceList = [];

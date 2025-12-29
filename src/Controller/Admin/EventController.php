@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Entity\Event;
+use App\Domain\Model\Event;
+use App\Domain\Repository\EventRepositoryInterface;
 use App\Form\EventType;
-use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +19,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 final class EventController extends AbstractController
 {
     #[Route(name: 'index', methods: ['GET'])]
-    public function index(EventRepository $eventRepository): Response
+    public function index(EventRepositoryInterface $eventRepository): Response
     {
         return $this->render('admin/event/index.html.twig', [
             'events' => $eventRepository->findAll(),
