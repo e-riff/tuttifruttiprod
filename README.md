@@ -44,6 +44,43 @@ make npm-dev-server
 
 
 
+## Déploiement cPanel
+
+Après avoir tiré la dernière version du dépôt via l’interface VCS de cPanel, se connecter en SSH puis aller dans le dossier du projet :
+
+```bash
+cd repositories/
+cd panelproduction.fr/
+```
+
+Vérifier que cPanel utilise bien PHP 8.3 ou plus :
+
+```bash
+php -v
+```
+
+Installer ou mettre à jour les dépendances PHP, appliquer les migrations, générer les assets, puis reconstruire le cache Symfony :
+
+```bash
+composer install --no-dev --optimize-autoloader
+php bin/console doctrine:migrations:migrate --no-interaction
+npm install
+npm run build
+php bin/console cache:clear --env=prod
+php bin/console cache:warmup --env=prod
+```
+
+Vérifier ensuite l’état des migrations :
+
+```bash
+php bin/console doctrine:migrations:status
+```
+
+Points d’attention :
+- Le fichier `.env.local` du serveur doit contenir le `DATABASE_URL` de production/cPanel, pas la valeur Docker `mysql:3306`.
+- Si `npm` n’est pas disponible sur cPanel, construire les assets ailleurs et déployer le contenu généré de `public/build`.
+- Ne pas lancer `db-reset-fixtures` en production : cette commande supprime et recrée la base.
+
 ## Données et médias (fixtures)
 - Les fixtures créent des enregistrements de démonstration. Les images d’exemple sont copiées dans `public/uploads/...` lorsque c’est nécessaire
 
