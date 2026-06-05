@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\MessageType;
-use App\Repository\BandRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +17,6 @@ class HomeController extends AbstractController
     public function index(
         Request $request,
         MailerService $contactMail,
-        BandRepository $bandRepository,
     ): Response {
         $contactForm = $this->createForm(MessageType::class);
         $contactForm->handleRequest($request);
@@ -32,7 +30,6 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'contactForm' => $contactForm,
-            'bands' => $bandRepository->findAllWithPicture(),
         ]);
     }
 }

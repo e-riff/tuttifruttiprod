@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Musician{% endblock %}
+{% block title %}{{ 'admin.musician.edit'|trans({ name: musician.lastname ~ ' ' ~ musician.firstname }) }}{% endblock %}
 
 {% block body %}
     <h1>{{ musician.firstname }} {{ musician.lastname|upper }}</h1>
@@ -8,43 +8,43 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'admin.table.id'|trans }}</th>
                 <td>{{ musician.id }}</td>
             </tr>
             <tr>
-                <th>Firstname</th>
+                <th>{{ 'admin.table.first_name'|trans }}</th>
                 <td>{{ musician.firstname }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>{{ 'admin.table.last_name'|trans }}</th>
                 <td>{{ musician.lastname }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th>{{ 'admin.table.email'|trans }}</th>
                 <td>{{ musician.email }}</td>
             </tr>
             <tr>
-                <th>Phone</th>
+                <th>{{ 'admin.table.phone'|trans }}</th>
                 <td>{{ musician.phone }}</td>
             </tr>
             <tr>
-                <th>IsActive</th>
-                <td>{{ musician.isActive ? 'Yes' : 'No' }}</td>
+                <th>{{ 'admin.table.active'|trans }}</th>
+                <td>{{ musician.isActive ? 'boolean.yes'|trans : 'boolean.no'|trans }}</td>
             </tr>
             <tr>
-                <th>Picture</th>
+                <th>{{ 'admin.table.picture'|trans }}</th>
                 <td>{{ musician.picture }}</td>
             </tr>
             <tr>
-                <th>UpdatedAt</th>
+                <th>{{ 'admin.table.updated_at'|trans }}</th>
                 <td>{{ musician.updatedAt ? musician.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('admin_musician_index') }}">back to list</a>
+    <a href="{{ path('admin_musician_index') }}">{{ 'action.back_to_list'|trans }}</a>
 
-    <a href="{{ path('admin_musician_edit', {'id': musician.id}) }}">edit</a>
+    <a href="{{ path('admin_musician_edit', {'id': musician.id}) }}">{{ 'action.edit'|trans }}</a>
 
     {{ include('admin/musician/_delete_form.html.twig') }}
 {% endblock %}

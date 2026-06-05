@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Band{% endblock %}
+{% block title %}{{ 'admin.band.create'|trans }}{% endblock %}
 
 {% block body %}
     <main class="adminForms container-md">
 
-<h1>Créer un nouveau groupe</h1>
+<h1>{{ 'admin.band.create'|trans }}</h1>
 
     {{ include('admin/band/_form.html.twig') }}
 
-    <a href="{{ path('admin_band_index') }}">retour à la liste</a>
+    <a href="{{ path('admin_band_index') }}">{{ 'action.back_to_list'|trans }}</a>
 </main>
 {% endblock %}

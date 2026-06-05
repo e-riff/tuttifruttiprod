@@ -14,7 +14,7 @@ class AssociationFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $association = new Association();
-        $association->setName('Tutti Frutti');
+        $association->setName('Panel Production');
         $association->setPhone('+33980727471');
         $association->setEmail('cameleonproduction42@gmail.com');
         $association->setCreatedAt(new DateTimeImmutable('21-04-2014'));
@@ -24,6 +24,8 @@ class AssociationFixtures extends Fixture
         $association->setSiret('81126403500015');
         $association->setDescription("Panel Production 42 est un groupement informel de musiciens professionnels liés par la même passion : animer vos soirées et moments festifs en leur donnant une vraie touche d'originalité, de convivialité et un goût d'authenticité 100% live qui feront de votre évènement un moment pas comme les autres !
         Salles de spectacles, communes, associations, particuliers, n'hésitez plus !");
+        $association->setHeroTitle('Panel Production');
+        $association->setHeroSubtitle("Des artistes live pour donner à vos événements une touche d'originalité, de convivialité et d'authenticité.");
         $manager->persist($association);
 
         $manager->flush();

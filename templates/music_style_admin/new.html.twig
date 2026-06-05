@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New MusicStyle{% endblock %}
+{% block title %}{{ 'admin.music_style.create'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Create new MusicStyle</h1>
+    <h1>{{ 'admin.music_style.create'|trans }}</h1>
 
     {{ include('music_style_admin/_form.html.twig') }}
 
-    <a href="{{ path('app_music_style_admin_index') }}">back to list</a>
+    <a href="{{ path('admin_musicStyle_index') }}">{{ 'action.back_to_list'|trans }}</a>
 {% endblock %}

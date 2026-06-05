@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}{{ 'login.title'|trans }}{% endblock %}
 
 {% block body %}
     <main class="login container-fluid container-lg d-flex justify-content-center">
@@ -12,19 +12,19 @@
         <form action="{{ path('app_login') }}" method="post">
             <div class="form-floating mb-3">
                 <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}">
-                <label class="form-label" for="username">Email:</label>
+                <label class="form-label" for="username">{{ 'login.email'|trans }}</label>
             </div>
             <div class="form-floating mb-3">
                 <input class="form-control" type="password" id="password" name="_password">
-                <label class="form-label" for="password">Mot de passe:</label>
+                <label class="form-label" for="password">{{ 'login.password'|trans }}</label>
             </div>
             <input type="hidden" name="_target_path" value="{{ path('admin_board') }}">
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <button class="btn btn-primary w-50" type="submit">Connexion</button>
+            <button class="btn btn-primary w-50" type="submit">{{ 'login.submit'|trans }}</button>
             <div class="text-center mt-3">
-                <a  class="text-muted fw-light" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+                <a  class="text-muted fw-light" href="{{ path('app_forgot_password_request') }}">{{ 'login.forgotten_password'|trans }}</a>
             </div>
         </form>
     </main>

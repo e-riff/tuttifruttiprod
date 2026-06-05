@@ -5,7 +5,7 @@
                 {% include 'band/_soundclound.html.twig'  with {media: soundcloudMedia} %}
                 <div class="articleContent">
                     <ul>
-                        <li><span>ID de l'audio :</span> {{ soundcloudMedia.link }} </li>
+                        <li><span>{{ 'admin.media.audio_id'|trans }} :</span> {{ soundcloudMedia.link }} </li>
                     </ul>
                 </div>
                 <footer class="d-flex justify-content-center">
@@ -14,7 +14,7 @@
             </article>
     {% endfor %}
     <article>
-        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="ajout d'une video youtube">
+        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="{{ 'admin.media.image_alt_add'|trans }}">
         </div>
         {{ form_start(soundcloudForm) }}
         {{ form_errors(soundcloudForm) }}

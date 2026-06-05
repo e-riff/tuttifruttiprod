@@ -1,18 +1,33 @@
 {# templates/admin/board.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Board Admin{% endblock %}
+{% block title %}{{ parent() }} - {{ 'admin.board.title'|trans }}{% endblock %}
 
 {% block body %}
     <main class="adminBoard">
         <section class="welcomeAdmin">
             <div class="d-flex flex-column m-4 justify-content-center align-items-center">
-                <h1>Bienvenue, {{ app.user.firstname }}</h1>
-                <h2>Qu'est-ce qu'on administre aujourd'hui ?</h2>
+                <h1>{{ 'admin.board.welcome'|trans({ firstname: app.user.firstname }) }}</h1>
+                <h2>{{ 'admin.board.question'|trans }}</h2>
             </div>
         </section>
 
         <section class="adminList container-lg">
+            {# ——————— Association / Accueil ——————— #}
+            <article
+                    {{ stimulus_controller(
+                        'clickable-article',
+                        { url: path('admin_association_edit') },
+                        ['position-relative']
+                    ) }}
+                    {{ stimulus_action('clickable-article', 'redirect', 'click') }}
+            >
+                <img src="{{ asset('build/images/admin.png') }}" alt="{{ 'admin.board.association_home'|trans }}">
+                <div class="categoryName">
+                    <h2 class="h3"><mark>{{ 'admin.board.association_home'|trans }}</mark></h2>
+                </div>
+            </article>
+
             {# ——————— Les Groupes ——————— #}
             <article
                     {{ stimulus_controller(
@@ -24,7 +39,7 @@
             >
                 <img src="{{ asset('build/images/band.jpg') }}" alt="photo de groupe">
                 <div class="categoryName">
-                    <h2 class="h3"><mark>Les Groupes</mark></h2>
+                    <h2 class="h3"><mark>{{ 'admin.board.bands'|trans }}</mark></h2>
                 </div>
             </article>
 
@@ -39,7 +54,7 @@
             >
                 <img src="{{ asset('build/images/styles.png') }}" alt="photo de styles musicaux">
                 <div class="categoryName">
-                    <h2 class="h3"><mark>Les Styles</mark></h2>
+                    <h2 class="h3"><mark>{{ 'admin.board.styles'|trans }}</mark></h2>
                 </div>
             </article>
 
@@ -54,7 +69,7 @@
             >
                 <img src="{{ asset('build/images/musicians.jpg') }}" alt="photo de musiciens">
                 <div class="categoryName">
-                    <h2 class="h3"><mark>Les Musiciens</mark></h2>
+                    <h2 class="h3"><mark>{{ 'admin.board.musicians'|trans }}</mark></h2>
                 </div>
             </article>
 
@@ -69,7 +84,7 @@
             >
                 <img src="{{ asset('build/images/concert.jpg') }}" alt="photo de concert">
                 <div class="categoryName">
-                    <h2 class="h3"><mark>Les Concerts</mark></h2>
+                    <h2 class="h3"><mark>{{ 'admin.board.concerts'|trans }}</mark></h2>
                 </div>
             </article>
 
@@ -84,7 +99,7 @@
             >
                 <img src="{{ asset('build/images/concert.jpg') }}" alt="photo type d'événement">
                 <div class="categoryName">
-                    <h2 class="h3"><mark>Types d'Événement</mark></h2>
+                    <h2 class="h3"><mark>{{ 'admin.board.event_types'|trans }}</mark></h2>
                 </div>
             </article>
 
@@ -99,7 +114,7 @@
             >
                 <img src="{{ asset('build/images/admin.png') }}" alt="photo users">
                 <div class="categoryName">
-                    <h2 class="h3"><mark>Les Utilisateurs</mark></h2>
+                    <h2 class="h3"><mark>{{ 'admin.board.users'|trans }}</mark></h2>
                 </div>
             </article>
         </section>

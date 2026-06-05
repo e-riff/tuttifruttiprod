@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des groupes{% endblock %}
+{% block title %}{{ 'admin.band.list'|trans }}{% endblock %}
 
 {% block body %}
     <main class="adminItemIndex container-lg">
 
-        <h1>Liste des groupes</h1>
+        <h1>{{ 'admin.band.list'|trans }}</h1>
         <div class="d-flex justify-content-end gap-2  mb-2">
-            <a class="btn btn-primary" href="{{ path('admin_band_new') }}">Ajouter un groupe</a>
-            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
+            <a class="btn btn-primary" href="{{ path('admin_band_new') }}">{{ 'admin.band.add'|trans }}</a>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">{{ 'action.admin_home'|trans }}</a>
         </div>
 
 
         <table class="table">
             <thead>
             <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>actif ?</th>
-                <th>Info Flash</th>
-                <th>Accroche</th>
+                <th>{{ 'admin.table.name'|trans }}</th>
+                <th>{{ 'admin.table.description'|trans }}</th>
+                <th>{{ 'admin.table.active'|trans }}</th>
+                <th>{{ 'admin.table.flash_information'|trans }}</th>
+                <th>{{ 'admin.table.tagline'|trans }}</th>
                 <th></th>
             </tr>
             </thead>
@@ -32,15 +32,15 @@
                     <td class="largeContent">{{ band.flashInformation }}</td>
                     <td class="largeContent">{{ band.tagline }}</td>
                     <td class="d-flex flex-row">
-                        <a class="btn btn-primary" href="{{ path('band_show', {'slug': band.slug}) }}" target="_blank">consulter</a>
-                        <a class="btn btn-warning" href="{{ path('admin_band_edit', {'id': band.id}) }}">modifier</a>
-                        <a class="btn btn-info" href="{{ path('admin_band_media', {'id': band.id}) }}">medias</a>
-                        <a class="btn btn-secondary" href="{{ path('admin_band_concert', {'band': band.id}) }}">concerts</a>
+                        <a class="btn btn-primary" href="{{ path('band_show', {'slug': band.slug}) }}" target="_blank">{{ 'action.consult'|trans }}</a>
+                        <a class="btn btn-warning" href="{{ path('admin_band_edit', {'id': band.id}) }}">{{ 'action.edit'|trans }}</a>
+                        <a class="btn btn-info" href="{{ path('admin_band_media', {'id': band.id}) }}">{{ 'action.medias'|trans }}</a>
+                        <a class="btn btn-secondary" href="{{ path('admin_band_concert', {'band': band.id}) }}">{{ 'admin.band.concerts'|trans }}</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="7">Aucun groupe enregistré</td>
+                    <td colspan="7">{{ 'admin.band.none'|trans }}</td>
                 </tr>
             {% endfor %}
             </tbody>

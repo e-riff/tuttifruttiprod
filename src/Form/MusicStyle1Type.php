@@ -16,10 +16,15 @@ class MusicStyle1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('slug')
+            ->add('name', null, [
+                'label' => 'form.admin.name',
+            ])
+            ->add('slug', null, [
+                'label' => 'admin.table.slug',
+            ])
             ->add('bands', EntityType::class, [
                 'class' => Band::class,
+                'label' => 'form.admin.bands',
                 'choice_label' => 'id',
                 'multiple' => true,
             ])
@@ -30,6 +35,7 @@ class MusicStyle1Type extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => MusicStyle::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

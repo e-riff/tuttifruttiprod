@@ -17,11 +17,11 @@ class MusicStyleType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => 'Nom',
+                'label' => 'form.admin.name',
                 'sanitize_html' => true,
             ])
             ->add('bands', EntityType::class, [
-                'label' => 'Groupes',
+                'label' => 'form.admin.bands',
                 'class' => Band::class,
                 'required' => false,
                 'expanded' => true,
@@ -36,6 +36,7 @@ class MusicStyleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => MusicStyle::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

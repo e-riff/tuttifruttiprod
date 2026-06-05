@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Band{% endblock %}
+{% block title %}{{ 'admin.user.invite'|trans }}{% endblock %}
 
 {% block body %}
     <main class="adminForms container-md">
 
-        <h1>Inviter un administrateur</h1>
+        <h1>{{ 'admin.user.invite'|trans }}</h1>
 
         {{ include('admin/user/_form.html.twig') }}
 
-        <a href="{{ path('admin_user_index') }}">retour à la liste</a>
+        <a href="{{ path('admin_user_index') }}">{{ 'action.back_to_list'|trans }}</a>
     </main>
 {% endblock %}

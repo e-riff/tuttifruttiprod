@@ -18,10 +18,11 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'form.admin.name',
             ])
             ->add('bands', EntityType::class, [
                 'class' => Band::class,
+                'label' => 'form.admin.bands',
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
@@ -32,6 +33,7 @@ class EventType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

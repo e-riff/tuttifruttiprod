@@ -8,8 +8,12 @@ use App\Repository\AssociationRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Attribute as Vich;
 
 #[ORM\Entity(repositoryClass: AssociationRepository::class)]
+#[Vich\Uploadable]
 class Association
 {
     #[ORM\Id]
@@ -43,6 +47,22 @@ class Association
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\Column(type: Types::STRING, length: 160, nullable: true)]
+    private ?string $heroTitle = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $heroSubtitle = null;
+
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    private ?string $heroImage = null;
+
+    #[Vich\UploadableField(mapping: 'association_hero_image', fileNameProperty: 'heroImage')]
+    #[Assert\Image]
+    private ?File $heroImageFile = null;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -153,6 +173,69 @@ class Association
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getHeroTitle(): ?string
+    {
+        return $this->heroTitle;
+    }
+
+    public function setHeroTitle(?string $heroTitle): self
+    {
+        $this->heroTitle = $heroTitle;
+
+        return $this;
+    }
+
+    public function getHeroSubtitle(): ?string
+    {
+        return $this->heroSubtitle;
+    }
+
+    public function setHeroSubtitle(?string $heroSubtitle): self
+    {
+        $this->heroSubtitle = $heroSubtitle;
+
+        return $this;
+    }
+
+    public function getHeroImage(): ?string
+    {
+        return $this->heroImage;
+    }
+
+    public function setHeroImage(?string $heroImage): self
+    {
+        $this->heroImage = $heroImage;
+
+        return $this;
+    }
+
+    public function getHeroImageFile(): ?File
+    {
+        return $this->heroImageFile;
+    }
+
+    public function setHeroImageFile(?File $heroImageFile = null): self
+    {
+        $this->heroImageFile = $heroImageFile;
+        if ($heroImageFile) {
+            $this->updatedAt = new DateTimeImmutable('now');
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

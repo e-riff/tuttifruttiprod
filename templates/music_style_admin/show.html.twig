@@ -1,30 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}MusicStyle{% endblock %}
+{% block title %}{{ 'admin.music_style.show'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>MusicStyle</h1>
+    <h1>{{ 'admin.music_style.show'|trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'admin.table.id'|trans }}</th>
                 <td>{{ music_style.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{ 'admin.table.name'|trans }}</th>
                 <td>{{ music_style.name }}</td>
             </tr>
             <tr>
-                <th>Slug</th>
+                <th>{{ 'admin.table.slug'|trans }}</th>
                 <td>{{ music_style.slug }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_music_style_admin_index') }}">back to list</a>
+    <a href="{{ path('admin_musicStyle_index') }}">{{ 'action.back_to_list'|trans }}</a>
 
-    <a href="{{ path('app_music_style_admin_edit', {'id': music_style.id}) }}">edit</a>
+    <a href="{{ path('admin_musicStyle_edit', {'id': music_style.id}) }}">{{ 'action.edit'|trans }}</a>
 
     {{ include('music_style_admin/_delete_form.html.twig') }}
 {% endblock %}

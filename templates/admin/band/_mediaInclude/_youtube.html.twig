@@ -6,8 +6,8 @@
 
                 <div class="articleContent">
                     <ul>
-                        <li><span>ID de la video :</span> {{ youtubeMedia.link }} </li>
-                        <li><span>lien complet :</span>
+                        <li><span>{{ 'admin.media.video_id'|trans }} :</span> {{ youtubeMedia.link }} </li>
+                        <li><span>{{ 'admin.media.full_link'|trans }} :</span>
                             <a
                                     href="https://www.youtube.com/watch?v={{ youtubeMedia.link }}"
                                     target="_blank">https://www.youtube.com/watch?v={{ youtubeMedia.link }}
@@ -21,7 +21,7 @@
             </article>
     {% endfor %}
     <article>
-        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="ajout d'une video youtube">
+        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="{{ 'admin.media.image_alt_add'|trans }}">
         </div>
         {{ form_start(youtubeForm) }}
         {{ form_errors(youtubeForm) }}

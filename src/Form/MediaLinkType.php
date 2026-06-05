@@ -21,7 +21,7 @@ class MediaLinkType extends AbstractType
         $builder
             ->add('link', UrlType::class, [
                 'sanitize_html' => true,
-                'label' => 'lien complet',
+                'label' => 'form.admin.full_link',
                 'attr' => ['placeholder' => 'https://www.perdu.com'],
             ])
             ->add('mediaType', EnumType::class, [
@@ -31,12 +31,13 @@ class MediaLinkType extends AbstractType
                 'choice_loader' => new CallbackChoiceLoader(function () {
                     return MediaTypeEnum::getLinks();
                 }),
-                'label' => 'type de média',
+                'label' => 'form.admin.media_type',
                 'choice_label' => function (MediaTypeEnum $choice) {
                     return $choice->value;
                 },
             ])
             ->add('save', SubmitType::class, [
+                'label' => 'action.save',
                 'attr' => ['class' => 'btn btn-primary'],
                 'row_attr' => ['class' => 'text-center pb-2'],
             ])
@@ -47,6 +48,7 @@ class MediaLinkType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Media::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

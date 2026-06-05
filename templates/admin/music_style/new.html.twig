@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau style de musique{% endblock %}
+{% block title %}{{ 'admin.music_style.create'|trans }}{% endblock %}
 
 {% block body %}
 <main class="adminForms container-md">
-    <h1 class="text-center"><span class="text-primary">Ajout d'un style de musique</span></h1>
+    <h1 class="text-center"><span class="text-primary">{{ 'admin.music_style.create'|trans }}</span></h1>
 
     {{ include('admin/music_style/_form.html.twig') }}
 
     <div class="mt-2">
-        <a class="btn btn-primary me-1" href="{{ path('admin_musicStyle_index') }}">retour aux styles de musique </a>
+        <a class="btn btn-primary me-1" href="{{ path('admin_musicStyle_index') }}">{{ 'action.back_to_music_styles'|trans }}</a>
     </div>
 </main>
 {% endblock %}

@@ -17,17 +17,25 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'label' => 'form.admin.email',
                 'required' => true,
             ])
-            ->add('firstname')
-            ->add('lastname')
-            ->add('Valider', SubmitType::class);
+            ->add('firstname', null, [
+                'label' => 'form.admin.first_name',
+            ])
+            ->add('lastname', null, [
+                'label' => 'form.admin.last_name',
+            ])
+            ->add('Valider', SubmitType::class, [
+                'label' => 'action.validate',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

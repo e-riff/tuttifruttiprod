@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Concert index{% endblock %}
+{% block title %}{{ 'admin.band.concerts_for'|trans({'name': band.name}) }}{% endblock %}
 
 {% block body %}
     <main class="adminItemIndex container-lg mt-2">
-        <h1>Liste des concerts de {{ band.name }}</h1>
+        <h1>{{ 'admin.band.concerts_for'|trans({'name': band.name}) }}</h1>
         <div class="d-flex justify-content-end gap-2  mb-2">
-            <a class="btn btn-primary" href="{{ path('admin_concert_new') }}">Ajouter un concert</a>
-            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
+            <a class="btn btn-primary" href="{{ path('admin_concert_new') }}">{{ 'admin.concert.add'|trans }}</a>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">{{ 'action.admin_home'|trans }}</a>
         </div>
         <table class="table">
             <thead>
             <tr>
-                <th>Nom du client</th>
-                <th>Adresse</th>
-                <th>Code postal</th>
-                <th>Ville</th>
-                <th>Date</th>
-                <th>Informations supplémentaires</th>
-                <th>Confirmé ?</th>
+                <th>{{ 'admin.table.client_name'|trans }}</th>
+                <th>{{ 'admin.table.address'|trans }}</th>
+                <th>{{ 'admin.table.zip_code'|trans }}</th>
+                <th>{{ 'admin.table.city'|trans }}</th>
+                <th>{{ 'admin.table.date'|trans }}</th>
+                <th>{{ 'admin.table.other_informations'|trans }}</th>
+                <th>{{ 'admin.table.confirmed'|trans }}</th>
                 <th></th>
             </tr>
             </thead>
@@ -31,14 +31,14 @@
                     <td>{{ concert.city }}</td>
                     <td>{{ concert.date ? concert.date|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ concert.otherInformations }}</td>
-                    <td>{{ concert.isConfirmed ? 'Oui' : 'Non' }}</td>
+                    <td>{{ concert.isConfirmed ? 'boolean.yes'|trans : 'boolean.no'|trans }}</td>
                     <td class="d-flex flex-row">
-                        <a class="btn btn-warning" href="{{ path('admin_concert_edit', {'id': concert.id}) }}">modifier</a>
+                        <a class="btn btn-warning" href="{{ path('admin_concert_edit', {'id': concert.id}) }}">{{ 'action.edit'|trans }}</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="9">Aucun concert prévu !</td>
+                    <td colspan="9">{{ 'admin.band.no_concerts'|trans }}</td>
                 </tr>
             {% endfor %}
             </tbody>

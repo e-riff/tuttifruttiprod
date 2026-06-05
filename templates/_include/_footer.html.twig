@@ -13,9 +13,9 @@
         <li class=" text-white">{{ association.getAssociation.address }} {{ association.getAssociation.zipCode }} {{ association.getAssociation.city|upper }} - {{ association.getAssociation.phone }}</li>
         <li class="{{ app.user ? "" : "adminLink" }}">
             {% if not app.user %}
-                <a class=" btn text-secondary" href="{{ path('app_login') }}" title="Accès administrateur"><i class="bi bi-lock text-secondary"></i></a>
+                <a class=" btn text-secondary" href="{{ path('app_login') }}" title="{{ 'navigation.admin_access'|trans }}"><i class="bi bi-lock text-secondary"></i></a>
             {% else %}
-                <a class="btn text-secondary" href="{{ path('admin_board') }}" title="panneau administrateur">Administration</a> | <a class="btn text-secondary" href="{{ path('app_logout') }}" title="Logout">Déconnexion</a>
+                <a class="btn text-secondary" href="{{ path('admin_board') }}" title="{{ 'navigation.admin_panel'|trans }}">{{ 'navigation.admin'|trans }}</a> | <a class="btn text-secondary" href="{{ path('app_logout') }}" title="{{ 'navigation.logout'|trans }}">{{ 'navigation.logout'|trans }}</a>
             {% endif %}
         </li>
     </ul>

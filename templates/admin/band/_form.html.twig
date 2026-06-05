@@ -11,5 +11,5 @@
 {{ form_row(form.leader) }}
 {{ form_row(form.musicians) }}
 {{ form_row(form.events) }}
-<button class="btn btn-success m-1 ms-0">Sauvegarder</button>
+<button class="btn btn-success m-1 ms-0">{{ button_label|default('action.save'|trans) }}</button>
 {{ form_end(form) }}

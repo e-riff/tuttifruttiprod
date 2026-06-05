@@ -14,7 +14,7 @@
             <h2 class="h3 text-primary ">{{ band.tagline }}</h2>
             {% if band.flashInformation %}
                 <section class="bg-warning p-4">
-                    <h3 class="fs-5 text-center">FLASH INFO :</h3>
+                    <h3 class="fs-5 text-center">{{ 'band.flash_information'|trans }}</h3>
                     <p class="fst-italic text-center mb-0">{{ band.flashInformation }}</p>
                 </section>
             {% endif %}
@@ -38,7 +38,7 @@
 
                     {% if linkCounter %}
                         <h1>
-                            <mark>Nous trouver en ligne :</mark>
+                            <mark>{{ 'band.online_links'|trans }}</mark>
                         </h1>
                         <ul>
                             {% for webLink in band.medias|filter(link => link.mediaType in linksType) %}
@@ -57,7 +57,7 @@
             <div class="moreInfos">
                 <section class="concerts">
                     <h1>
-                        <mark>Concerts</mark>
+                        <mark>{{ 'band.concerts'|trans }}</mark>
                     </h1>
                     <ul>
                         {% for concert in band.concerts|sort((a, b) => date(a.date) <=> date(b.date)) %}
@@ -68,7 +68,7 @@
                 </section>
                 <section class="links">
                     <h1>
-                        <mark class="w-25">Liens</mark>
+                        <mark class="w-25">{{ 'band.links'|trans }}</mark>
                     </h1>
                     <div class="videos">
                         {% for media in band.medias|filter(v => v.mediaType.value == 'Youtube') %}

@@ -16,12 +16,14 @@ class MediaImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('pictureFile', VichImageType::class, [
+            'label' => 'form.admin.image',
             'required' => false,
             'allow_delete' => true,
             'download_uri' => true,
             'imagine_pattern' => 'upload_filter',
         ])
             ->add('save', SubmitType::class, [
+                'label' => 'action.save',
                 'attr' => ['class' => 'btn btn-primary'],
                 'row_attr' => ['class' => 'text-center pb-2'],
             ])
@@ -32,6 +34,7 @@ class MediaImageType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Media::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

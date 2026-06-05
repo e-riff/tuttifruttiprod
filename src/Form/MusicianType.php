@@ -22,28 +22,28 @@ class MusicianType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'form.admin.first_name',
                 'sanitize_html' => true,
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'form.admin.last_name',
                 'sanitize_html' => true,
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'form.admin.email',
             ])
             ->add('phone', TextType::class, [
-                'label' => 'Téléphone',
+                'label' => 'form.admin.phone',
                 'sanitize_html' => true,
             ])
             ->add('url', UrlType::class, [
-                'label' => 'Lien',
+                'label' => 'form.admin.link',
                 'required' => false,
                 'sanitize_html' => true,
             ])
             ->add('isActive', CheckboxType::class, [
                 'required' => true,
-                'label' => 'Musicien Actif (visible sur le site)',
+                'label' => 'form.admin.active_musician',
             ])
             ->add('pictureFile', VichImageType::class, [
                 'required' => false,
@@ -52,7 +52,7 @@ class MusicianType extends AbstractType
                 'download_uri' => true,
             ])
             ->add('bands', EntityType::class, [
-                'label' => 'Groupes',
+                'label' => 'form.admin.bands',
                 'class' => Band::class,
                 'required' => false,
                 'expanded' => true,
@@ -67,6 +67,7 @@ class MusicianType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Musician::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

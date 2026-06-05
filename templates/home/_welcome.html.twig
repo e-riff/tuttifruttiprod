@@ -1,29 +1,27 @@
 <section id="welcome">
-    <div class="homeCarousel">
-        <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="100">
-            <div class="carousel-inner">
-                {% for band in bands|filter(band => band.picture) %}
-                    <div class="carousel-item {% if loop.first %}active{% endif %}" data-bs-interval="{{ swiperTimer }}">
-                        <img src="{{ vich_uploader_asset(band)|imagine_filter('swipper_filter') }}" class="d-block w-100" alt="...">
-                    </div>
-                {% endfor %}
+    {% set currentAssociation = association.getAssociation %}
+    {% set heroImage = vich_uploader_asset(currentAssociation, 'heroImageFile') %}
+    {% set heroTitle = currentAssociation.heroTitle ?: currentAssociation.name %}
+    {% set heroSubtitle = currentAssociation.heroSubtitle ?: currentAssociation.description %}
+
+    <div class="homeHero">
+        <img
+                src="{{ heroImage ?: asset('build/images/concert.jpg') }}"
+                alt="{{ heroTitle }}"
+                class="homeHeroImage"
+        >
+        <div class="homeHeroOverlay"></div>
+
+        <div class="homeHeroContent">
+            <span class="homeHeroEyebrow">{{ 'home.eyebrow'|trans }}</span>
+            <h1>{{ heroTitle }}</h1>
+            {% if heroSubtitle %}
+                <p>{{ heroSubtitle }}</p>
+            {% endif %}
+            <div class="homeHeroActions">
+                <a href="{{ path('band_index') }}" class="btn homeHeroPrimary">{{ 'home.groups'|trans }}</a>
+                <a href="{{ path('app_concert_index') }}" class="btn homeHeroSecondary">{{ 'home.agenda'|trans }}</a>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
     </div>
-{#    <div class="homeWelcome">
-        <div class="welcomText">
-            <h1>
-                <mark>BIENVENUE</mark>
-            </h1>
-            <p class="associationDescription">{{ association.getAssociation.description }}</p>
-        </div>
-    </div>#}
 </section>

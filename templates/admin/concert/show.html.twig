@@ -1,50 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Concert{% endblock %}
+{% block title %}{{ 'admin.concert.edit'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Concert</h1>
+    <h1>{{ 'admin.concert.edit'|trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'admin.table.id'|trans }}</th>
                 <td>{{ concert.id }}</td>
             </tr>
             <tr>
-                <th>ClientName</th>
+                <th>{{ 'admin.table.client_name'|trans }}</th>
                 <td>{{ concert.clientName }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>{{ 'admin.table.address'|trans }}</th>
                 <td>{{ concert.address }}</td>
             </tr>
             <tr>
-                <th>ZipCode</th>
+                <th>{{ 'admin.table.zip_code'|trans }}</th>
                 <td>{{ concert.zipCode }}</td>
             </tr>
             <tr>
-                <th>City</th>
+                <th>{{ 'admin.table.city'|trans }}</th>
                 <td>{{ concert.city }}</td>
             </tr>
             <tr>
-                <th>Date</th>
+                <th>{{ 'admin.table.date'|trans }}</th>
                 <td>{{ concert.date ? concert.date|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>OtherInformations</th>
+                <th>{{ 'admin.table.other_informations'|trans }}</th>
                 <td>{{ concert.otherInformations }}</td>
             </tr>
             <tr>
-                <th>IsConfirmed</th>
-                <td>{{ concert.isConfirmed ? 'Yes' : 'No' }}</td>
+                <th>{{ 'admin.table.confirmed'|trans }}</th>
+                <td>{{ concert.isConfirmed ? 'boolean.yes'|trans : 'boolean.no'|trans }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('admin_concert_index') }}">back to list</a>
+    <a href="{{ path('admin_concert_index') }}">{{ 'action.back_to_list'|trans }}</a>
 
-    <a href="{{ path('admin_concert_edit', {'id': concert.id}) }}">edit</a>
+    <a href="{{ path('admin_concert_edit', {'id': concert.id}) }}">{{ 'action.edit'|trans }}</a>
 
     {{ include('admin/concert/_delete_form.html.twig') }}
 {% endblock %}

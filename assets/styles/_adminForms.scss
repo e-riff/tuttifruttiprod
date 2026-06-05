@@ -7,6 +7,15 @@ main.adminForms {
     max-height: 3rem;
   }
 
+  .vich-image {
+    img {
+      display: block;
+      max-height: 12rem;
+      max-width: min(100%, 24rem);
+      object-fit: contain;
+    }
+  }
+
   .form-label, legend {
     font-weight: bold;
   }

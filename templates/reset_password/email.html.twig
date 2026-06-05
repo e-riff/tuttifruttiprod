@@ -1,9 +1,9 @@
-<h1>Bonjour!</h1>
+<h1>{{ 'reset_password.email_greeting'|trans }}</h1>
 
-<p>Pour (ré)initialiser votre mot de passe, veuillez visiter le lien suivant</p>
+<p>{{ 'reset_password.email_intro'|trans }}</p>
 
 <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
 
-<p>Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+<p>{{ 'reset_password.email_expiration'|trans({'expires': resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle')}) }}</p>
 
-<p>Merci!</p>
+<p>{{ 'reset_password.email_thanks'|trans }}</p>

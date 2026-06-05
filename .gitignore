@@ -40,3 +40,5 @@ phpstan.neon
 
 # Local agent instructions
 /AGENTS.md
+/.codex/
+/.agents/

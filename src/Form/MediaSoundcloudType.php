@@ -21,12 +21,13 @@ class MediaSoundcloudType extends AbstractType
                     new NotBlank(),
                     new Length(['min' => 5]),
                 ],
-                'label' => 'ID de la piste audio',
+                'label' => 'form.admin.audio_track_id',
                 'attr' => ['placeholder' => 'exemple : 116512325'],
                 'row_attr' => ['class' => 'p-2'],
                 'sanitize_html' => true,
             ])
             ->add('save', SubmitType::class, [
+                'label' => 'action.save',
                 'attr' => ['class' => 'btn btn-primary'],
                 'row_attr' => ['class' => 'text-center pb-2'],
             ])

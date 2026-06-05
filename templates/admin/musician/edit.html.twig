@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Musician{% endblock %}
+{% block title %}{{ 'admin.musician.edit'|trans({ name: musician.lastname ~ ' ' ~ musician.firstname }) }}{% endblock %}
 
 {% block body %}
 <main class="adminForms container-lg">
-    <h1>Modifier <span class="text-primary">{{ musician.lastname }} {{ musician.firstname }}</span></h1>
-    {{ include('admin/musician/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+    <h1>{{ 'action.edit'|trans }} <span class="text-primary">{{ musician.lastname }} {{ musician.firstname }}</span></h1>
+    {{ include('admin/musician/_form.html.twig', {'button_label': 'action.save'|trans}) }}
 
     <div class="d-flex justify-content-start">
-        <a class="btn btn-primary me-2" href="{{ path('admin_musician_index') }}">Retour à la liste</a>
+        <a class="btn btn-primary me-2" href="{{ path('admin_musician_index') }}">{{ 'action.back_to_list'|trans }}</a>
         {{ include('admin/musician/_delete_form.html.twig') }}
     </div>
 </main>

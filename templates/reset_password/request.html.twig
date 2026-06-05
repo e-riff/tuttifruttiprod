@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Réinitialisation de mot de passe{% endblock %}
+{% block title %}{{ 'reset_password.request_title'|trans }}{% endblock %}
 
 {% block body %}
     <main class="login container-lg d-flex justify-content-center mt-2 justify-content-center">
@@ -8,18 +8,17 @@
             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
         <section class="mt-4">
-            <h1 class="text-center">Réinitialisation de mot de passe</h1>
+            <h1 class="text-center">{{ 'reset_password.request_title'|trans }}</h1>
 
             {{ form_start(requestForm) }}
             {{ form_row(requestForm.email) }}
             <div>
                 <small>
-                    Entrez votre adresse email, et nous vous enverrons un
-                    lien pour réinitialiser votre mot de passe.
+                    {{ 'reset_password.help'|trans }}
                 </small>
             </div>
 
-            <button class="btn btn-primary mt-2">Envoyer l'email de réinitialisation de mot de passe</button>
+            <button class="btn btn-primary mt-2">{{ 'reset_password.request_button'|trans }}</button>
             {{ form_end(requestForm) }}
         </section>
 

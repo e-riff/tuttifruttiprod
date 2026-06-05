@@ -26,7 +26,7 @@ class BandType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => 'Nom du groupe',
+                'label' => 'form.admin.group_name',
                 'sanitize_html' => false,
             ])
             ->add('description', CKEditorType::class, [
@@ -37,18 +37,18 @@ class BandType extends AbstractType
             ])
             ->add('isActive', CheckboxType::class, [
                 'required' => false,
-                'label' => 'Groupe Actif (visible sur le site)',
+                'label' => 'form.admin.active_band',
             ])
             ->add('flashInformation', null, [
-                'label' => 'Info flash',
+                'label' => 'form.admin.flash_information',
                 'sanitize_html' => false,
             ])
             ->add('tagline', null, [
-                'label' => "Phrase d'accroche",
+                'label' => 'form.admin.tagline',
                 'sanitize_html' => false,
             ])
             ->add('priceCategory', EnumType::class, [
-                'label' => 'Catégorie de prix',
+                'label' => 'form.admin.price_category',
                 'required' => false,
                 'class' => BandPriceEnum::class,
                 'expanded' => false,
@@ -58,7 +58,7 @@ class BandType extends AbstractType
                 },
             ])
             ->add('events', EntityType::class, [
-                'label' => "Type d'événements du groupe",
+                'label' => 'form.admin.event_types',
                 'class' => Event::class,
                 'required' => false,
                 'expanded' => true,
@@ -68,7 +68,7 @@ class BandType extends AbstractType
                 },
             ])
             ->add('musicStyles', EntityType::class, [
-                'label' => 'Styles musicaux',
+                'label' => 'form.admin.music_styles',
                 'class' => MusicStyle::class,
                 'required' => false,
                 'expanded' => true,
@@ -81,23 +81,23 @@ class BandType extends AbstractType
                     return "{$musician->getLastname()} {$musician->getFirstname()}";
                 },
                 'required' => false,
-                'placeholder' => 'Sélectionnez un leader',
+                'placeholder' => 'form.admin.select_leader',
                 'multiple' => false,
                 'expanded' => false,
             ])
             ->add('musicians', EntityType::class, [
-                'label' => 'Musiciens',
+                'label' => 'form.admin.musicians',
                 'class' => Musician::class,
                 'choice_label' => function (Musician $musician) {
                     return "{$musician->getLastname()} {$musician->getFirstname()}";
                 },
                 'required' => false,
-                'placeholder' => 'Sélectionnez un leader',
+                'placeholder' => 'form.admin.select_leader',
                 'multiple' => true,
                 'expanded' => true,
             ])
             ->add('pictureFile', VichImageType::class, [
-                'label' => 'Photo',
+                'label' => 'form.admin.photo',
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => true,
@@ -116,7 +116,7 @@ class BandType extends AbstractType
                 ],
             ])
             ->add('color', ColorType::class, [
-                'label' => 'Couleur',
+                'label' => 'form.admin.color',
                 'html5' => true,
             ]);
     }
@@ -125,6 +125,7 @@ class BandType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Band::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

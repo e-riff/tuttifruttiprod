@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des styles de musique{% endblock %}
+{% block title %}{{ 'admin.music_style.list'|trans }}{% endblock %}
 
 {% block body %}
     <main class="adminItemIndex container-lg">
 
-        <h1>Liste des styles</h1>
+        <h1>{{ 'admin.music_style.list'|trans }}</h1>
         <div class="d-flex justify-content-end gap-2  mb-2">
             <a class="btn btn-primary" href="{{ path('admin_musicStyle_new') }}"><i class="bi bi-plus-circle"></i>
-                Ajouter</a>
-            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
+                {{ 'admin.music_style.add'|trans }}</a>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">{{ 'action.admin_home'|trans }}</a>
         </div>
 
         <table class="table">
             <thead>
             <tr>
-                <th>Nom</th>
-                <th>Groupes</th>
+                <th>{{ 'admin.table.name'|trans }}</th>
+                <th>{{ 'admin.table.groups'|trans }}</th>
                 <th></th>
             </tr>
             </thead>
@@ -30,12 +30,12 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a class="btn btn-warning" href="{{ path('admin_musicStyle_edit', {'id': music_style.id}) }}">modifier</a>
+                        <a class="btn btn-warning" href="{{ path('admin_musicStyle_edit', {'id': music_style.id}) }}">{{ 'action.edit'|trans }}</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">Aucun style disponible</td>
+                    <td colspan="3">{{ 'admin.music_style.none'|trans }}</td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -21,14 +21,14 @@ class MessageType extends AbstractType
             ->add('name', TextType::class, [
                 'sanitize_html' => true,
                 'row_attr' => ['class' => 'form-floating mb-3'],
-                'label' => 'Votre nom',
+                'label' => 'form.contact.name',
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
             ->add('email', TextType::class, [
                 'row_attr' => ['class' => 'form-floating mb-3'],
-                'label' => 'Votre email (obligatoire)',
+                'label' => 'form.contact.email',
                 'constraints' => [
                     new NotBlank(),
                     new Email(),
@@ -38,7 +38,7 @@ class MessageType extends AbstractType
                 'sanitize_html' => true,
                 'row_attr' => ['class' => 'form-floating mb-3'],
                 'required' => false,
-                'label' => 'Votre numéro de téléphone',
+                'label' => 'form.contact.phone',
             ])
             ->add('message', CKEditorType::class, [
                 'sanitize_html' => true,
@@ -50,7 +50,7 @@ class MessageType extends AbstractType
                 ],
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Publier',
+                'label' => 'form.contact.submit',
                 'row_attr' => ['class' => 'd-flex justify-content-center'],
             ]);
     }
@@ -58,7 +58,7 @@ class MessageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'translation_domain' => 'messages',
         ]);
     }
 }

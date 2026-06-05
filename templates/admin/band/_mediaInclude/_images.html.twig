@@ -1,4 +1,4 @@
-<h2 class="text-center">Images</h2>
+<h2 class="text-center">{{ 'admin.media.images'|trans }}</h2>
 <div class="articleContainer">
     {% for imageMedia in band.medias|filter(v => v.mediaType.value == 'Image') %}
             <article class="d-flex flex-column p-2">
@@ -6,7 +6,7 @@
                 </div>
                 <div class="articleContent">
                     <ul>
-                        <li><span>Taille :</span> {{ (imageMedia.pictureSize/1048576)|round(2, 'common') }} Mo</li>
+                        <li><span>{{ 'admin.media.image_size'|trans }} :</span> {{ (imageMedia.pictureSize/1048576)|round(2, 'common') }} Mo</li>
                     </ul>
                 </div>
                 <footer class="d-flex justify-content-center">
@@ -15,7 +15,7 @@
             </article>
     {% endfor %}
     <article>
-        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="ajout d'une video youtube">
+        <div class="p-2"><img src="https://fakeimg.pl/350x200/?text=Ajout" alt="{{ 'admin.media.image_alt_add'|trans }}">
         </div>
         {{ form_start(mediaImageForm) }}
         {{ form_errors(mediaImageForm) }}

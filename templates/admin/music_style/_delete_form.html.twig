@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('admin_musicStyle_delete', {'id': music_style.id}) }}"
-      onsubmit="return confirm('Voulez-vous vraiment supprimer ce style de musique ?');">
+      onsubmit="return confirm('{{ 'confirm.delete_music_style'|trans|e('js') }}');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ music_style.id) }}">
-    <button class="btn btn-danger">Supprimer</button>
+    <button class="btn btn-danger">{{ 'action.delete'|trans }}</button>
 </form>

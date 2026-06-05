@@ -39,10 +39,10 @@ class ChangePasswordFormType extends AbstractType
                         new PasswordStrength(),
                         new NotCompromisedPassword(),
                     ],
-                    'label' => 'Nouveau mot de passe',
+                    'label' => 'form.reset.new_password',
                 ],
                 'second_options' => [
-                    'label' => 'Vérifiez le nouveau mot de passe',
+                    'label' => 'form.reset.repeat_password',
                 ],
                 'invalid_message' => 'Les deux mots de passe doivent correspondre',
                 'mapped' => false,
@@ -52,6 +52,8 @@ class ChangePasswordFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            'translation_domain' => 'messages',
+        ]);
     }
 }

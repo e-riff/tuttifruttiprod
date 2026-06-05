@@ -21,12 +21,13 @@ class MediaYoutubeType extends AbstractType
                     new NotBlank(),
                     new Length(['min' => 5]),
                 ],
-                'label' => 'Lien ou ID de la video',
+                'label' => 'form.admin.video_link_or_id',
                 'attr' => ['placeholder' => "'5Afzed45' - https://www.youtube.com/watch?v=5Afzed45"],
                 'row_attr' => ['class' => 'p-2'],
                 'sanitize_html' => true,
             ])
             ->add('save', SubmitType::class, [
+                'label' => 'action.save',
                 'attr' => ['class' => 'btn btn-primary'],
                 'row_attr' => ['class' => 'text-center pb-2'],
             ])

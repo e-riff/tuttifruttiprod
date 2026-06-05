@@ -1,6 +1,6 @@
-<h1>Bonjour {{ user.firstname|default('') }}</h1>
+<h1>{{ 'email.contact.greeting'|trans({'firstname': user.firstname|default('')}) }}</h1>
 
-<p> Vous avez reçu un message de l'utilisateur :</p>
+<p>{{ 'email.contact.intro'|trans }}</p>
 <ul>
     <li>
         {{ dataMessage.name }}
@@ -14,9 +14,9 @@
 </ul>
 
 {% if band is defined %}
-<p>Au sujet du groupe : {{ band.name }}</p>
+<p>{{ 'email.contact.subject_band'|trans({'name': band.name}) }}</p>
 {% endif %}
 
-Message :
+{{ 'email.contact.message'|trans }}
 
 {{ dataMessage.message|raw }}

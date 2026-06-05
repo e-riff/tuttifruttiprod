@@ -21,35 +21,35 @@ class ConcertType extends AbstractType
     {
         $builder
             ->add('clientName', TextType::class, [
-                'label' => 'Nom du client',
+                'label' => 'form.admin.client_name',
                 'attr' => [
-                    'placeholder' => 'Nom du client',
+                    'placeholder' => 'form.admin.client_name',
                     'class' => 'form-control',
                 ],
             ])
             ->add('address', TextType::class, [
-                'label' => 'Adresse',
+                'label' => 'form.association.address',
                 'attr' => [
-                    'placeholder' => 'Adresse',
+                    'placeholder' => 'form.association.address',
                     'class' => 'form-control',
                 ],
             ])
             ->add('zipCode', TextType::class, [
-                'label' => 'Code postal',
+                'label' => 'form.admin.zip_code',
                 'attr' => [
-                    'placeholder' => 'Code postal',
+                    'placeholder' => 'form.admin.zip_code',
                     'class' => 'form-control',
                 ],
             ])
             ->add('city', TextType::class, [
-                'label' => 'Ville',
+                'label' => 'form.admin.city',
                 'attr' => [
-                    'placeholder' => 'Ville',
+                    'placeholder' => 'form.admin.city',
                     'class' => 'form-control',
                 ],
             ])
             ->add('date', DateTimeType::class, [
-                'label' => 'Date',
+                'label' => 'form.admin.date',
                 'widget' => 'single_text',
                 'html5' => true,
                 'attr' => [
@@ -58,14 +58,14 @@ class ConcertType extends AbstractType
             ])
             ->add('otherInformations', TextareaType::class, [
                 'required' => false,
-                'label' => 'Autres informations',
+                'label' => 'form.admin.other_information',
                 'attr' => [
-                    'placeholder' => 'Autres informations',
+                    'placeholder' => 'form.admin.other_information',
                     'class' => 'form-control',
                 ],
             ])
             ->add('isConfirmed', CheckboxType::class, [
-                'label' => 'Confirmé ?',
+                'label' => 'admin.table.confirmed',
                 'required' => false,
                 'attr' => [
                     'class' => 'form-check-input',
@@ -74,7 +74,7 @@ class ConcertType extends AbstractType
             ->add('band', EntityType::class, [
                 'class' => Band::class,
                 'choice_label' => 'name',
-                'label' => 'Groupe',
+                'label' => 'form.admin.band',
                 'multiple' => false,
                 'expanded' => false,
                 'attr' => [
@@ -87,6 +87,7 @@ class ConcertType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Concert::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Types d'événement{% endblock %}
+{% block title %}{{ 'admin.event.list'|trans }}{% endblock %}
 
 {% block body %}
     <main class="adminForms container-md">
-        <h1>Types d'événement</h1>
+        <h1>{{ 'admin.event.list'|trans }}</h1>
         <div class="d-flex justify-content-end gap-2  mb-2">
-            <a class="btn btn-primary" href="{{ path('admin_event_new') }}"><i class="bi bi-plus-circle"></i> Créer un événement</a>
-            <a class="btn btn-info" href="{{ path('admin_board') }}">Accueil de l'administration</a>
+            <a class="btn btn-primary" href="{{ path('admin_event_new') }}"><i class="bi bi-plus-circle"></i> {{ 'admin.event.add'|trans }}</a>
+            <a class="btn btn-info" href="{{ path('admin_board') }}">{{ 'action.admin_home'|trans }}</a>
         </div>
         <table class="table">
             <thead>
             <tr>
-                <th>Nom</th>
-                <th>Groupes</th>
+                <th>{{ 'admin.table.name'|trans }}</th>
+                <th>{{ 'admin.table.groups'|trans }}</th>
                 <th></th>
             </tr>
             </thead>
@@ -27,12 +27,12 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a class="btn btn-warning" href="{{ path('admin_event_edit', {'id': event.id}) }}">modifier</a>
+                        <a class="btn btn-warning" href="{{ path('admin_event_edit', {'id': event.id}) }}">{{ 'action.edit'|trans }}</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">Aucun type d'événement disponible</td>
+                    <td colspan="3">{{ 'admin.event.none'|trans }}</td>
                 </tr>
             {% endfor %}
             </tbody>

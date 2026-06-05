@@ -17,3 +17,7 @@ vich_uploader:
             uri_prefix: "/uploads/images/band/media_images"
             upload_destination: '%upload_directory%images/band/media_images/'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        association_hero_image:
+            uri_prefix: "/uploads/images/association"
+            upload_destination: '%upload_directory%images/association/'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
