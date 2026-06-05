@@ -1,4 +1,7 @@
 DC = docker compose
+PHP = php
+COMPOSER = composer
+NPM = npm
 
 # Services
 PHP_SVC = php
@@ -29,6 +32,7 @@ help:
 	@echo "  cs-fix               -> applique les corrections PHP-CS-Fixer"
 	@echo "  rector-check         -> vérifie les upload de code avec Rector (dry-run)"
 	@echo "  rector-fix           -> applique les corrections Rector"
+	@echo "  deploy-prod          -> déploie en production hors Docker (cPanel/SSH)"
 
 .PHONY: docker-up
 docker-up:
@@ -102,3 +106,14 @@ cs-stan:
 # Tout en un: fixer le CS puis lancer PHPStan
 .PHONY: cs-all
 cs-all: cs-fix cs-stan
+
+# Production cPanel / SSH: run from the project root after pulling the repo.
+.PHONY: deploy-prod
+deploy-prod:
+	$(COMPOSER) install --no-dev --optimize-autoloader
+	$(PHP) bin/console doctrine:migrations:migrate --no-interaction
+	$(NPM) install
+	$(NPM) run build
+	$(PHP) bin/console cache:clear --env=prod
+	$(PHP) bin/console cache:warmup --env=prod
+	$(PHP) bin/console doctrine:migrations:status
