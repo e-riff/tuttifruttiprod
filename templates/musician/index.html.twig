@@ -11,9 +11,19 @@
                 <article>
                     <div>
                         {% set musicianPhoto = vich_uploader_asset(musician) %}
-                        <img alt="Image de {{ musician.lastname|upper }} {{ musician.firstname|capitalize }}"
-                             src="{{ musicianPhoto ? musicianPhoto|imagine_filter('square_band') : asset('build/images/avatar.png') }}"
-                             class="d-block w-100">
+                        {% set musicianPhotoSrc = musicianPhoto ? musicianPhoto|imagine_filter('square_band') : asset('build/images/avatar.png') %}
+
+                        {% if musician.url %}
+                            <a href="{{ musician.url }}" target="_blank" rel="noopener noreferrer">
+                                <img alt="Image de {{ musician.lastname|upper }} {{ musician.firstname|capitalize }}"
+                                     src="{{ musicianPhotoSrc }}"
+                                     class="d-block w-100">
+                            </a>
+                        {% else %}
+                            <img alt="Image de {{ musician.lastname|upper }} {{ musician.firstname|capitalize }}"
+                                 src="{{ musicianPhotoSrc }}"
+                                 class="d-block w-100">
+                        {% endif %}
                     </div>
                     <footer class="text-center"><span
                                 class="text-primary">{{ musician.lastname|upper }}</span> {{ musician.firstname|capitalize }}

@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -33,6 +34,11 @@ class MusicianType extends AbstractType
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Téléphone',
+                'sanitize_html' => true,
+            ])
+            ->add('url', UrlType::class, [
+                'label' => 'Lien',
+                'required' => false,
                 'sanitize_html' => true,
             ])
             ->add('isActive', CheckboxType::class, [

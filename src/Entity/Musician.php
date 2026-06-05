@@ -41,6 +41,10 @@ class Musician
     #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
     private ?string $phone = null;
 
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Assert\Url]
+    private ?string $url = null;
+
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isActive = null;
 
@@ -121,6 +125,18 @@ class Musician
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }

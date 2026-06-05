@@ -158,8 +158,15 @@ class BandController extends AbstractController
         Band $band,
         MediaRepository $mediaRepository,
     ): Response {
+        if ($media->getBand()?->getId() !== $band->getId()) {
+            throw $this->createNotFoundException('Ce média n\'appartient pas à ce groupe.');
+        }
+
         if ($this->isCsrfTokenValid('delete' . $media->getId(), $request->request->get('_token'))) {
+            $band->removeMedia($media);
             $mediaRepository->remove($media, true);
+
+            $this->addFlash('success', 'Média supprimé.');
         }
 
         return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
