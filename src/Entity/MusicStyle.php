@@ -27,6 +27,9 @@ class MusicStyle
     #[ORM\Column(type: Types::STRING, length: 100)]
     private ?string $name = null;
 
+    /**
+     * @var Collection<int, Band>
+     */
     #[ORM\ManyToMany(targetEntity: Band::class, inversedBy: 'musicStyles')]
     private Collection $bands;
 

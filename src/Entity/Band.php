@@ -39,6 +39,9 @@ class Band
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isActive = null;
 
+    /**
+     * @var Collection<int, Concert>
+     */
     #[ORM\OneToMany(mappedBy: 'band', targetEntity: Concert::class, orphanRemoval: true)]
     private Collection $concerts;
 
@@ -48,12 +51,21 @@ class Band
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $tagline = null;
 
+    /**
+     * @var Collection<int, Event>
+     */
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'bands')]
     private Collection $events;
 
+    /**
+     * @var Collection<int, MusicStyle>
+     */
     #[ORM\ManyToMany(targetEntity: MusicStyle::class, mappedBy: 'bands')]
     private Collection $musicStyles;
 
+    /**
+     * @var Collection<int, Media>
+     */
     #[ORM\OneToMany(mappedBy: 'band', targetEntity: Media::class, orphanRemoval: true)]
     private Collection $medias;
 
@@ -72,8 +84,11 @@ class Band
     private ?File $pictureFile = null;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    private ?bool $isOnHomepage = false;
+    private bool $isOnHomepage = false;
 
+    /**
+     * @var Collection<int, Musician>
+     */
     #[ORM\ManyToMany(targetEntity: Musician::class, mappedBy: 'bands')]
     private Collection $musicians;
 
@@ -317,7 +332,7 @@ class Band
         return $this;
     }
 
-    public function isIsOnHomepage(): ?bool
+    public function isIsOnHomepage(): bool
     {
         return $this->isOnHomepage;
     }

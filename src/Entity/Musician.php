@@ -48,6 +48,9 @@ class Musician
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isActive = null;
 
+    /**
+     * @var Collection<int, Band>
+     */
     #[ORM\ManyToMany(targetEntity: Band::class, inversedBy: 'musicians')]
     private Collection $bands;
 
