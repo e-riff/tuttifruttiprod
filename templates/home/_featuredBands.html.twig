@@ -1,0 +1,53 @@
+<section id="featured-bands" class="homeSection py-5" aria-labelledby="featured-bands-title">
+    <div class="container-xl">
+        <div class="row align-items-end gy-4 mb-4 mb-lg-5">
+            <div class="col-12 col-lg-7">
+                <span class="homeSectionEyebrow">{{ 'home.featured_bands.eyebrow'|trans }}</span>
+                <h2 id="featured-bands-title" class="homeSectionTitle">{{ 'home.featured_bands.title'|trans }}</h2>
+            </div>
+            <div class="col-12 col-lg-4 offset-lg-1">
+                <div class="d-flex align-items-start gap-3">
+                    <span class="homeSectionRule mt-2" aria-hidden="true"></span>
+                    <p class="homeSectionIntro mb-0">{{ 'home.featured_bands.intro'|trans }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 g-lg-4">
+            {% for band in featuredBands %}
+                {% set bandImage = vich_uploader_asset(band, 'pictureFile') %}
+                <div class="col-12 col-md-6 col-lg-4 {{ loop.index > 3 ? 'd-none d-md-block' : '' }}">
+                    <a href="{{ path('band_show', {'slug': band.slug}) }}" class="homeBandCard position-relative overflow-hidden h-100 text-decoration-none" aria-label="{{ 'home.featured_bands.show_band'|trans({'name': band.name}) }}">
+                        <img
+                                src="{{ bandImage ? bandImage|imagine_filter('square_band') : asset('build/images/band.jpg') }}"
+                                alt="{{ 'home.featured_bands.image_alt'|trans({'name': band.name}) }}"
+                                class="homeBandCardImage"
+                                loading="lazy"
+                                decoding="async"
+                        >
+                        <div class="homeBandCardOverlay"></div>
+                        <div class="homeBandCardContent">
+                            {% if band.musicStyles|length > 0 %}
+                                <p class="homeBandCardStyles mb-3">
+                                    {% for musicStyle in band.musicStyles|slice(0, 2) %}
+                                        {{ musicStyle.name }}{{ loop.last ? '' : ' · ' }}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                            <h3 class="homeBandCardTitle">{{ band.name }}</h3>
+                            {% if band.tagline %}
+                                <p class="homeBandCardTagline d-none d-lg-block mb-0">{{ band.tagline }}</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="d-flex justify-content-center mt-4 mt-lg-5">
+            <a href="{{ path('band_index') }}" class="btn homeSectionLink">
+                {{ 'home.featured_bands.all_bands'|trans }}
+            </a>
+        </div>
+    </div>
+</section>

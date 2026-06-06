@@ -8,13 +8,13 @@
         <section class="musician-list list-unstyled text-decoration-none">
 
             {% for musician in musicians %}
-                <article>
-                    <div>
+                <article class="{{ musician.url ? 'hasLink' : '' }}">
+                    <div class="musicianPhoto">
                         {% set musicianPhoto = vich_uploader_asset(musician) %}
                         {% set musicianPhotoSrc = musicianPhoto ? musicianPhoto|imagine_filter('square_band') : asset('build/images/avatar.png') %}
 
                         {% if musician.url %}
-                            <a href="{{ musician.url }}" target="_blank" rel="noopener noreferrer">
+                            <a href="{{ musician.url }}" target="_blank" rel="noopener noreferrer" class="musicianPhotoLink d-block rounded-circle overflow-hidden">
                                 <img alt="Image de {{ musician.lastname|upper }} {{ musician.firstname|capitalize }}"
                                      src="{{ musicianPhotoSrc }}"
                                      class="d-block w-100">

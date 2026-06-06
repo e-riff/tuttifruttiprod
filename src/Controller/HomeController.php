@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\MessageType;
+use App\Repository\BandRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController
 {
@@ -17,19 +19,22 @@ class HomeController extends AbstractController
     public function index(
         Request $request,
         MailerService $contactMail,
+        BandRepository $bandRepository,
+        TranslatorInterface $translator,
     ): Response {
         $contactForm = $this->createForm(MessageType::class);
         $contactForm->handleRequest($request);
 
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             $contactMail->sendContactMail($contactForm->getData());
-            $this->addFlash('success', 'Message envoyé avec succès');
+            $this->addFlash('success', $translator->trans('flash.contact.success'));
 
             return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('home/index.html.twig', [
             'contactForm' => $contactForm,
+            'featuredBands' => $bandRepository->findRandomActiveForHomepage(),
         ]);
     }
 }

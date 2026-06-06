@@ -11,7 +11,40 @@ main.musicianIndex {
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
+      transition: transform 220ms ease;
     }
+
+    article {
+      footer {
+        transition: color 220ms ease, transform 220ms ease;
+      }
+
+      &.hasLink {
+        .musicianPhotoLink {
+          border: 1px solid transparent;
+          transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+        }
+
+        &:hover,
+        &:focus-within {
+          .musicianPhotoLink {
+            border-color: rgba($primary, 0.72);
+            box-shadow: 0 0 0 0.28rem rgba($primary, 0.12);
+            transform: translateY(-0.2rem);
+          }
+
+          img {
+            transform: scale(1.06);
+          }
+
+          footer {
+            color: $primary;
+            transform: translateY(-0.25rem);
+          }
+        }
+      }
+    }
+
     @include media-breakpoint-up(lg) {
       grid-template-columns: repeat( auto-fill, minmax(8rem, 10rem) );
     }

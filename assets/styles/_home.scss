@@ -1,8 +1,9 @@
 main.homepage {
   padding: 0;
+  background: #0c0f10;
+  color: #e1e3e4;
 
   section#welcome {
-    margin-bottom: $spacer * 2;
     overflow: hidden;
 
     .homeHero {
@@ -111,6 +112,318 @@ main.homepage {
     }
   }
 
+  .homeSection {
+    background: #0c0f10;
+  }
+
+  .homeSectionEyebrow {
+    display: block;
+    color: #ff1a9b;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: $spacer;
+    text-transform: uppercase;
+  }
+
+  .homeSectionTitle {
+    border-bottom: 0;
+    color: #f5f5f5;
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0;
+    padding: 0;
+  }
+
+  .homeSectionIntro {
+    color: rgba(245, 245, 245, 0.7);
+    line-height: 1.6;
+  }
+
+  .homeSectionRule {
+    background: #ff1a9b;
+    display: inline-block;
+    flex: 0 0 3rem;
+    height: 1px;
+  }
+
+  .homeSectionLink {
+    align-items: center;
+    border: 1px solid rgba(245, 245, 245, 0.24);
+    border-radius: 0.25rem;
+    color: #f5f5f5;
+    display: inline-flex;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    padding: 0.85rem 1.25rem;
+    text-transform: uppercase;
+
+    &:hover,
+    &:focus {
+      background: #ff1a9b;
+      border-color: #ff1a9b;
+      color: #fff;
+    }
+  }
+
+  section#featured-bands {
+    .homeBandCard {
+      aspect-ratio: 1 / 1;
+      background: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.25rem;
+      cursor: pointer;
+      display: block;
+      min-height: 18rem;
+      transition: border-color 200ms ease, transform 200ms ease;
+
+      &:hover,
+      &:focus {
+        border-color: rgba(255, 26, 155, 0.85);
+        box-shadow: 0 0 0 0.2rem rgba(255, 26, 155, 0.14);
+        outline: 0;
+        transform: translateY(-0.25rem);
+
+        .homeBandCardImage {
+          transform: scale(1.06);
+        }
+
+        .homeBandCardTagline {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    .homeBandCardImage,
+    .homeBandCardOverlay {
+      inset: 0;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+
+    .homeBandCardImage {
+      object-fit: cover;
+      transition: transform 500ms ease;
+    }
+
+    .homeBandCardOverlay {
+      background:
+        linear-gradient(180deg, rgba(12, 15, 16, 0.08) 0%, rgba(12, 15, 16, 0.22) 42%, rgba(12, 15, 16, 0.92) 100%),
+        linear-gradient(90deg, rgba(12, 15, 16, 0.42) 0%, rgba(12, 15, 16, 0) 72%);
+      z-index: 1;
+    }
+
+    .homeBandCardContent {
+      bottom: 0;
+      left: 0;
+      padding: $spacer * 1.35;
+      position: absolute;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .homeBandCardStyles {
+      background: rgba(255, 26, 155, 0.18);
+      border: 1px solid rgba(255, 26, 155, 0.3);
+      color: #ffafd2;
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 100%;
+      padding: 0.35rem 0.55rem;
+      text-transform: uppercase;
+    }
+
+    .homeBandCardTitle {
+      color: #fff;
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1.05;
+      margin: 0;
+      overflow-wrap: anywhere;
+      text-transform: uppercase;
+    }
+
+    .homeBandCardTagline {
+      color: rgba(245, 245, 245, 0.78);
+      line-height: 1.45;
+      margin-top: $spacer * 0.75;
+      opacity: 0;
+      transform: translateY(0.5rem);
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+  }
+
+  section#contact {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255, 26, 155, 0.12), transparent 28rem),
+      #0a0a0a;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+    margin: 0;
+    padding-bottom: 0;
+
+    .homeContactDetails a {
+      color: #f5f5f5;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        color: #ff1a9b;
+      }
+    }
+
+    .homeContactIcon {
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 0.25rem;
+      color: #ffafd2;
+      display: inline-flex;
+      flex: 0 0 2.5rem;
+      height: 2.5rem;
+      justify-content: center;
+    }
+
+    .homeContactLabel {
+      color: rgba(245, 245, 245, 0.55);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .homeContactPanel {
+      backdrop-filter: blur(12px);
+      background: rgba(18, 18, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.25rem;
+      padding: $spacer * 1.25;
+    }
+
+    .homeContactForm {
+      display: block;
+      padding: 0;
+
+      > div {
+        flex-basis: auto;
+        padding: 0;
+      }
+
+      .form-control,
+      .cke_chrome {
+        background: rgba(29, 32, 33, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 0.25rem;
+        color: #f5f5f5;
+      }
+
+      .homeContactField {
+        width: 100%;
+      }
+
+      .form-label {
+        color: rgba(245, 245, 245, 0.68);
+        font-size: 0.78rem;
+        font-weight: 700;
+        margin-bottom: 0.55rem;
+        text-transform: uppercase;
+      }
+
+      .form-control {
+        display: block;
+        min-height: 3.5rem;
+        padding: 0.95rem 1rem;
+        width: 100%;
+
+        &:focus {
+          background: rgba(29, 32, 33, 0.94);
+          border-color: rgba(255, 26, 155, 0.85);
+          box-shadow: 0 0 0 0.2rem rgba(255, 26, 155, 0.15);
+          color: #fff;
+        }
+      }
+
+      .cke,
+      .cke_chrome {
+        overflow: hidden;
+        width: 100% !important;
+      }
+
+      .cke_contents {
+        min-height: 11rem !important;
+      }
+
+      .cke_top,
+      .cke_bottom {
+        background: #f5f5f5;
+        border-color: rgba(255, 255, 255, 0.32);
+      }
+
+      .cke_toolgroup {
+        background: transparent;
+        border-color: rgba(10, 10, 10, 0.22);
+      }
+
+      .cke_button {
+        border-radius: 0.2rem;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background: rgba(255, 26, 155, 0.16);
+          box-shadow: 0 0 0 1px rgba(255, 26, 155, 0.45) inset;
+        }
+      }
+
+      .cke_button_icon {
+        filter: brightness(0);
+        opacity: 0.9 !important;
+      }
+
+      .cke_button_disabled .cke_button_icon {
+        opacity: 0.34 !important;
+      }
+
+      .cke_button_arrow,
+      .cke_combo_arrow {
+        border-top-color: #1d2021;
+      }
+
+      .cke_path,
+      .cke_resizer {
+        filter: brightness(0);
+        opacity: 0.72;
+      }
+
+      .invalid-feedback,
+      .form-error-message {
+        color: #ffb4ab;
+      }
+    }
+
+    .homeContactSubmit {
+      background: #ff1a9b;
+      border: 1px solid #ff1a9b;
+      border-radius: 0.25rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0;
+      padding: 0.95rem 1.25rem;
+      text-transform: uppercase;
+
+      &:hover,
+      &:focus {
+        background: darken(#ff1a9b, 8%);
+        border-color: darken(#ff1a9b, 8%);
+        color: #fff;
+      }
+    }
+  }
+
   @include media-breakpoint-down(sm) {
     section#welcome {
       .homeHero {
@@ -140,6 +453,10 @@ main.homepage {
   }
 
   @include media-breakpoint-up(md) {
+    .homeSectionTitle {
+      font-size: 3rem;
+    }
+
     section#welcome {
       .homeHero {
         .homeHeroEyebrow {
@@ -153,6 +470,19 @@ main.homepage {
         p {
           font-size: 1.35rem;
         }
+      }
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    .homeSection {
+      padding-bottom: $spacer * 7 !important;
+      padding-top: $spacer * 7 !important;
+    }
+
+    section#contact {
+      .homeContactPanel {
+        padding: $spacer * 2;
       }
     }
   }

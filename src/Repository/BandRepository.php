@@ -50,6 +50,24 @@ class BandRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Band[]
+     */
+    public function findRandomActiveForHomepage(int $limit = 6): array
+    {
+        /** @var Band[] $bands */
+        $bands = $this->createQueryBuilder('b')
+            ->leftJoin('b.musicStyles', 'ms')
+            ->addSelect('ms')
+            ->andWhere('b.isActive = true')
+            ->getQuery()
+            ->getResult();
+
+        shuffle($bands);
+
+        return array_slice($bands, 0, $limit);
+    }
+
     public function bandSearch(string $searchQuery, array $events, array $musicStyles, array $priceCategories): array
     {
         $queryBuilder = $this->createQueryBuilder('b')

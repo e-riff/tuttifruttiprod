@@ -182,6 +182,22 @@ home:
   agenda: "L'agenda"
   contact: "Nous contacter"
   next_events: "Prochaines prestations..."
+  featured_bands:
+    eyebrow: "Notre catalogue"
+    title: "Nos groupes et spectacles"
+    intro: "Quelques idées pour animer vos événements, festivals et soirées privées."
+    all_bands: "Voir tous les groupes"
+    image_alt: "Photo du groupe {name}"
+    show_band: "Voir le groupe {name}"
+  contact_section:
+    eyebrow: "Contact"
+    intro: "Vous avez un projet d'événement, une question sur nos artistes ou souhaitez réserver un spectacle ? Nous vous répondons rapidement."
+    email_label: "Email"
+    phone_label: "Téléphone"
+
+flash:
+  contact:
+    success: "Message envoyé avec succès"
 
 band:
   concerts: "Concerts"
