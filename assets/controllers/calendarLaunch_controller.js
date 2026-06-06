@@ -16,7 +16,7 @@ export default class extends Controller {
             themeSystem: 'bootstrap5',
             locales: allLocales,
             locale: 'fr',
-            events: '/concerts/confirmed',
+            events: '/agenda/confirmed',
             eventContent: function (arg) {
                 let url = arg.event.extendedProps.url;
                 let bandName = arg.event.title;

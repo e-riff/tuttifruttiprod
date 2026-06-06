@@ -13,16 +13,15 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-#[Route('/concerts', name: 'app_concert_')]
 class ConcertController extends AbstractController
 {
-    #[Route('/', name: 'index')]
+    #[Route('/agenda', name: 'app_concert_index')]
     public function index(): Response
     {
         return $this->render('concert/index.html.twig', []);
     }
 
-    #[Route('/confirmed', name: 'get_confirmed_concert', methods: ['GET'])]
+    #[Route('/agenda/confirmed', name: 'app_concert_get_confirmed_concert', methods: ['GET'])]
     public function getConcertForm(
         ConcertRepository $concertRepository,
         NormalizerInterface $normalizer,

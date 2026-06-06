@@ -12,3 +12,91 @@ admin:
 app_logout:
     path: /logout
     methods: GET
+
+legacy_band_index:
+    path: /band
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: band_index
+        permanent: true
+
+legacy_band_index_slash:
+    path: /band/
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: band_index
+        permanent: true
+
+legacy_groupes_index_slash:
+    path: /groupes/
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: band_index
+        permanent: true
+
+legacy_band_show:
+    path: /band/show/{slug}
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: band_show
+        permanent: true
+
+legacy_musician_index:
+    path: /musician
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: musician_index
+        permanent: true
+    methods: GET
+
+legacy_musician_index_slash:
+    path: /musician/
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: musician_index
+        permanent: true
+    methods: GET
+
+legacy_musiciens_index_slash:
+    path: /musiciens/
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: musician_index
+        permanent: true
+    methods: GET
+
+legacy_app_concert_index:
+    path: /concerts
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: app_concert_index
+        permanent: true
+
+legacy_app_concert_index_slash:
+    path: /concerts/
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: app_concert_index
+        permanent: true
+
+legacy_agenda_index_slash:
+    path: /agenda/
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: app_concert_index
+        permanent: true
+
+legacy_app_concert_get_confirmed_concert:
+    path: /concerts/confirmed
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: app_concert_get_confirmed_concert
+        permanent: true
+    methods: GET
+
+legacy_sitemap_groups:
+    path: /sitemap-groups.xml
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: sitemap_bands
+        permanent: true

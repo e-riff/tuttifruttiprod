@@ -16,10 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/band', name: 'band_')]
 class BandController extends AbstractController
 {
-    #[Route('/', name: 'index')]
+    #[Route('/groupes', name: 'band_index')]
     public function index(Request $request, BandRepository $bandRepository): Response
     {
         $searchData = array_merge(
@@ -50,7 +49,7 @@ class BandController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{slug}', name: 'show')]
+    #[Route('/groupes/{slug}', name: 'band_show')]
     public function show(
         MailerService $mailer,
         Request $request,

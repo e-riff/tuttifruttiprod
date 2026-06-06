@@ -80,7 +80,7 @@ class SitemapController extends AbstractController
         return $response;
     }
 
-    #[Route('/sitemap-groups.xml', name: 'bands')]
+    #[Route('/sitemap-groupes.xml', name: 'bands')]
     public function sitemapGroups(): Response
     {
         $bands = $this->bandRepository->findBy(['isActive' => true]);
