@@ -27,17 +27,17 @@
                         >
                         <div class="homeBandCardOverlay"></div>
                         <div class="homeBandCardContent">
-                            {% if band.musicStyles|length > 0 %}
-                                <p class="homeBandCardStyles mb-3">
-                                    {% for musicStyle in band.musicStyles|slice(0, 2) %}
-                                        {{ musicStyle.name }}{{ loop.last ? '' : ' · ' }}
-                                    {% endfor %}
-                                </p>
-                            {% endif %}
+                            <div class="homeBandCardStylesSlot mb-3">
+                                {% if band.musicStyles|length > 0 %}
+                                    <p class="homeBandCardStyles mb-0">
+                                        {% for musicStyle in band.musicStyles|slice(0, 2) %}
+                                            {{ musicStyle.name }}{{ loop.last ? '' : ' · ' }}
+                                        {% endfor %}
+                                    </p>
+                                {% endif %}
+                            </div>
                             <h3 class="homeBandCardTitle">{{ band.name }}</h3>
-                            {% if band.tagline %}
-                                <p class="homeBandCardTagline d-none d-lg-block mb-0">{{ band.tagline }}</p>
-                            {% endif %}
+                            <p class="homeBandCardTagline mb-0">{{ band.tagline ?: '' }}</p>
                         </div>
                     </a>
                 </div>
