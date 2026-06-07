@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+set -eu
+
+echo "Running PHP linters before commit..."
+
+make cs-check
+make cs-stan
+
+echo "PHP linters passed."

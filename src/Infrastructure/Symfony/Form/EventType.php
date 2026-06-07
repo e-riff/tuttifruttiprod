@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Infrastructure\Symfony\Form;
+
+use App\Infrastructure\Doctrine\Entity\Band;
+use App\Infrastructure\Doctrine\Entity\Event;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class EventType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name', TextType::class, [
+                'label' => 'form.admin.name',
+            ])
+            ->add('bands', EntityType::class, [
+                'class' => Band::class,
+                'label' => 'form.admin.bands',
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Event::class,
+            'translation_domain' => 'messages',
+        ]);
+    }
+}

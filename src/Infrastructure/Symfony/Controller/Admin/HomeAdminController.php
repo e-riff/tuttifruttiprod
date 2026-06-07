@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Infrastructure\Symfony\Controller\Admin;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+class HomeAdminController extends AbstractController
+{
+    #[Route('/board', name: 'board', methods: ['GET'])]
+    public function index(): Response
+    {
+        return $this->render('admin/board.html.twig', [
+        ]);
+    }
+}

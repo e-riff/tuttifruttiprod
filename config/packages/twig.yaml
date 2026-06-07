@@ -4,7 +4,7 @@ twig:
     strict_variables: false
     globals:
         swiperTimer: 6000
-        association: '@App\Service\GlobalAssociation'
+        association: '@App\Infrastructure\Twig\GlobalAssociation'
         mediaIcons: {
             YOUTUBE: 'bi bi-youtube',
             SOUNDCLOUD: 'bi bi-soundwave',
