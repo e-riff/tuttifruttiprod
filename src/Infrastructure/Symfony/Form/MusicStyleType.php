@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Infrastructure\Symfony\Form;
+
+use App\Infrastructure\Doctrine\Entity\Band;
+use App\Infrastructure\Doctrine\Entity\MusicStyle;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class MusicStyleType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name', null, [
+                'label' => 'form.admin.name',
+                'sanitize_html' => true,
+            ])
+            ->add('bands', EntityType::class, [
+                'label' => 'form.admin.bands',
+                'class' => Band::class,
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true,
+                'choice_label' => function (Band $band) {
+                    return $band->getName();
+                },
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => MusicStyle::class,
+            'translation_domain' => 'messages',
+        ]);
+    }
+}

@@ -1,10 +1,10 @@
 controllers:
-    resource: ../src/Controller/**/*
-    exclude: ../src/Controller/Admin
+    resource: ../src/Infrastructure/Symfony/Controller/**/*
+    exclude: ../src/Infrastructure/Symfony/Controller/Admin
     type: attribute
 
 admin:
-    resource: ../src/Controller/Admin
+    resource: ../src/Infrastructure/Symfony/Controller/Admin
     type: attribute
     prefix: '/admin'
     name_prefix: 'admin_'

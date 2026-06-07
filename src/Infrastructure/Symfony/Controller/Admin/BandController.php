@@ -1,0 +1,199 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Infrastructure\Symfony\Controller\Admin;
+
+use App\Application\Media\ExtractYoutubeVideoId;
+use App\Domain\Enum\MediaTypeEnum;
+use App\Domain\Repository\BandRepositoryInterface;
+use App\Domain\Repository\ConcertRepositoryInterface;
+use App\Domain\Repository\MediaRepositoryInterface;
+use App\Infrastructure\Doctrine\Entity\Band;
+use App\Infrastructure\Doctrine\Entity\Media;
+use App\Infrastructure\Symfony\Form\BandType;
+use App\Infrastructure\Symfony\Form\MediaImageType;
+use App\Infrastructure\Symfony\Form\MediaLinkType;
+use App\Infrastructure\Symfony\Form\MediaSoundcloudType;
+use App\Infrastructure\Symfony\Form\MediaYoutubeType;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
+#[Route('/band', name: 'band_')]
+class BandController extends AbstractController
+{
+    #[Route('/', name: 'index', methods: ['GET'])]
+    public function index(BandRepositoryInterface $bandRepository): Response
+    {
+        return $this->render('admin/band/index.html.twig', [
+            'bands' => $bandRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+    public function new(Request $request, SluggerInterface $slugger, BandRepositoryInterface $bandRepository): Response
+    {
+        $band = new Band();
+        $form = $this->createForm(BandType::class, $band);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $band->setSlug((string) $slugger->slug($band->getName()));
+            $bandRepository->save($band, true);
+
+            return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin/band/new.html.twig', [
+            'band' => $band,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Request $request,
+        SluggerInterface $slugger,
+        #[MapEntity(id: 'id')]
+        Band $band,
+        BandRepositoryInterface $bandRepository,
+    ): Response {
+        $form = $this->createForm(BandType::class, $band);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $band->setSlug((string) $slugger->slug($band->getName()));
+            $bandRepository->save($band, true);
+
+            return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin/band/edit.html.twig', [
+            'band' => $band,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/media', name: 'media', methods: ['GET', 'POST'])]
+    public function media(
+        Request $request,
+        #[MapEntity(id: 'id')]
+        Band $band,
+        MediaRepositoryInterface $mediaRepository,
+        ExtractYoutubeVideoId $extractYoutubeVideoId,
+    ): Response {
+        $media = new Media();
+        $youtubeForm = $this->createForm(MediaYoutubeType::class, $media);
+        $soundcloudForm = $this->createForm(MediaSoundcloudType::class, $media);
+        $mediaLinkForm = $this->createForm(MediaLinkType::class, $media);
+        $mediaImageForm = $this->createForm(MediaImageType::class, $media);
+
+        $youtubeForm->handleRequest($request);
+        if ($youtubeForm->isSubmitted() && $youtubeForm->isValid()) {
+            $media->setBand($band);
+            $media->setMediaType(MediaTypeEnum::YOUTUBE);
+
+            $rawLink = $youtubeForm->get('link')->getData();
+            $media->setLink($extractYoutubeVideoId($rawLink));
+            $mediaRepository->save($media, true);
+
+            $this->addFlash('success', 'Video ajoutée !');
+
+            return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $soundcloudForm->handleRequest($request);
+        if ($soundcloudForm->isSubmitted() && $soundcloudForm->isValid()) {
+            $media->setBand($band);
+            $media->setMediaType(MediaTypeEnum::SOUNDCLOUD);
+            $mediaRepository->save($media, true);
+
+            $this->addFlash('success', 'Piste soundcloud ajoutée !');
+
+            return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $mediaLinkForm->handleRequest($request);
+        if ($mediaLinkForm->isSubmitted() && $mediaLinkForm->isValid()) {
+            $media->setBand($band);
+            $mediaRepository->save($media, true);
+
+            $this->addFlash('success', 'Lien Ajouté !');
+
+            return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $mediaImageForm->handleRequest($request);
+        if ($mediaImageForm->isSubmitted() && $mediaImageForm->isValid()) {
+            $media->setBand($band);
+            $media->setMediaType(MediaTypeEnum::IMAGE);
+            $mediaRepository->save($media, true);
+
+            $this->addFlash('success', 'Image Ajoutée !');
+
+            return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin/band/media.html.twig', [
+            'band' => $band,
+            'youtubeForm' => $youtubeForm,
+            'soundcloudForm' => $soundcloudForm,
+            'mediaLinkForm' => $mediaLinkForm,
+            'mediaImageForm' => $mediaImageForm,
+            'linksType' => MediaTypeEnum::getlinks(),
+        ]);
+    }
+
+    #[Route('/{band}/media/{media}', name: 'media_delete', methods: ['POST'])]
+    public function mediaDelete(
+        Request $request,
+        #[MapEntity(id: 'media')]
+        Media $media,
+        #[MapEntity(id: 'band')]
+        Band $band,
+        MediaRepositoryInterface $mediaRepository,
+    ): Response {
+        if ($media->getBand()?->getId() !== $band->getId()) {
+            throw $this->createNotFoundException('Ce média n\'appartient pas à ce groupe.');
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $media->getId(), $request->request->get('_token'))) {
+            $band->removeMedia($media);
+            $mediaRepository->remove($media, true);
+
+            $this->addFlash('success', 'Média supprimé.');
+        }
+
+        return $this->redirectToRoute('admin_band_media', ['id' => $band->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{band}/concert', name: 'concert', methods: ['GET', 'POST'])]
+    public function concert(
+        #[MapEntity(id: 'band')]
+        Band $band,
+        ConcertRepositoryInterface $concertRepository,
+    ): Response {
+        return $this->render('admin/band/concert.html.twig', [
+            'band' => $band,
+            'concerts' => $concertRepository->findBy(['band' => $band]),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    public function bandDelete(
+        Request $request,
+        #[MapEntity(id: 'id')]
+        Band $band,
+        BandRepositoryInterface $bandRepository,
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $band->getId(), $request->request->get('_token'))) {
+            $bandRepository->remove($band, true);
+        }
+
+        return $this->redirectToRoute('admin_band_index', [], Response::HTTP_SEE_OTHER);
+    }
+}

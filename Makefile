@@ -30,6 +30,7 @@ help:
 	@echo "  cs-all               -> exécute php-cs-fixer (fix) puis PHPStan"
 	@echo "  cs-check             -> vérifie le code avec PHP-CS-Fixer (dry-run + --diff)"
 	@echo "  cs-fix               -> applique les corrections PHP-CS-Fixer"
+	@echo "  install-git-hooks    -> active les hooks Git versionnés du projet"
 	@echo "  rector-check         -> vérifie les upload de code avec Rector (dry-run)"
 	@echo "  rector-fix           -> applique les corrections Rector"
 	@echo "  deploy-prod          -> déploie en production hors Docker (cPanel/SSH)"
@@ -106,6 +107,11 @@ cs-stan:
 # Tout en un: fixer le CS puis lancer PHPStan
 .PHONY: cs-all
 cs-all: cs-fix cs-stan
+
+.PHONY: install-git-hooks
+install-git-hooks:
+	git config core.hooksPath .githooks
+	chmod +x .githooks/pre-commit
 
 # Production cPanel / SSH: run from the project root after pulling the repo.
 .PHONY: deploy-prod

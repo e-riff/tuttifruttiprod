@@ -12,9 +12,9 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            - '../src/Infrastructure/Doctrine/Entity/'
             - '../src/Kernel.php'
-    App\Serializer\Normalizer\ConcertFullCalendarNormalizer:
+    App\Infrastructure\Symfony\Serializer\Normalizer\ConcertFullCalendarNormalizer:
         tags:
             - { name: 'serializer.normalizer', priority: 500 }
 
