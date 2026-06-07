@@ -1,4 +1,4 @@
-section#contact {
+section#contact:not(.homeSection) {
   border-top:1px solid $primary;
   padding-bottom: $spacer;
   margin-bottom: $spacer;
@@ -26,6 +26,195 @@ section#contact {
         padding:2rem;
         flex-basis: 50%;
       }
+    }
+  }
+}
+
+section#contact.homeSection {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 26, 155, 0.12), transparent 28rem),
+    #0a0a0a;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  color: #e1e3e4;
+  margin: $spacer;
+  padding-bottom: 0;
+
+  .homeSectionEyebrow {
+    color: #ff1a9b;
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: $spacer * 0.5;
+    text-transform: uppercase;
+  }
+
+  .homeSectionTitle {
+    color: #f5f5f5;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 0.95;
+    margin-bottom: $spacer;
+  }
+
+  .homeSectionIntro {
+    color: rgba(245, 245, 245, 0.7);
+    max-width: 42rem;
+  }
+
+  .homeContactDetails a {
+    color: #f5f5f5;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: #ff1a9b;
+    }
+  }
+
+  .homeContactIcon {
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 0.25rem;
+    color: #ffafd2;
+    display: inline-flex;
+    flex: 0 0 2.5rem;
+    height: 2.5rem;
+    justify-content: center;
+  }
+
+  .homeContactLabel {
+    color: rgba(245, 245, 245, 0.55);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .homeContactPanel {
+    backdrop-filter: blur(12px);
+    background: rgba(18, 18, 18, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.25rem;
+    padding: $spacer * 1.25;
+  }
+
+  .homeContactForm {
+    display: block;
+    padding: 0;
+
+    > div {
+      flex-basis: auto;
+      padding: 0;
+    }
+
+    .form-control,
+    .cke_chrome {
+      background: rgba(29, 32, 33, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 0.25rem;
+      color: #f5f5f5;
+    }
+
+    .homeContactField {
+      width: 100%;
+    }
+
+    .form-label {
+      color: rgba(245, 245, 245, 0.68);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+      text-transform: uppercase;
+    }
+
+    .form-control {
+      display: block;
+      min-height: 3.5rem;
+      padding: 0.95rem 1rem;
+      width: 100%;
+
+      &:focus {
+        background: rgba(29, 32, 33, 0.94);
+        border-color: rgba(255, 26, 155, 0.85);
+        box-shadow: 0 0 0 0.2rem rgba(255, 26, 155, 0.15);
+        color: #fff;
+      }
+    }
+
+    .cke,
+    .cke_chrome {
+      overflow: hidden;
+      width: 100% !important;
+    }
+
+    .cke_contents {
+      min-height: 11rem !important;
+    }
+
+    .cke_top,
+    .cke_bottom {
+      background: #f5f5f5;
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+
+    .cke_toolgroup {
+      background: transparent;
+      border-color: rgba(10, 10, 10, 0.22);
+    }
+
+    .cke_button {
+      border-radius: 0.2rem;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: rgba(255, 26, 155, 0.16);
+        box-shadow: 0 0 0 1px rgba(255, 26, 155, 0.45) inset;
+      }
+    }
+
+    .cke_button_icon {
+      filter: brightness(0);
+      opacity: 0.9 !important;
+    }
+
+    .cke_button_disabled .cke_button_icon {
+      opacity: 0.34 !important;
+    }
+
+    .cke_button_arrow,
+    .cke_combo_arrow {
+      border-top-color: #1d2021;
+    }
+
+    .cke_path,
+    .cke_resizer {
+      filter: brightness(0);
+      opacity: 0.72;
+    }
+
+    .invalid-feedback,
+    .form-error-message {
+      color: #ffb4ab;
+    }
+  }
+
+  .homeContactSubmit {
+    background: #ff1a9b;
+    border: 1px solid #ff1a9b;
+    border-radius: 0.25rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0;
+    padding: 0.95rem 1.25rem;
+    text-transform: uppercase;
+
+    &:hover,
+    &:focus {
+      background: darken(#ff1a9b, 8%);
+      border-color: darken(#ff1a9b, 8%);
+      color: #fff;
     }
   }
 }
