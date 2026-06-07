@@ -15,8 +15,30 @@ main.musicianIndex {
     }
 
     article {
-      footer {
+      .musicianPhoto {
+        aspect-ratio: 1;
+      }
+
+      .musicianInfo {
+        min-height: 4.5rem;
+        padding-top: $spacer * 0.75;
         transition: color 220ms ease, transform 220ms ease;
+      }
+
+      .musicianName {
+        line-height: 1.25;
+      }
+
+      .musicianWebsite {
+        display: inline-block;
+        font-size: 0.88rem;
+        font-weight: 500;
+        line-height: 1.2;
+        margin-top: $spacer * 0.35;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       &.hasLink {
@@ -37,7 +59,7 @@ main.musicianIndex {
             transform: scale(1.06);
           }
 
-          footer {
+          .musicianInfo {
             color: $primary;
             transform: translateY(-0.25rem);
           }

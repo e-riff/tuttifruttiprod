@@ -17,6 +17,9 @@ boolean:
   no: "Non"
   yes: "Oui"
 
+musician:
+  website: "Site internet"
+
 admin:
   association:
     title: "Association et bandeau d'accueil"

@@ -25,8 +25,18 @@
                                  class="d-block w-100">
                         {% endif %}
                     </div>
-                    <footer class="text-center"><span
-                                class="text-primary">{{ musician.lastname|upper }}</span> {{ musician.firstname|capitalize }}
+                    <footer class="musicianInfo text-center">
+                        <p class="musicianName mb-0">
+                            <span class="text-primary">{{ musician.lastname|upper }}</span> {{ musician.firstname|capitalize }}
+                        </p>
+                        {% if musician.url %}
+                            <a href="{{ musician.url }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="musicianWebsite">
+                                {{ 'musician.website'|trans }}
+                            </a>
+                        {% endif %}
                     </footer>
                 </article>
             {% endfor %}
