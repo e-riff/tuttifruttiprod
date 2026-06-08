@@ -27,7 +27,7 @@ class BandFixtures extends Fixture implements DependentFixtureInterface
         private readonly DecoderInterface $decoder,
         private readonly SluggerInterface $slugger,
         private readonly Filesystem $filesystem,
-        #[Autowire('%upload_directory%images/band/')]
+        #[Autowire('%upload_directory%images/bands/')]
         private readonly string $bandPicturesDir,
     ) {
     }
