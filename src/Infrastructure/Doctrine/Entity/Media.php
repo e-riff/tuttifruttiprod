@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\Doctrine\Entity;
 
 use App\Domain\Enum\MediaTypeEnum;
+use App\Domain\Model\IdentifiableInterface;
+use App\Domain\Model\TimestampableInterface;
+use App\Infrastructure\Doctrine\Entity\Behavior\IdentifiableTrait;
+use App\Infrastructure\Doctrine\Entity\Behavior\TimestampableTrait;
 use App\Infrastructure\Doctrine\Repository\MediaRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
@@ -20,12 +24,10 @@ use Vich\UploaderBundle\Mapping\Attribute as Vich;
     message: 'Lien déjà utilisé pour ce groupe',
 )]
 #[Vich\Uploadable]
-class Media
+class Media implements IdentifiableInterface, TimestampableInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null; // @phpstan-ignore-line
+    use IdentifiableTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $link = null;
@@ -47,16 +49,8 @@ class Media
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $pictureSize = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeImmutable $updatedAt = null;
-
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private bool $isActive = true;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getLink(): ?string
     {
@@ -106,24 +100,12 @@ class Media
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
     public function setPictureFile(?File $pictureFile = null): void
     {
         $this->pictureFile = $pictureFile;
 
         if (null !== $pictureFile) {
-            $this->updatedAt = new DateTimeImmutable();
+            $this->setUpdatedAt(new DateTimeImmutable());
         }
     }
 

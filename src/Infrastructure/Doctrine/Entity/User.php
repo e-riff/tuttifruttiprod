@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Entity;
 
+use App\Domain\Model\IdentifiableInterface;
+use App\Domain\Model\TimestampableInterface;
+use App\Infrastructure\Doctrine\Entity\Behavior\IdentifiableTrait;
+use App\Infrastructure\Doctrine\Entity\Behavior\TimestampableTrait;
 use App\Infrastructure\Doctrine\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,12 +15,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, IdentifiableInterface, TimestampableInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null; // @phpstan-ignore-line
+    use IdentifiableTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     private ?string $email = null;
@@ -32,11 +34,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $lastname = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getEmail(): ?string
     {

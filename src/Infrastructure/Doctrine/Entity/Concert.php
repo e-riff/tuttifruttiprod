@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Entity;
 
+use App\Domain\Model\IdentifiableInterface;
+use App\Domain\Model\TimestampableInterface;
+use App\Infrastructure\Doctrine\Entity\Behavior\IdentifiableTrait;
+use App\Infrastructure\Doctrine\Entity\Behavior\TimestampableTrait;
 use App\Infrastructure\Doctrine\Repository\ConcertRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ConcertRepository::class)]
-class Concert
+class Concert implements IdentifiableInterface, TimestampableInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null; // @phpstan-ignore-line
+    use IdentifiableTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $clientName = null;
@@ -41,11 +43,6 @@ class Concert
     #[ORM\ManyToOne(inversedBy: 'concerts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Band $band = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getClientName(): ?string
     {

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Entity;
 
+use App\Domain\Model\IdentifiableInterface;
+use App\Domain\Model\TimestampableInterface;
+use App\Infrastructure\Doctrine\Entity\Behavior\IdentifiableTrait;
+use App\Infrastructure\Doctrine\Entity\Behavior\TimestampableTrait;
 use App\Infrastructure\Doctrine\Repository\AssociationRepository;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
@@ -14,12 +18,10 @@ use Vich\UploaderBundle\Mapping\Attribute as Vich;
 
 #[ORM\Entity(repositoryClass: AssociationRepository::class)]
 #[Vich\Uploadable]
-class Association
+class Association implements IdentifiableInterface, TimestampableInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null; // @phpstan-ignore-line
+    use IdentifiableTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: Types::STRING, length: 80)]
     private ?string $name = null;
@@ -39,9 +41,6 @@ class Association
     #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
     private ?string $siret = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeImmutable $createdAt = null;
-
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $email = null;
 
@@ -60,14 +59,6 @@ class Association
     #[Vich\UploadableField(mapping: 'association_hero_image', fileNameProperty: 'heroImage')]
     #[Assert\Image]
     private ?File $heroImageFile = null;
-
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeImmutable $updatedAt = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getName(): ?string
     {
@@ -141,18 +132,6 @@ class Association
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -222,20 +201,8 @@ class Association
     {
         $this->heroImageFile = $heroImageFile;
         if ($heroImageFile) {
-            $this->updatedAt = new DateTimeImmutable('now');
+            $this->setUpdatedAt(new DateTimeImmutable());
         }
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

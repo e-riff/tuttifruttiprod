@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\Doctrine\Entity;
 
 use App\Domain\Enum\BandPriceEnum;
+use App\Domain\Model\IdentifiableInterface;
+use App\Domain\Model\TimestampableInterface;
+use App\Infrastructure\Doctrine\Entity\Behavior\IdentifiableTrait;
+use App\Infrastructure\Doctrine\Entity\Behavior\TimestampableTrait;
 use App\Infrastructure\Doctrine\Repository\BandRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,12 +27,10 @@ use Vich\UploaderBundle\Mapping\Attribute as Vich;
     fields: ['name'],
     message: 'Ce nom est déjà utilisé',
 )]
-class Band
+class Band implements IdentifiableInterface, TimestampableInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null; // @phpstan-ignore-line
+    use IdentifiableTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
@@ -92,9 +94,6 @@ class Band
     #[ORM\ManyToMany(targetEntity: Musician::class, mappedBy: 'bands')]
     private Collection $musicians;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeImmutable $updatedAt = null;
-
     #[ORM\Column(type: Types::STRING, length: 32, nullable: true, enumType: BandPriceEnum::class)]
     private ?BandPriceEnum $priceCategory = null;
 
@@ -112,11 +111,6 @@ class Band
         $this->musicStyles = new ArrayCollection();
         $this->medias = new ArrayCollection();
         $this->musicians = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getName(): ?string
@@ -326,7 +320,7 @@ class Band
     {
         $this->pictureFile = $pictureFile;
         if ($pictureFile) {
-            $this->updatedAt = new DateTimeImmutable('now');
+            $this->setUpdatedAt(new DateTimeImmutable());
         }
 
         return $this;
@@ -370,18 +364,6 @@ class Band
         if ($this->leader === $musician) {
             $this->leader = null;
         }
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

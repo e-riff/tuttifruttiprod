@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Doctrine\Entity;
 
+use App\Domain\Model\IdentifiableInterface;
+use App\Domain\Model\TimestampableInterface;
+use App\Infrastructure\Doctrine\Entity\Behavior\IdentifiableTrait;
+use App\Infrastructure\Doctrine\Entity\Behavior\TimestampableTrait;
 use App\Infrastructure\Doctrine\Repository\MusicianRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,12 +25,10 @@ use Vich\UploaderBundle\Mapping\Attribute as Vich;
     message: 'Cet email est déjà utilisé'
 )]
 #[Vich\Uploadable]
-class Musician
+class Musician implements IdentifiableInterface, TimestampableInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null; // @phpstan-ignore-line
+    use IdentifiableTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(type: Types::STRING, length: 80)]
     private ?string $firstname = null;
@@ -64,9 +66,6 @@ class Musician
     )]
     private ?File $pictureFile = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeImmutable $updatedAt = null;
-
     /**
      * @var Collection<int, Band>
      */
@@ -77,11 +76,6 @@ class Musician
     {
         $this->bands = new ArrayCollection();
         $this->leadingBands = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getFirstname(): ?string
@@ -201,20 +195,8 @@ class Musician
     {
         $this->pictureFile = $pictureFile;
         if ($pictureFile) {
-            $this->updatedAt = new DateTimeImmutable('now');
+            $this->setUpdatedAt(new DateTimeImmutable());
         }
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
