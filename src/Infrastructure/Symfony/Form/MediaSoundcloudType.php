@@ -19,7 +19,7 @@ class MediaSoundcloudType extends AbstractType
             ->add('link', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['min' => 5]),
+                    new Length(min: 5),
                 ],
                 'label' => 'form.admin.audio_track_id',
                 'attr' => ['placeholder' => 'exemple : 116512325'],

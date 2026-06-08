@@ -19,7 +19,7 @@ class MediaYoutubeType extends AbstractType
             ->add('link', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['min' => 5]),
+                    new Length(min: 5),
                 ],
                 'label' => 'form.admin.video_link_or_id',
                 'attr' => ['placeholder' => "'5Afzed45' - https://www.youtube.com/watch?v=5Afzed45"],

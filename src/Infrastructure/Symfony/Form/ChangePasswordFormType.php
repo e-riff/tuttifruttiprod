@@ -31,11 +31,11 @@ class ChangePasswordFormType extends AbstractType
                         new NotBlank([
                             'message' => "Merci d'entrer un mot de passe",
                         ]),
-                        new Length([
-                            'min' => 12,
-                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} symboles',
-                            'max' => 4096,
-                        ]),
+                        new Length(
+                            min: 12,
+                            max: 4096,
+                            minMessage: 'Votre mot de passe doit contenir au moins {{ limit }} symboles',
+                        ),
                         new PasswordStrength(),
                         new NotCompromisedPassword(),
                     ],

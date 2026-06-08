@@ -1,13 +1,4 @@
 {
-    "doctrine/annotations": {
-        "version": "1.14",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "1.10",
-            "ref": "64d8583af5ea57b7afa4aba4b159907f3a148b05"
-        }
-    },
     "doctrine/deprecations": {
         "version": "1.1",
         "recipe": {
@@ -56,18 +47,6 @@
             "migrations/.gitignore"
         ]
     },
-    "friendsofphp/php-cs-fixer": {
-        "version": "3.92",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "3.0",
-            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
-        },
-        "files": [
-            ".php-cs-fixer.dist.php"
-        ]
-    },
     "friendsofsymfony/ckeditor-bundle": {
         "version": "2.4",
         "recipe": {
@@ -91,6 +70,18 @@
         "files": [
             "config/packages/liip_imagine.yaml",
             "config/routes/liip_imagine.yaml"
+        ]
+    },
+    "php-cs-fixer/shim": {
+        "version": "3.95",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "6cf95ac1baa3d6f5816dd4db7281997912f239a6"
+        },
+        "files": [
+            ".php-cs-fixer.dist.php"
         ]
     },
     "phpstan/phpstan": {
