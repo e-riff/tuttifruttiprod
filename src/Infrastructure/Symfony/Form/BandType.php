@@ -102,17 +102,17 @@ class BandType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => true,
                 'constraints' => [
-                    new Image([
-                        'minRatio' => 1.5,
-                        'maxRatio' => 2.5,
-                        'maxSize' => '6M',
-                        'mimeTypes' => [
+                    new Image(
+                        minRatio: 1.5,
+                        maxRatio: 2.5,
+                        maxSize: '6M',
+                        mimeTypes: [
                             'image/jpeg',
                             'image/png',
                             'image/gif',
                         ],
-                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, GIF)',
-                    ]),
+                        mimeTypesMessage: 'Veuillez télécharger une image valide (JPEG, PNG, GIF)',
+                    ),
                 ],
             ])
             ->add('color', ColorType::class, [

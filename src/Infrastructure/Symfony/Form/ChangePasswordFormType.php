@@ -28,9 +28,7 @@ class ChangePasswordFormType extends AbstractType
                 ],
                 'first_options' => [
                     'constraints' => [
-                        new NotBlank([
-                            'message' => "Merci d'entrer un mot de passe",
-                        ]),
+                        new NotBlank(message: "Merci d'entrer un mot de passe"),
                         new Length(
                             min: 12,
                             max: 4096,
