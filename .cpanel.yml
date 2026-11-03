@@ -4,9 +4,8 @@ deployment:
     - export DEPLOYPATH=/home/brle7172/repositories/panelproduction.fr
     - composer install --no-dev --optimize-autoloader
     - php bin/console doctrine:migrations:migrate --no-interaction --env=prod
-    - php bin/console ckeditor:install --tag=4.22.1
-    - npm ci
-    - npm run build
+    - PATH=/opt/alt/alt-nodejs22/root/usr/bin:$PATH npm ci
+    - PATH=/opt/alt/alt-nodejs22/root/usr/bin:$PATH npm run build
     - php bin/console assets:install public --symlink --relative --env=prod
     - php bin/console cache:clear --env=prod --no-warmup
     - php bin/console cache:warmup --env=prod
