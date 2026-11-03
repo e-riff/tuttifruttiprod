@@ -81,7 +81,7 @@ class Band implements IdentifiableInterface, TimestampableInterface
     #[Vich\UploadableField(mapping: 'band_picture', fileNameProperty: 'picture')]
     #[Assert\File(
         maxSize: '6M',
-        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
     )]
     private ?File $pictureFile = null;
 

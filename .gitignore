@@ -36,13 +36,12 @@ phpstan.neon
 /AGENTS.md
 /.codex/
 /.agents/
-
-###> php-cs-fixer/shim ###
-/.php-cs-fixer.php
-/.php-cs-fixer.cache
-###< php-cs-fixer/shim ###
-
 ###> phpunit/phpunit ###
 /.phpunit.cache/
 /phpunit.xml.dist.bak
 ###< phpunit/phpunit ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###

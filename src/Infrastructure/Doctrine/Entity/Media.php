@@ -42,7 +42,7 @@ class Media implements IdentifiableInterface, TimestampableInterface
     #[Vich\UploadableField(mapping: 'media_picture', fileNameProperty: 'link', size: 'pictureSize')]
     #[Assert\File(
         maxSize: '3M',
-        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
     )]
     private ?File $pictureFile = null;
 

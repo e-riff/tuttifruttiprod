@@ -17,7 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Image;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BandType extends AbstractType
@@ -101,19 +100,6 @@ class BandType extends AbstractType
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => true,
-                'constraints' => [
-                    new Image(
-                        minRatio: 1.5,
-                        maxRatio: 2.5,
-                        maxSize: '6M',
-                        mimeTypes: [
-                            'image/jpeg',
-                            'image/png',
-                            'image/gif',
-                        ],
-                        mimeTypesMessage: 'Veuillez télécharger une image valide (JPEG, PNG, GIF)',
-                    ),
-                ],
             ])
             ->add('color', ColorType::class, [
                 'label' => 'form.admin.color',

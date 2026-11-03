@@ -62,7 +62,7 @@ class Musician implements IdentifiableInterface, TimestampableInterface
     #[Vich\UploadableField(mapping: 'musician_picture', fileNameProperty: 'picture')]
     #[Assert\File(
         maxSize: '2M',
-        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
     )]
     private ?File $pictureFile = null;
 
