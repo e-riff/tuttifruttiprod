@@ -69,7 +69,7 @@ class Musician implements IdentifiableInterface, TimestampableInterface
     /**
      * @var Collection<int, Band>
      */
-    #[ORM\OneToMany(mappedBy: 'leader', targetEntity: Band::class)]
+    #[ORM\OneToMany(targetEntity: Band::class, mappedBy: 'leader')]
     private Collection $leadingBands;
 
     public function __construct()
