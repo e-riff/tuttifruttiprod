@@ -64,33 +64,19 @@ make npm-dev-server
 
 ## Déploiement cPanel
 
-Après avoir tiré la dernière version du dépôt via l’interface VCS de cPanel, se connecter en SSH puis aller dans le dossier du projet :
+Après avoir tiré la dernière version du dépôt via l’interface VCS de cPanel, se connecter en SSH et lancer le déploiement :
 
 ```bash
 cd repositories/panelproduction.fr/
+make deploy-prod
 ```
 
-
-Installer ou mettre à jour les dépendances PHP, appliquer les migrations, générer les assets, puis reconstruire le cache Symfony :
-
-```bash
-composer install --no-dev --optimize-autoloader
-php bin/console doctrine:migrations:migrate --no-interaction
-npm install
-npm run build
-php bin/console cache:clear --env=prod
-php bin/console cache:warmup --env=prod
-```
-
-Vérifier ensuite l’état des migrations :
-
-```bash
-php bin/console doctrine:migrations:status
-```
+La commande installe les dépendances verrouillées, exécute les migrations en attente, construit les assets, reconstruit le cache et affiche l’état des migrations. Elle s’arrête en cas d’erreur. Avant de la lancer, examiner les migrations à appliquer et s’assurer qu’une sauvegarde adaptée est disponible.
 
 Points d’attention :
 - Le fichier `.env.local` du serveur doit contenir le `DATABASE_URL` de production/cPanel, pas la valeur Docker `mysql:3306`.
-- Si `npm` n’est pas disponible sur cPanel, construire les assets ailleurs et déployer le contenu généré de `public/build`.
+- Utiliser le terminal SSH pour le déploiement : le build lancé par le bouton cPanel a échoué faute de mémoire. Le bouton utilise encore `.cpanel.yml`, qui exécute les migrations automatiquement.
+- Si `npm` n’est pas disponible en SSH, vérifier que Node.js et npm sont accessibles dans le `PATH` avant de lancer le déploiement.
 - Ne pas lancer `db-reset-fixtures` en production : cette commande supprime et recrée la base.
 
 ## Données et médias (fixtures)

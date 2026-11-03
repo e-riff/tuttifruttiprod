@@ -116,10 +116,11 @@ install-git-hooks:
 # Production cPanel / SSH: run from the project root after pulling the repo.
 .PHONY: deploy-prod
 deploy-prod:
-	$(COMPOSER) install --no-dev --optimize-autoloader
-	$(PHP) bin/console doctrine:migrations:migrate --no-interaction
-	$(NPM) install
+	APP_ENV=prod APP_DEBUG=0 $(COMPOSER) install --no-dev --optimize-autoloader --no-interaction
+	$(PHP) bin/console doctrine:migrations:migrate --env=prod --no-interaction
+	$(NPM) ci
 	$(NPM) run build
-	$(PHP) bin/console cache:clear --env=prod
-	$(PHP) bin/console cache:warmup --env=prod
-	$(PHP) bin/console doctrine:migrations:status
+	$(PHP) bin/console assets:install public --symlink --relative --env=prod --no-interaction
+	$(PHP) bin/console cache:clear --env=prod --no-warmup --no-interaction
+	$(PHP) bin/console cache:warmup --env=prod --no-interaction
+	$(PHP) bin/console doctrine:migrations:status --env=prod --no-interaction
